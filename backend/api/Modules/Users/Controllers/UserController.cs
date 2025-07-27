@@ -16,6 +16,6 @@ namespace ModularApi.Modules.Users.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get() => Ok();
+        public IActionResult Get() => Ok(new { Message = "Hello, World!" });
     }
 }
