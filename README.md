@@ -59,3 +59,10 @@ chmod +x start.sh
 ```cmd
 ./start.sh reset
 ```
+
+### dependências da API
+```cmd
+  dotnet add package Microsoft.EntityFrameworkCore
+  dotnet add package Microsoft.EntityFrameworkCore.Design
+  dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+```
