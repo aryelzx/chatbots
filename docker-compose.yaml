@@ -8,4 +8,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: highcapital
     volumes:
-      - ./sql:/docker-entrypoint-initdb.d
+    - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
