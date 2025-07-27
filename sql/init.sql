@@ -62,7 +62,7 @@ CREATE TABLE mensagens (
     chat_id INTEGER NOT NULL,
     user_id INTEGER NOT NULL,
     mensagem TEXT NOT NULL,
-    prompt_input_text TEXT NULL,
+    prompt_input_text TEXT NOT NULL,
     tipo VARCHAR(1) NOT NULL,
     prompt_context TEXT NULL,
     prompt_role VARCHAR(100) NULL,
