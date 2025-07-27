@@ -1,0 +1,2 @@
+# Scripts shell com quebra de linha LF
+*.sh text eol=lf
