@@ -67,6 +67,7 @@ CREATE TABLE mensagens (
     prompt_context TEXT NULL,
     prompt_role VARCHAR(100) NULL,
     prompt_modelo VARCHAR(100) NULL,
+    send_by VARCHAR(1) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NULL,
     deleted_at TIMESTAMP NULL,
@@ -74,5 +75,6 @@ CREATE TABLE mensagens (
     updated_by INTEGER NULL,
     created_by INTEGER NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (chat_id) REFERENCES chats(id) ON DELETE CASCADE
+    FOREIGN KEY (chat_id) REFERENCES chats(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES usuarios(id) ON DELETE CASCADE
 );
