@@ -27,5 +27,19 @@ namespace ModularApi.Modules.Chats.Controllers
                 return StatusCode(500, new { Message = "Erro inesperado.", Details = ex.Message });
             }
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetChatById(int id)
+        {
+            try
+            {
+                var chat = _chatsService.ChatById(id);
+                return Ok(chat);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Erro inesperado.", Details = ex.Message });
+            }
+        }
     }
 }

@@ -64,3 +64,8 @@ Accept: application/json
 GET {{api_HostAddress}}/api/chats/list-all HTTP/1.1
 Content-Type: application/json
 Accept: application/json
+
+###
+GET {{api_HostAddress}}/api/chats/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
