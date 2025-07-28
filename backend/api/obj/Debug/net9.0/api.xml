@@ -10,6 +10,30 @@
             </summary>
             <returns>Autenticação</returns>
         </member>
+        <member name="M:ModularApi.Modules.Chats.Controllers.ChatsController.GetAllChats">
+            <summary>
+            Lista todos os chats.
+            </summary>
+            <returns>Lista todos os chats.</returns>
+        </member>
+        <member name="M:ModularApi.Modules.Chats.Controllers.ChatsController.GetChatByName(System.String)">
+            <summary>
+            Pesquisa um Chat pelo nome.
+            </summary>
+            <returns>Pesquisa um Chat pelo nome</returns>
+        </member>
+        <member name="M:ModularApi.Modules.Chats.Controllers.ChatsController.CreateChat(ModularApi.Modules.Chats.DTOs.ChatDto)">
+            <summary>
+            Registra um Chat.
+            </summary>
+            <returns>Registro de Chats</returns>
+        </member>
+        <member name="M:ModularApi.Modules.Chats.Controllers.ChatsController.UpdateChatById(System.Int32,ModularApi.Modules.Chats.DTOs.ChatDto)">
+            <summary>
+            Atualiza o Chat baseado no id.
+            </summary>
+            <returns>Atualiza o Chat baseado no id.</returns>
+        </member>
         <member name="M:ModularApi.Modules.Users.Controllers.UsersController.GetAllUsers">
             <summary>
             Retorna todos os usuário.
