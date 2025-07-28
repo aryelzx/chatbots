@@ -67,3 +67,8 @@ chmod +x start.sh
   dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
   dotnet add package DotNetEnv
 ```
+
+### Documentação das rotas (Swagger)
+```cmd
+  http://localhost:5074/swagger/index.html
+```
