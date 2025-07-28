@@ -58,3 +58,9 @@ Accept: application/json
 PATCH {{api_HostAddress}}/api/users/delete/2?updatedBy=3 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
+
+###
+
+GET {{api_HostAddress}}/api/chats/list-all HTTP/1.1
+Content-Type: application/json
+Accept: application/json

@@ -7,14 +7,25 @@ namespace ModularApi.Modules.Chats.Controllers
     [Route("api/[controller]")]
     public class ChatsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IChatsService _chatsService;
 
         public ChatsController(ApplicationDbContext context)
         {
-            _context = context;
+            _chatsService = new ChatsService(context);
         }
 
-        [HttpGet]
-        public IActionResult Get() => Ok();
+        [HttpGet("list-all")]
+        public IActionResult GetAllChats()
+        {
+            try
+            {
+                var allChats = _chatsService.GetAllChats();
+                return Ok(new { chats = allChats });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Erro inesperado.", Details = ex.Message });
+            }
+        }
     }
 }

@@ -44,6 +44,7 @@ CREATE TABLE chats (
     deleted_at TIMESTAMP NULL,
     updated_by INTEGER NULL,
     created_by INTEGER NOT NULL,
+    deleted_by INTEGER NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (created_by) REFERENCES usuarios(id) ON DELETE SET NULL
 );

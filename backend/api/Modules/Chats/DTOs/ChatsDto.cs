@@ -1,6 +1,6 @@
-namespace ModularApi.Modules.Users.Models
+namespace ModularApi.Modules.Chats.DTOs
 {
-    public class Chats
+    public class ChatDto
     {
         public int id { get; set; }
         public string context { get; set; } = string.Empty;
@@ -15,26 +15,5 @@ namespace ModularApi.Modules.Users.Models
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public DateTime? deleted_at { get; set; }
-    }
-    public class Mensagem
-    {
-        public int Id { get; set; }
-        public int ChatId { get; set; }
-
-        public int UserId { get; set; }
-
-        public string MensagemTexto { get; set; }
-
-        public string? PromptInputText { get; set; }
-
-        public string Tipo { get; set; }
-
-        public string? PromptContext { get; set; }
-
-        public string? PromptRole { get; set; }
-
-        public string? PromptModelo { get; set; }
-
-        public string SendBy { get; set; }
     }
 }
