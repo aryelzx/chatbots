@@ -168,5 +168,35 @@ namespace ModularApi.Modules.Users.Controllers
             }
         }
 
+        /// <summary>
+        /// Inativa o usuário baseado no id.
+        /// </summary>
+        /// <returns>Inativa o usuário baseado no id.</returns>
+        [HttpPatch("delete/{id}")]
+        public IActionResult DeleteById(int id, [FromQuery] string updatedBy)
+        {
+            var existingUser = _context.usuarios.FirstOrDefault(u => u.id == id);
+            if (existingUser == null)
+                return NotFound(new { Message = "Usuário não encontrado." });
+
+            if (existingUser.deleted_at != null)
+                return BadRequest(new { Message = "Usuário já foi deletado anteriormente." });
+
+            existingUser.deleted_at = DateTime.UtcNow;
+            existingUser.updated_by = int.Parse(updatedBy);
+            Console.WriteLine(updatedBy);
+            Console.WriteLine(int.Parse(updatedBy));
+            //TODO NÃO ESTA SALVANDO O UPDATED_BY
+            try
+            {
+                _context.SaveChanges();
+                return Ok(new { Message = "Usuário deletado com sucesso." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Erro ao deletar o usuário.", Details = ex.Message });
+            }
+        }
+
     }
 }

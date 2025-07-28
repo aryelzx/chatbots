@@ -47,3 +47,8 @@ Accept: application/json
   "cpf": "61242278267",
   "senha": "liv@1203"
 }
+###
+
+PATCH {{api_HostAddress}}/api/users/delete/1?updatedBy=2 HTTP/1.1
+Content-Type: application/json
+Accept: application/json

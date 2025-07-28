@@ -13,6 +13,9 @@ namespace ModularApi.Modules.Users.Models
         public string cpf { get; set; }
 
         public string senha { get; set; }
+        public DateTime? deleted_at { get; set; }
+        public int? updated_by { get; set; }
+
     }
 
     public class CreateUserDto

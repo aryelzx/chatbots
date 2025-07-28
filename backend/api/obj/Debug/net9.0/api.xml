@@ -28,5 +28,11 @@
             </summary>
             <returns>Retorna o usuário baseado no id.</returns>
         </member>
+        <member name="M:ModularApi.Modules.Users.Controllers.UsersController.UpdateById(System.Int32,ModularApi.Modules.Users.Models.UpdateUserInputDto)">
+            <summary>
+            Atualiza o usuário baseado no id.
+            </summary>
+            <returns>Atualiza o usuário baseado no id.</returns>
+        </member>
     </members>
 </doc>
