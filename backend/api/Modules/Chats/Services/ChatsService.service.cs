@@ -4,7 +4,7 @@ using ModularApi.Modules.Chats.DTOs;
 public interface IChatsService
 {
     List<ChatDto> GetAllChats();
-    ChatDto ChatById(int id);
+    ChatDto ChatByName(string nome);
 
 }
 
@@ -40,10 +40,10 @@ public class ChatsService : IChatsService
             .ToList();
     }
 
-    public ChatDto ChatById(int id)
+    public ChatDto ChatByName(string nome)
     {
         var chat = _context.chats
-            .Where(c => c.id == id && c.deleted_at == null)
+        .Where(c => c.nome.Contains(nome.ToLower()) && c.deleted_at == null)
             .Select(c => new ChatDto
             {
                 id = c.id,
