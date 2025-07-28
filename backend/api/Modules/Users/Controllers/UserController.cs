@@ -9,12 +9,10 @@ namespace ModularApi.Modules.Users.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
         private readonly UserService _userService;
 
         public UsersController(ApplicationDbContext context)
         {
-            _context = context;
             _userService = new UserService(context);
         }
 
