@@ -12,7 +12,7 @@ CREATE TABLE usuarios (
     role VARCHAR(1) NOT NULL,
     email VARCHAR(100) UNIQUE NULL,
     nome VARCHAR(100) NULL,
-    cpf VARCHAR(25) UNIQUE NULL,
+    cpf VARCHAR(25) UNIQUE NOT NULL,
     senha VARCHAR(100) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMP NULL,
