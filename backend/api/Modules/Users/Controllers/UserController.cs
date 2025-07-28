@@ -72,6 +72,10 @@ namespace ModularApi.Modules.Users.Controllers
             }
         }
 
+        /// <summary>
+        /// Retorna o usuário baseado no id.
+        /// </summary>
+        /// <returns>Retorna o usuário baseado no id.</returns>
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -97,6 +101,66 @@ namespace ModularApi.Modules.Users.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, new { Message = "Erro inesperado.", Details = ex.Message });
+            }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateById(int id, [FromBody] UpdateUserInputDto updatedUser)
+        {
+            var existingUser = _context.usuarios.FirstOrDefault(u => u.id == id);
+            if (existingUser == null)
+            {
+                return NotFound(new { Message = "Usuário não encontrado." });
+            }
+
+            if (!string.IsNullOrWhiteSpace(updatedUser.email))
+            {
+                var email = updatedUser.email.Trim();
+                if (_context.usuarios.Any(u => u.email == updatedUser.email && u.id != id))
+                    return Conflict(new { Message = "E-mail já cadastrado por outro usuário." });
+                existingUser.email = updatedUser.email;
+            }
+
+            if (!string.IsNullOrWhiteSpace(updatedUser.cpf))
+            {
+                if (_context.usuarios.Any(u => u.cpf == updatedUser.cpf && u.id != id))
+                    return Conflict(new { Message = "CPF já cadastrado por outro usuário." });
+                existingUser.cpf = updatedUser.cpf;
+            }
+
+            if (!string.IsNullOrWhiteSpace(updatedUser.nome))
+                existingUser.nome = updatedUser.nome;
+
+            if (!string.IsNullOrWhiteSpace(updatedUser.role))
+                existingUser.role = updatedUser.role;
+
+            if (!string.IsNullOrWhiteSpace(updatedUser.senha))
+                existingUser.senha = BCrypt.Net.BCrypt.HashPassword(updatedUser.senha);
+
+            try
+            {
+                _context.SaveChanges();
+                return Ok(new
+                {
+                    Message = "Usuário atualizado com sucesso.",
+                    user = new
+                    {
+                        id = existingUser.id,
+                        existingUser.nome,
+                        existingUser.email,
+                        existingUser.cpf,
+                        existingUser.role
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("UNIQUE"))
+                {
+                    return Conflict(new { Message = "CPF ou e-mail já cadastrados." });
+                }
+
+                return StatusCode(500, new { Message = "Erro ao atualizar o usuário.", Details = ex.Message });
             }
         }
 

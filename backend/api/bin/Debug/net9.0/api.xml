@@ -22,5 +22,11 @@
             </summary>
             <returns>Registro de usuários</returns>
         </member>
+        <member name="M:ModularApi.Modules.Users.Controllers.UsersController.GetById(System.Int32)">
+            <summary>
+            Retorna o usuário baseado no id.
+            </summary>
+            <returns>Retorna o usuário baseado no id.</returns>
+        </member>
     </members>
 </doc>
