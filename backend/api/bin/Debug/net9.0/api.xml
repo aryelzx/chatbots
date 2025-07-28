@@ -6,9 +6,9 @@
     <members>
         <member name="M:ModularApi.Modules.Users.Controllers.UsersController.Get">
             <summary>
-            Retorna todos os alunos.
+            Retorna todos os usuário.
             </summary>
-            <returns>Lista de alunos</returns>
+            <returns>Lista de Usuários</returns>
         </member>
     </members>
 </doc>

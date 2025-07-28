@@ -267,3 +267,12 @@ C:/Users/ariel/www/highcapital/backend/api/obj/Debug/net9.0/ref/api.dll
 /Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll
 /Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/api.xml
 /Users/liv01/Documents/estudos/chatbots/backend/api/obj/Debug/net9.0/api.xml
+/Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/Microsoft.IdentityModel.Logging.dll
+/Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.dll
+/Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/Microsoft.IdentityModel.Tokens.dll
+/Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/BCrypt.Net-Next.dll

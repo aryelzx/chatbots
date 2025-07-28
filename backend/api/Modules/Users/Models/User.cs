@@ -2,16 +2,16 @@ namespace ModularApi.Modules.Users.Models
 {
     public class User
     {
-       public int Id { get; set; }
+       public int id { get; set; }
 
-        public string Role { get; set; } // 'A' = Admin, 'U' = User
+        public string role { get; set; } // 'A' = Admin, 'U' = User
 
-        public string? Email { get; set; }
+        public string? email { get; set; }
 
-        public string? Nome { get; set; }
+        public string? nome { get; set; }
 
-        public string? Cpf { get; set; } 
+        public string cpf { get; set; } 
 
-        public string Senha { get; set; } 
+        public string senha { get; set; } 
     }
 }

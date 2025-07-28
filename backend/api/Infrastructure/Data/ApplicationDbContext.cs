@@ -7,9 +7,9 @@ namespace ModularApi.Infrastructure.Data
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {}
 
-    public DbSet<User> Usuarios { get; set; }
-    public DbSet<Chats> Chats { get; set; }
-    public DbSet<Mensagem> Mensagens { get; set; }
+    public DbSet<User> usuarios { get; set; }
+    public DbSet<Chats> chats { get; set; }
+    public DbSet<Mensagem> mensagens { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
