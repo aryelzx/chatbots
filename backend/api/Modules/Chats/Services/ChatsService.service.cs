@@ -6,6 +6,8 @@ public interface IChatsService
     List<ChatDto> GetAllChats();
     ChatDto ChatByName(string nome);
 
+
+
 }
 
 public class ChatsService : IChatsService

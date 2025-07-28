@@ -28,13 +28,13 @@ namespace ModularApi.Modules.Chats.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetChatById(int id)
+        [HttpGet("by-name/{nome}")]
+        public IActionResult GetChatByName(string nome)
         {
             try
             {
-                var chat = _chatsService.ChatById(id);
-                return Ok(chat);
+                var chat = _chatsService.ChatByName(nome);
+                return Ok(new { chat });
             }
             catch (Exception ex)
             {
