@@ -104,6 +104,10 @@ namespace ModularApi.Modules.Users.Controllers
             }
         }
 
+        /// <summary>
+        /// Atualiza o usuário baseado no id.
+        /// </summary>
+        /// <returns>Atualiza o usuário baseado no id.</returns>
         [HttpPut("{id}")]
         public IActionResult UpdateById(int id, [FromBody] UpdateUserInputDto updatedUser)
         {
