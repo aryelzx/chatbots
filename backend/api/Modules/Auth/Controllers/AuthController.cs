@@ -5,8 +5,6 @@ using System.Security.Claims;
 using System.Text;
 using ModularApi.Infrastructure.Data;
 using ModularApi.Modules.Auth.DTOs;
-using ModularApi.Modules.Users.Models;
-using BCrypt.Net;
 
 namespace ModularApi.Modules.Auth.Controllers
 {
@@ -28,7 +26,7 @@ namespace ModularApi.Modules.Auth.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginDto dto)
         {
-            var user = _context.usuarios.FirstOrDefault(u => u.cpf == dto.cpf);            
+            var user = _context.usuarios.FirstOrDefault(u => u.cpf == dto.cpf);
 
             if (user == null || string.IsNullOrEmpty(user.senha))
             {

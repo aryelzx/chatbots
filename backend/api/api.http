@@ -13,3 +13,17 @@ Accept: application/json
   "cpf": "61942248350",
   "senha": "123456789"
 }
+
+### 
+
+POST {{api_HostAddress}}/api/users/register HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "role": "U",
+  "email": "teste10@gmail.com",
+  "nome": "André Hasvowlinks",
+  "cpf": "61242278767",
+  "senha": "liv@1202"
+}

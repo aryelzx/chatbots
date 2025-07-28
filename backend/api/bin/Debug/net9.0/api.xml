@@ -4,11 +4,23 @@
         <name>api</name>
     </assembly>
     <members>
+        <member name="M:ModularApi.Modules.Auth.Controllers.AuthController.Login(ModularApi.Modules.Auth.DTOs.LoginDto)">
+            <summary>
+            Autentica o usuário na aplicação com o cpf e senha dele;
+            </summary>
+            <returns>Autenticação</returns>
+        </member>
         <member name="M:ModularApi.Modules.Users.Controllers.UsersController.Get">
             <summary>
             Retorna todos os usuário.
             </summary>
             <returns>Lista de Usuários</returns>
+        </member>
+        <member name="M:ModularApi.Modules.Users.Controllers.UsersController.Register(ModularApi.Modules.Users.Models.CreateUserDto)">
+            <summary>
+            Registra um usuário.
+            </summary>
+            <returns>Registro de usuários</returns>
         </member>
     </members>
 </doc>
