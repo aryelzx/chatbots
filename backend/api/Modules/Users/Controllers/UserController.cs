@@ -20,8 +20,28 @@ namespace ModularApi.Modules.Users.Controllers
         /// Retorna todos os usuário.
         /// </summary>
         /// <returns>Lista de Usuários</returns>
-        [HttpGet]
-        public IActionResult Get() => Ok(new { Message = "Hello, World!" });
+        [HttpGet("list-all")]
+        public IActionResult GetAllUsers()
+        {
+            try
+            {
+                var allUsers = _context.usuarios.Where(u => u.deleted_at == null)
+                    .Select(u => new UserResponseDto
+                    {
+                        id = u.id,
+                        cpf = u.cpf,
+                        email = u.email,
+                        nome = u.nome,
+                        role = u.role
+                    }).ToList();
+
+                return Ok(new { user = allUsers });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Erro inesperado.", Details = ex.Message });
+            }
+        }
 
         /// <summary>
         /// Registra um usuário.

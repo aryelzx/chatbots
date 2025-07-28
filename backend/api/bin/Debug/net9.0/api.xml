@@ -10,7 +10,7 @@
             </summary>
             <returns>Autenticação</returns>
         </member>
-        <member name="M:ModularApi.Modules.Users.Controllers.UsersController.Get">
+        <member name="M:ModularApi.Modules.Users.Controllers.UsersController.GetAllUsers">
             <summary>
             Retorna todos os usuário.
             </summary>
