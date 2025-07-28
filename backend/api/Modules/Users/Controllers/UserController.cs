@@ -71,5 +71,34 @@ namespace ModularApi.Modules.Users.Controllers
                 return StatusCode(500, new { Message = "Erro inesperado.", Details = ex.Message });
             }
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            try
+            {
+                var user = _context.usuarios.Find(id);
+                if (user == null)
+                {
+                    return NotFound(new { Message = "Usuário não encontrado." });
+                }
+
+                var userOutput = new UserResponseDto
+                {
+                    id = user.id,
+                    cpf = user.cpf,
+                    email = user.email,
+                    nome = user.nome,
+                    role = user.role
+                };
+
+                return Ok(new { user = userOutput });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Erro inesperado.", Details = ex.Message });
+            }
+        }
+
     }
 }
