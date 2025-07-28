@@ -14,7 +14,11 @@ namespace ModularApi.Modules.Users.Controllers
         {
             _context = context;
         }
-
+        
+      /// <summary>
+      /// Retorna todos os usuário.
+      /// </summary>
+      /// <returns>Lista de Usuários</returns>
         [HttpGet]
         public IActionResult Get() => Ok(new { Message = "Hello, World!" });
     }

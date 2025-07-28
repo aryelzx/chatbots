@@ -265,3 +265,5 @@ C:/Users/ariel/www/highcapital/backend/api/obj/Debug/net9.0/ref/api.dll
 /Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/Swashbuckle.AspNetCore.Swagger.dll
 /Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/api.xml
+/Users/liv01/Documents/estudos/chatbots/backend/api/obj/Debug/net9.0/api.xml

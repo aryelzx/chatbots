@@ -12,8 +12,15 @@ var connectionString = $"Host={Environment.GetEnvironmentVariable("POSTGRES_HOST
                        $"Password={Environment.GetEnvironmentVariable("POSTGRES_PASSWORD")}";
 
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(connectionString));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+
+builder.Services.AddSwaggerGen(c =>
+{
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

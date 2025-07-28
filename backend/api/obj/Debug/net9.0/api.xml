@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>api</name>
+    </assembly>
+    <members>
+        <member name="M:ModularApi.Modules.Users.Controllers.UsersController.Get">
+            <summary>
+            Retorna todos os alunos.
+            </summary>
+            <returns>Lista de alunos</returns>
+        </member>
+    </members>
+</doc>
