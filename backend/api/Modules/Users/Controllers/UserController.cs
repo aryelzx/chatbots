@@ -184,9 +184,6 @@ namespace ModularApi.Modules.Users.Controllers
 
             existingUser.deleted_at = DateTime.UtcNow;
             existingUser.updated_by = int.Parse(updatedBy);
-            Console.WriteLine(updatedBy);
-            Console.WriteLine(int.Parse(updatedBy));
-            //TODO NÃO ESTA SALVANDO O UPDATED_BY
             try
             {
                 _context.SaveChanges();

@@ -34,5 +34,11 @@
             </summary>
             <returns>Atualiza o usuário baseado no id.</returns>
         </member>
+        <member name="M:ModularApi.Modules.Users.Controllers.UsersController.DeleteById(System.Int32,System.String)">
+            <summary>
+            Inativa o usuário baseado no id.
+            </summary>
+            <returns>Inativa o usuário baseado no id.</returns>
+        </member>
     </members>
 </doc>
