@@ -21,6 +21,10 @@ namespace ModularApi.Modules.Auth.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Autentica o usuário na aplicação com o cpf e senha dele;
+        /// </summary>
+        /// <returns>Autenticação</returns>
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginDto dto)
         {
