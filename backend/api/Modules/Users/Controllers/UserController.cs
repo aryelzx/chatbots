@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ModularApi.Exceptions;
 using ModularApi.Infrastructure.Data;
 using ModularApi.Modules.Users.Models;
