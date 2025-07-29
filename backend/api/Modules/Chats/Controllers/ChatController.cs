@@ -110,7 +110,7 @@ namespace ModularApi.Modules.Chats.Controllers
 
             try
             {
-                var response = await _openAiService.PerguntarAsync(id, messageDto);
+                var response = await _openAiService.QuestionAsync(messageDto);  //trocar para o service de mensagens
                 return Ok(new { response });
             }
             catch (Exception ex)

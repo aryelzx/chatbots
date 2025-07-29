@@ -2,9 +2,13 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using ModularApi.Modules.Chats.DTOs;
-using OpenAI.Chat;
 
-public class OpenAiService
+interface IOpenAiService
+{
+    Task<string> QuestionAsync(MensagemInputDto pergunta);
+}
+
+public class OpenAiService : IOpenAiService
 {
     private readonly HttpClient _httpClient;
 
@@ -22,10 +26,8 @@ public class OpenAiService
         _httpClient.DefaultRequestHeaders.Add("X-Title", "chatbots");
     }
 
-    public async Task<string> PerguntarAsync(int id_chat, MensagemInputDto pergunta)
+    public async Task<string> QuestionAsync(MensagemInputDto pergunta)
     {
-
-
         var body = new
         {
             model = "mistralai/mistral-7b-instruct:free",
