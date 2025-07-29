@@ -11,10 +11,13 @@ namespace ModularApi.Modules.Chats.Controllers
         private readonly IChatsService _chatsService;
         private readonly OpenAiService _openAiService;
 
+        private readonly MessagesService _messagesService;
+
         public ChatsController(ApplicationDbContext context)
         {
             _chatsService = new ChatsService(context);
             _openAiService = new OpenAiService();
+            _messagesService = new MessagesService(context);
         }
 
         /// <summary>
@@ -110,7 +113,7 @@ namespace ModularApi.Modules.Chats.Controllers
 
             try
             {
-                var response = await _openAiService.QuestionAsync(messageDto);  //trocar para o service de mensagens
+                var response = await _messagesService.RegisterMessage(id, messageDto);
                 return Ok(new { response });
             }
             catch (Exception ex)

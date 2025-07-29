@@ -70,5 +70,13 @@
             </summary>
             <returns>Inativa o usuário baseado no id.</returns>
         </member>
+        <member name="M:MessagesService.RegisterMessage(System.Int32,ModularApi.Modules.Chats.DTOs.MensagemInputDto)">
+            <summary>
+            Envia uma pergunta para o modelo de IA e retorna a resposta.
+            </summary>
+            <param name="id_chat">ID do chat.</param>
+            <param name="pergunta">Pergunta a ser enviada.</param>
+            <returns>Resposta da IA.</returns>
+        </member>
     </members>
 </doc>
