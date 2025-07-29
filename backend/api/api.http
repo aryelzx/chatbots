@@ -84,3 +84,15 @@ Accept: application/json3
   "user_id": 2,
   "created_by": 2
 }
+
+###
+POST {{api_HostAddress}}/api/chats/send-message/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json3
+
+{
+  "chat_id": 2,
+  "user_id": 2,
+  "promptInputText": "diga ola",
+  "sendBy": "U"
+}

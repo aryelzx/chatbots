@@ -276,3 +276,6 @@ C:/Users/ariel/www/highcapital/backend/api/obj/Debug/net9.0/ref/api.dll
 /Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/Microsoft.IdentityModel.Tokens.dll
 /Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/System.IdentityModel.Tokens.Jwt.dll
 /Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/BCrypt.Net-Next.dll
+/Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/OpenAI.dll
+/Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/System.ClientModel.dll
+/Users/liv01/Documents/estudos/chatbots/backend/api/bin/Debug/net9.0/System.Memory.Data.dll

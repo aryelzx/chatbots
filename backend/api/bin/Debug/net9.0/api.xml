@@ -18,9 +18,9 @@
         </member>
         <member name="M:ModularApi.Modules.Chats.Controllers.ChatsController.GetChatByName(System.String)">
             <summary>
-            Pesquisa um Chat pelo nome.
+            Pesquisa Chats pelo nome.
             </summary>
-            <returns>Pesquisa um Chat pelo nome</returns>
+            <returns>Pesquisa Chats pelo nome</returns>
         </member>
         <member name="M:ModularApi.Modules.Chats.Controllers.ChatsController.CreateChat(ModularApi.Modules.Chats.DTOs.ChatDto)">
             <summary>
@@ -33,6 +33,12 @@
             Atualiza o Chat baseado no id.
             </summary>
             <returns>Atualiza o Chat baseado no id.</returns>
+        </member>
+        <member name="M:ModularApi.Modules.Chats.Controllers.ChatsController.SendMessageToChat(System.Int32,ModularApi.Modules.Chats.DTOs.MensagemInputDto)">
+            <summary>
+             Manda mensagem para o Chat.
+             </summary>
+             <returns>Manda mensagem para o Chat.</returns>
         </member>
         <member name="M:ModularApi.Modules.Users.Controllers.UsersController.GetAllUsers">
             <summary>
