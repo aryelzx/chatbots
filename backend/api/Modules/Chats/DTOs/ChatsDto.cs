@@ -22,10 +22,9 @@ namespace ModularApi.Modules.Chats.DTOs
         public int chat_id { get; set; }
 
         public int user_id { get; set; }
-
-        public string? promptInputText { get; set; }
+        public string? prompt_input_text { get; set; }
         public string? context { get; set; }
+        public string tipo { get; set; }
 
-        public string sendBy { get; set; }
     }
 }

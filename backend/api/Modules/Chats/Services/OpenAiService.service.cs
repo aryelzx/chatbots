@@ -34,7 +34,7 @@ public class OpenAiService : IOpenAiService
             messages = new[]
             {
                 new { role = "system", content = pergunta.context },
-                new { role = "user", content = pergunta.promptInputText }
+                new { role = "user", content = pergunta.prompt_input_text }
             }
         };
 

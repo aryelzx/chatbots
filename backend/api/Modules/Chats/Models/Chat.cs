@@ -18,23 +18,29 @@ namespace ModularApi.Modules.Users.Models
     }
     public class Mensagem
     {
-        public int Id { get; set; }
-        public int ChatId { get; set; }
+        public int id { get; set; }
+        public int chat_id { get; set; }
 
-        public int UserId { get; set; }
+        public int user_id { get; set; }
 
-        public string MensagemTexto { get; set; }
+        public string mensagem { get; set; }
 
-        public string? PromptInputText { get; set; }
+        public string? prompt_input_text { get; set; }
 
-        public string Tipo { get; set; }
+        public string tipo { get; set; }
 
-        public string? PromptContext { get; set; }
+        public string? prompt_context { get; set; }
 
-        public string? PromptRole { get; set; }
+        public string? prompt_role { get; set; }
 
-        public string? PromptModelo { get; set; }
+        public string? prompt_modelo { get; set; }
 
-        public string SendBy { get; set; }
+        public string send_by { get; set; }
+        public DateTime created_at { get; set; }
+        public DateTime? updated_at { get; set; }
+        public DateTime? deleted_at { get; set; }
+        public int? created_by { get; set; }
+        public int? updated_by { get; set; }
+        public int? deleted_by { get; set; }
     }
 }
