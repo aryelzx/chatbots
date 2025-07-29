@@ -94,5 +94,6 @@ Accept: application/json3
   "chat_id": 2,
   "user_id": 2,
   "promptInputText": "diga ola",
-  "sendBy": "U"
+  "sendBy": "U",
+  "context": "responda em inglês"
 }

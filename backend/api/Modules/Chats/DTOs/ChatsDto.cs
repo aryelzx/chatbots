@@ -24,6 +24,7 @@ namespace ModularApi.Modules.Chats.DTOs
         public int user_id { get; set; }
 
         public string? promptInputText { get; set; }
+        public string? context { get; set; }
 
         public string sendBy { get; set; }
     }
