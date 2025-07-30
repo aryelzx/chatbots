@@ -5,6 +5,7 @@ const dashboardRoutes: RouteObject[] = [
 	{
 		path: "/dashboard",
 		element: <DashBoard />,
+		// loader: authLoader
 	},
 ];
 

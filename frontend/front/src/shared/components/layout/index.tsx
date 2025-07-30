@@ -1,4 +1,4 @@
-import Logo from "@/assets/logo_simples.jpg";
+import Logo from "@/assets/robo.png";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip } from "@/components/ui/tooltip";
