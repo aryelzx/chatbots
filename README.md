@@ -117,7 +117,7 @@ dotnet add package DotNetEnv
 Após subir a aplicação, acesse:
 
 ```
-http://localhost:5074/swagger/index.html
+http://localhost:5000/swagger/index.html
 ```
 
 ---
@@ -126,4 +126,4 @@ http://localhost:5074/swagger/index.html
 
 - A aplicação segue o padrão **modular** no backend.
 - O frontend consome apenas a porta `5173`, que está **explicitamente habilitada no CORS da API**.
-- Os módulos disponíveis são exibidos conforme a **role do usuário autenticado**.
+- Os módulos disponíveis são exibidos conforme a **role do usuário autenticado**. 
