@@ -10,7 +10,7 @@ import { PiCaretRightBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import { SidebarDrawer } from "../sideBarDrawer";
 
-type Breadcrumb = {
+export type Breadcrumb = {
     label: string;
     path: string;
 };
@@ -45,7 +45,7 @@ function Layout({ children, sidebarButtons, defaultDisabled, breadcrumbs = [] }:
                             disabled={item.disabled}
                             className={cn(
                                 "w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-blue-950 focus:bg-blue-950 transition-all cursor-pointer",
-                                window.location.pathname === item.path && "bg-secondary",
+                                window.location.pathname === item.path && "bg-blue-950",
                                 !defaultDisabled && item.disabled && "hidden",
                                 defaultDisabled && item.disabled
                                     ? "hover:bg-primary text-tertiary hover:text-tertiary"
