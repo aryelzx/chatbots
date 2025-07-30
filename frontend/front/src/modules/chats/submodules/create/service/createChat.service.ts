@@ -1,6 +1,9 @@
 import { http } from "@/shared/api/http";
 import type { AxiosInstance } from "axios";
-import type { CreateChatInputDto, CreateChatOutputDto } from "../dtos/createChat";
+import type {
+	CreateChatInputDto,
+	CreateChatOutputDto,
+} from "../dtos/createChat";
 
 class CreateChatService {
 	private readonly api: AxiosInstance;
@@ -11,16 +14,8 @@ class CreateChatService {
 	}
 
 	async execute(data: CreateChatInputDto): Promise<CreateChatOutputDto> {
-		try {
-			const response = await this.api.post(
-				`${this.baseURL}/create`,
-				data
-			);
-			return response.data;
-		} catch (error) {
-			console.error("Error creating chat:", error);
-			throw error;
-		}
+		const response = await this.api.post(`${this.baseURL}/create`, data);
+		return response.data;
 	}
 }
 

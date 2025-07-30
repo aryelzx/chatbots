@@ -10,15 +10,8 @@ class GetChatService {
 	}
 
 	async byId({ id_chat }: ChatInputDto): Promise<ChatOutputDto> {
-		try {
-			const response = await this.api.get(
-				`${this.baseURL}/${id_chat}`
-			);
-			return response.data;
-		} catch (error) {
-			console.error("Error fetching messages:", error);
-			throw error;
-		}
+		const response = await this.api.get(`${this.baseURL}/${id_chat}`);
+		return response.data;
 	}
 }
 

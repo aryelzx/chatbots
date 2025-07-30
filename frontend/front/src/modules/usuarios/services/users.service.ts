@@ -10,13 +10,8 @@ class UsersServices {
 	}
 
 	async getAll(): Promise<GetUserOutputDto> {
-		try {
-			const response = await this.api.get(`${this.baseURL}/list-all`);
-			return response.data;
-		} catch (error) {
-			console.error("Error fetching messages:", error);
-			throw error;
-		}
+		const response = await this.api.get(`${this.baseURL}/list-all`);
+		return response.data;
 	}
 }
 

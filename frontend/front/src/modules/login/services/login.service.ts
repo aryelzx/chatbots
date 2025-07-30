@@ -13,29 +13,19 @@ class AuthService {
 	}
 
 	async login(params: LoginInputDto): Promise<LoginOutputDto> {
-		try {
-			const response = await this.api.post<LoginOutputDto>(
-				`/auth/login`,
-				params
-			);
-			return response.data;
-		} catch (error) {
-			console.error("Error fetching messages:", error);
-			throw error;
-		}
+		const response = await this.api.post<LoginOutputDto>(
+			`/auth/login`,
+			params
+		);
+		return response.data;
 	}
 
 	async register(params: RegisterInputDto): Promise<RegisterOutputDto> {
-		try {
-			const response = await this.api.post<RegisterOutputDto>(
-				`/users/register`,
-				params
-			);
-			return response.data;
-		} catch (error) {
-			console.error("Error fetching messages:", error);
-			throw error;
-		}
+		const response = await this.api.post<RegisterOutputDto>(
+			`/users/register`,
+			params
+		);
+		return response.data;
 	}
 }
 

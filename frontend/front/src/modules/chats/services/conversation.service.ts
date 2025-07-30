@@ -1,10 +1,10 @@
+import { http } from "@/shared/api/http";
+import type { AxiosInstance } from "axios";
 import type {
 	getMessagesOutputDto,
 	messageInputDto,
-	messageOutputDto
+	messageOutputDto,
 } from "../dtos/conversation";
-import { http } from "@/shared/api/http";
-import type { AxiosInstance } from "axios";
 class ConversationService {
 	private readonly api: AxiosInstance;
 	private readonly baseURL = "/chats";
@@ -13,31 +13,21 @@ class ConversationService {
 	}
 
 	async getMessages(id_chat: number): Promise<getMessagesOutputDto> {
-		try {
-			const response = await this.api.get(
-				`${this.baseURL}/get-messages/${id_chat}`
-			);
-			return response.data;
-		} catch (error) {
-			console.error("Error fetching messages:", error);
-			throw error;
-		}
+		const response = await this.api.get(
+			`${this.baseURL}/get-messages/${id_chat}`
+		);
+		return response.data;
 	}
 
 	async sendMessage(
 		id_chat: number,
 		params: messageInputDto
 	): Promise<messageOutputDto> {
-		try {
-			const response = await this.api.post<messageOutputDto>(
-				`${this.baseURL}/send-message/${id_chat}`,
-				params
-			);
-			return response.data;
-		} catch (error) {
-			console.error("Error sending message:", error);
-			throw error;
-		}
+		const response = await this.api.post<messageOutputDto>(
+			`${this.baseURL}/send-message/${id_chat}`,
+			params
+		);
+		return response.data;
 	}
 }
 

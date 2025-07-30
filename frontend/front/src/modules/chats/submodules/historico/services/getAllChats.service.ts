@@ -15,15 +15,10 @@ class GetAllChatsService {
 	async execute({
 		id_user,
 	}: GetAllChatsInputDto): Promise<GetAllChatsOutputDto> {
-		try {
-			const response = await this.api.get(
-				`${this.baseURL}/list-all/${id_user}`
-			);
-			return response.data;
-		} catch (error) {
-			console.error("Error fetching chats:", error);
-			throw error;
-		}
+		const response = await this.api.get(
+			`${this.baseURL}/list-all/${id_user}`
+		);
+		return response.data;
 	}
 }
 
