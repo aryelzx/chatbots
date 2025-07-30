@@ -5,9 +5,15 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import type React from "react";
 import type { JSX } from "react";
+import { LuHouse } from "react-icons/lu";
 import { PiCaretRightBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import { SidebarDrawer } from "../sideBarDrawer";
+
+type Breadcrumb = {
+    label: string;
+    path: string;
+};
 
 export type SidebarButton = {
     icon: JSX.Element;
@@ -20,9 +26,10 @@ type Props = {
     children: React.ReactNode;
     sidebarButtons: SidebarButton[];
     defaultDisabled?: boolean;
+    breadcrumbs?: Breadcrumb[];
 }
 
-function Layout({ children, sidebarButtons, defaultDisabled }: Props): JSX.Element {
+function Layout({ children, sidebarButtons, defaultDisabled, breadcrumbs = [] }: Props): JSX.Element {
     const navigate = useNavigate();
 
     return (
@@ -37,7 +44,7 @@ function Layout({ children, sidebarButtons, defaultDisabled }: Props): JSX.Eleme
                             onClick={() => navigate(item.path)}
                             disabled={item.disabled}
                             className={cn(
-                                "w-10 h-10 flex items-center justify-center rounded-full text-white text-2xl hover:bg-blue-950 focus:bg-blue-950 transition-all cursor-pointer",
+                                "w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-blue-950 focus:bg-blue-950 transition-all cursor-pointer",
                                 window.location.pathname === item.path && "bg-secondary",
                                 !defaultDisabled && item.disabled && "hidden",
                                 defaultDisabled && item.disabled
@@ -55,8 +62,50 @@ function Layout({ children, sidebarButtons, defaultDisabled }: Props): JSX.Eleme
                     </button>
                 </SidebarDrawer>
             </aside>
-            <div className="flex max-w-[99%] min-h-[88%] max-h-[88%] bg-white rounded-3xl shadow-2xl p-4">
-                <ScrollArea className="w-full p-4">{children}</ScrollArea>
+            <div className="w-[95%] bg-primary">
+                <header className="w-full h-[10%] flex items-center justify-between p-4">
+                    <div className="flex items-center gap-3">
+                        {breadcrumbs.length === 0 && (
+                            <Button
+                                variant="link"
+                                className="p-0 text-2xl font-semibold text-white disabled:opacity-100"
+                                disabled={breadcrumbs.length === 0}
+                                onClick={() => navigate("/dashboard")}
+                            >
+                                Dashboard
+                            </Button>
+                        )}
+                        {breadcrumbs.map((item, index) => (
+                            <div key={index} className="flex items-center">
+                                {index > 0 && (
+                                    <span className="text-white font-bold mr-3">
+                                        {">"}
+                                    </span>
+                                )}
+                                <Button
+                                    variant="link"
+                                    disabled={index === breadcrumbs.length - 1}
+                                    className="p-0 text-2xl font-semibold text-white disabled:opacity-100"
+                                    onClick={() => navigate(item.path)}
+                                >
+                                    {item.label}
+                                </Button>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="w-full h-full flex justify-end items-center gap-2 p-1">
+                        <Button
+                            variant="outline"
+                            className="w-10 h-10 rounded-full border-2 p-2 text-primary hover:bg-primary hover:text-white transition-all"
+                            onClick={() => navigate("/dashboard")}
+                        >
+                            <LuHouse size={20} />
+                        </Button>
+                    </div>
+                </header>
+                <div className="flex max-w-[99%] min-h-[88%] max-h-[88%] bg-white rounded-3xl shadow-2xl p-4">
+                    <ScrollArea className="w-full p-4">{children}</ScrollArea>
+                </div>
             </div>
         </main>
     )
