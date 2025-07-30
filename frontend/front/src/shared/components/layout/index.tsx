@@ -1,13 +1,13 @@
+import Logo from "@/assets/logo_simples.jpg";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tooltip } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import Logo from "@assets/logo_simples.png";
 import type React from "react";
 import type { JSX } from "react";
 import { useNavigate } from "react-router-dom";
 
-type SidebarButton = {
+export type SidebarButton = {
     icon: JSX.Element;
     label: string;
     path: string;
