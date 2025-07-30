@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { UsersLayout } from "../layout/layout";
-import { useUsersServices } from "../services/users.service";
-import type { IUser } from "../interfaces/user-interface";
 import { LoaderComponent } from "@/shared/components/loader";
+import { useEffect, useState } from "react";
+import type { IUser } from "../interfaces/user-interface";
+import { UsersLayout } from "../layout/layout";
+import { usersServices } from "../services/users.service";
 
 function UsuariosPages() {
 	const [users, setUsers] = useState<IUser[]>([]);
@@ -10,7 +10,7 @@ function UsuariosPages() {
 	async function handleGetAllUsers() {
 		try {
 			setLoading(true);
-			const { user } = await useUsersServices.getAll();
+			const { user } = await usersServices.getAll();
 			setUsers(user);
 		} catch (error) {
 			console.error("Error fetching users:", error);
@@ -90,11 +90,10 @@ function UsuariosPages() {
 										</td>
 										<td className="px-4 py-2 text-center">
 											<span
-												className={`inline-block w-3 h-3 rounded-full ${
-													user.hasChat
+												className={`inline-block w-3 h-3 rounded-full ${user.hasChat
 														? "bg-green-500"
 														: "bg-red-500"
-												}`}
+													}`}
 												title={
 													user.hasChat ? "Sim" : "Não"
 												}

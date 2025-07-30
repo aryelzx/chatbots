@@ -20,6 +20,6 @@ class UsersServices {
 	}
 }
 
-const useUsersServices = new UsersServices(http);
+const usersServices = new UsersServices(http);
 
-export { useUsersServices };
+export { UsersServices, usersServices };
