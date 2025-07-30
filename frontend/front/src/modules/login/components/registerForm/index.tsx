@@ -75,7 +75,7 @@ function RegisterUserFormComponent({ callBack }: Props) {
 			) : (
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className="grid grid-cols-1 md:grid-cols-2 gap-6"
+					className="flex flex-col gap-6"
 					noValidate
 				>
 					<FormField
@@ -88,7 +88,7 @@ function RegisterUserFormComponent({ callBack }: Props) {
 									<Input
 										placeholder="Digite o email"
 										{...field}
-										className="h-11 rounded-md"
+										className="h-11 rounded-md border border-gray-400"
 									/>
 								</FormControl>
 								<FormMessage />
@@ -106,7 +106,7 @@ function RegisterUserFormComponent({ callBack }: Props) {
 									<Input
 										placeholder="Digite o nome"
 										{...field}
-										className="h-11 rounded-md"
+										className="h-11 rounded-md border border-gray-400"
 									/>
 								</FormControl>
 								<FormMessage />
@@ -124,7 +124,7 @@ function RegisterUserFormComponent({ callBack }: Props) {
 									<Input
 										placeholder="Digite o CPF"
 										{...field}
-										className="h-11 rounded-md"
+										className="h-11 rounded-md border border-gray-400"
 									/>
 								</FormControl>
 								<FormMessage />
@@ -148,7 +148,7 @@ function RegisterUserFormComponent({ callBack }: Props) {
 											}
 											placeholder="Digite a senha"
 											{...field}
-											className="h-11 rounded-md pr-10"
+											className="h-11 rounded-md pr-10 border border-gray-400"
 										/>
 										{form.watch("senha") && (
 											<button
@@ -182,7 +182,7 @@ function RegisterUserFormComponent({ callBack }: Props) {
 					<div className="md:col-span-2 flex justify-center">
 						<Button
 							type="submit"
-							className="w-2/3 h-11 cursor-pointer bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition"
+							className="w-full h-11 cursor-pointer bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition"
 						>
 							Cadastrar
 						</Button>

@@ -28,9 +28,10 @@ function LoginPage() {
 
 	function handleTabsChange(tabs: string, cpf: string) {
 		setTabsValue(tabs);
-		if (tabs === "login") {
+		if (tabs === "login" && cpf.length > 0) {
 			form.setValue("cpf", cpf);
 		}
+		form.reset()
 	}
 
 	return (
@@ -54,16 +55,16 @@ function LoginPage() {
 						defaultValue="login"
 						className="flex flex-col"
 					>
-						<TabsList className="grid grid-cols-2 rounded-xl bg-muted p-1 mb-8 shadow-inner">
+						<TabsList className="flex w-full min-h-10 gap-2 p-1 mb-8 bg-muted rounded-2xl shadow-inner self-center">
 							<TabsTrigger
 								value="login"
-								className="data-[state=active]:bg-white data-[state=active]:shadow-lg data-[state=active]:text-primary transition"
+								className="flex items-center justify-center min-h-10 h-10 text-sm font-medium transition-all duration-300 rounded-xl cursor-pointer text-muted-foreground hover:bg-muted/80 data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-primary"
 							>
 								Login
 							</TabsTrigger>
 							<TabsTrigger
 								value="cadastro"
-								className="data-[state=active]:bg-white data-[state=active]:shadow-lg data-[state=active]:text-primary transition"
+								className="flex items-center justify-center min-h-10 h-10 text-sm font-medium transition-all duration-300 rounded-xl cursor-pointer text-muted-foreground hover:bg-muted/80 data-[state=active]:bg-white data-[state=active]:shadow-md data-[state=active]:text-primary"
 							>
 								Cadastro
 							</TabsTrigger>
@@ -76,7 +77,7 @@ function LoginPage() {
 							<Form {...form}>
 								<form
 									onSubmit={handleSubmit}
-									className="w-full max-w-sm flex flex-col gap-5"
+									className="w-full flex flex-col gap-5"
 									noValidate
 								>
 									<FormField
