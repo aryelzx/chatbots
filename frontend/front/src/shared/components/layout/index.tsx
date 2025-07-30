@@ -5,7 +5,9 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import type React from "react";
 import type { JSX } from "react";
+import { PiCaretRightBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import { SidebarDrawer } from "../sideBarDrawer";
 
 export type SidebarButton = {
     icon: JSX.Element;
@@ -35,7 +37,7 @@ function Layout({ children, sidebarButtons, defaultDisabled }: Props): JSX.Eleme
                             onClick={() => navigate(item.path)}
                             disabled={item.disabled}
                             className={cn(
-                                "w-10 h-10 flex items-center justify-center rounded-full text-white text-2xl hover:bg-[#f68f69] focus:bg-[#f68f69] transition-all",
+                                "w-10 h-10 flex items-center justify-center rounded-full text-white text-2xl hover:bg-blue-950 focus:bg-blue-950 transition-all cursor-pointer",
                                 window.location.pathname === item.path && "bg-secondary",
                                 !defaultDisabled && item.disabled && "hidden",
                                 defaultDisabled && item.disabled
@@ -47,6 +49,11 @@ function Layout({ children, sidebarButtons, defaultDisabled }: Props): JSX.Eleme
                         </Button>
                     </Tooltip>
                 ))}
+                <SidebarDrawer buttons={sidebarButtons}>
+                    <button className="absolute z-50 bottom-14 -right-1 -mr-4 bg-white w-10 h-10 rounded-full shadow-md shadow-gray-500 flex items-center justify-center group hover:bg-slate-200 transition-all">
+                        <PiCaretRightBold className="text-2xl text-black" />
+                    </button>
+                </SidebarDrawer>
             </aside>
             <div className="flex max-w-[99%] min-h-[88%] max-h-[88%] bg-white rounded-3xl shadow-2xl p-4">
                 <ScrollArea className="w-full p-4">{children}</ScrollArea>

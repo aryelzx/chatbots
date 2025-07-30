@@ -1,4 +1,4 @@
-import { ChartBar, Users } from "lucide-react";
+import { Bot, Users } from "lucide-react";
 import type { JSX } from "react";
 
 type DashboardModule = {
@@ -19,11 +19,11 @@ const dashboardModules = () => {
 			icon: <Users />,
 		},
 		{
-			title: "Atendimento ao Paciente",
-			description: "Realize triagens, teleinterconsultas e mais.",
-			path: "/atendimento-paciente",
+			title: "Chats",
+			description: "Gerenciamento de chats e mensagens.",
+			path: "/chats",
 			disabled: false,
-			icon: <ChartBar />,
+			icon: <Bot />,
 		}
 	];
 	return {
