@@ -1,20 +1,20 @@
+import { useChatContext } from "@/modules/chats/context/useChatContext";
+import type { IChat } from "@/modules/chats/interfaces/chat.interface";
+import { useUserContext } from "@/modules/login/context/useUserContext";
+import { errorHandler } from "@/shared/api/errorHandler";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import {
 	createChatSchema,
 	type CreateChatSchemaType,
 } from "../../create/schemas/createChat";
-import { zodResolver } from "@hookform/resolvers/zod";
-import type { IChat } from "@/modules/chats/interfaces/chat.interface";
-import { useUpdateChatService } from "../services/updateChat.service";
-import type { UpdateChatInputDto } from "../dtos/updateChat";
-import { errorHandler } from "@/shared/api/errorHandler";
-import toast from "react-hot-toast";
-import { useChatContext } from "@/modules/chats/context/useChatContext";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import type { GetAllChatsInputDto } from "../dtos/getAllChats";
-import { useUserContext } from "@/modules/login/context/useUserContext";
+import type { UpdateChatInputDto } from "../dtos/updateChat";
 import { useGetAllChatsService } from "../services/getAllChats.service";
+import { useUpdateChatService } from "../services/updateChat.service";
 
 type LoadingStates = {
 	allChats: boolean;
@@ -62,20 +62,20 @@ export function useHistoricoHook() {
 	function handleSetValuesInForm(chat: IChat) {
 		setSelectedChat(chat);
 		form.reset({
-		nome: chat.nome || "",
-		descricao: chat.descricao || "",
-		context: chat.context || "",
-		modelo: chat.modelo || "",
-	});
+			nome: chat.nome || "",
+			descricao: chat.descricao || "",
+			context: chat.context || "",
+			modelo: chat.modelo || "",
+		});
 	}
 
 	async function handleUpdateChat(data: CreateChatSchemaType) {
 		try {
 			if (!selectedChat) return;
-			if (!form.formState.isDirty) {
-				setIsModalOpen(false);
-				return;
-			}
+			// if (!form.formState.isDirty) {
+			// 	setIsModalOpen(false);
+			// 	return;
+			// }
 			setLoading((prev) => ({ ...prev, selectedChat: true }));
 			const params: UpdateChatInputDto = {
 				id_chat: selectedChat.id.toString(),
@@ -127,7 +127,7 @@ export function useHistoricoHook() {
 	useEffect(() => {
 		handleGetAllChats();
 	}, []);
-	
+
 	return {
 		allChats,
 		loading,

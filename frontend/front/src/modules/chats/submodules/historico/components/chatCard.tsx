@@ -1,7 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import type { IChat } from "@/modules/chats/interfaces/chat.interface";
-import dayjs from "dayjs";
-import { MessageSquare } from "lucide-react";
+import { Bot, MessageSquare } from "lucide-react";
 import { forwardRef } from "react";
 
 type Props = {
@@ -27,13 +26,16 @@ const ChatCardComponent = forwardRef<HTMLDivElement, Props>(
                 {chat.descricao}
               </p>
             </div>
-            <MessageSquare className="shrink-0 text-white" size={20} />
+            <MessageSquare className="shrink-0 text-white" size={30} />
           </div>
-
-          <p className="text-xs text-white/50 mt-2">
-            Criado em:{" "}
-            {dayjs(chat.created_at).format("DD [do] MM [de] YYYY [às] HH:mm")}
-          </p>
+          <div className="flex gap-2 items-center text-center">
+            <span>
+              <Bot className="text-white" size={20} />
+            </span>
+            <p className="text-md text-white/50">
+              {chat.modelo}
+            </p>
+          </div>
         </CardContent>
       </Card>
     );

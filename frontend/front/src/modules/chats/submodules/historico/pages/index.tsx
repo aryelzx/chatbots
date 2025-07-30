@@ -1,5 +1,3 @@
-import { ChatsLayout } from "@/modules/chats/layout";
-import { LoaderComponent } from "@/shared/components/loader";
 import {
 	Dialog,
 	DialogContent,
@@ -9,16 +7,15 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import {
+	Form,
 	FormControl,
 	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
 	FormMessage,
-	Form,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import dayjs from "dayjs";
 import {
 	Select,
 	SelectContent,
@@ -26,8 +23,13 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { useHistoricoHook } from "../hooks/useHistorico";
+import { Textarea } from "@/components/ui/textarea";
+import { ChatsLayout } from "@/modules/chats/layout";
+import { LoaderComponent } from "@/shared/components/loader";
+import dayjs from "dayjs";
+import { MessageSquareShare } from "lucide-react";
 import { ChatCardComponent } from "../components/chatCard";
+import { useHistoricoHook } from "../hooks/useHistorico";
 
 function HistoricoChatsPage() {
 	const {
@@ -45,7 +47,7 @@ function HistoricoChatsPage() {
 		<ChatsLayout>
 			<h1 className="text-2xl font-bold">Histórico de Chats</h1>
 			<p className="text-muted-foreground mt-2">
-				Aqui você pode visualizar e gerenciar seus chats anteriores.
+				Aqui você pode visualizar e gerenciar seus chats anteriores clicando nele.
 			</p>
 			{loading.allChats ? (
 				<div className="flex items-center justify-center h-40 w-full">
@@ -63,7 +65,7 @@ function HistoricoChatsPage() {
 							onOpenChange={(e) => handleModal(chat, e)}
 						>
 							<DialogTrigger asChild>
-								 <ChatCardComponent chat={chat} /> 
+								<ChatCardComponent chat={chat} />
 							</DialogTrigger>
 							<DialogContent className="max-w-2xl">
 								{loading.selectedChat ? (
@@ -91,7 +93,7 @@ function HistoricoChatsPage() {
 												onSubmit={form.handleSubmit(
 													handleUpdateChat
 												)}
-												className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4"
+												className="flex flex-col gap-6 mt-4"
 											>
 												<FormField
 													control={form.control}
@@ -150,9 +152,9 @@ function HistoricoChatsPage() {
 																Contexto
 															</FormLabel>
 															<FormControl>
-																<Input
-																	className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
-																	placeholder="Informações adicionais"
+																<Textarea
+																	placeholder="Tell us a little bit about yourself"
+																	className="resize-none"
 																	{...field}
 																/>
 															</FormControl>
@@ -216,12 +218,13 @@ function HistoricoChatsPage() {
 																chat
 															)
 														}
-														className="w-full bg-secondary  cursor-pointer text-primary px-4 py-2 rounded mt-4 hover:bg-zinca-500 transition-colors duration-200"
+														className="w-full bg-secondary cursor-pointer text-primary px-4 py-2 rounded mt-4 hover:bg-zinca-500 transition-colors duration-200 flex items-center justify-center gap-2"
 														disabled={
 															loading.selectedChat
 														}
 													>
 														Ir para conversa
+														<MessageSquareShare size={15} />
 													</button>
 													<button
 														type="submit"
