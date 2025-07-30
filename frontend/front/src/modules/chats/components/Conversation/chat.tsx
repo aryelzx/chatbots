@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Bot, GalleryHorizontalEnd, Plus, Send, Undo2 } from "lucide-react";
-import { useChatContext } from "../../context/useChatContext";
-import dayjs from "dayjs";
-import { ChatInfoDialog } from "./chatDialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useNavigate } from "react-router-dom";
 import { LoaderComponent } from "@/shared/components/loader";
-import { motion, AnimatePresence } from "framer-motion";
+import dayjs from "dayjs";
+import { AnimatePresence, motion } from "framer-motion";
+import { Bot, GalleryHorizontalEnd, Plus, Send, Undo2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useChatContext } from "../../context/useChatContext";
+import { ChatInfoDialog } from "./chatDialog";
 
 function ChatMessagesComponent() {
 	const [inputText, setInputText] = useState("");
@@ -36,7 +36,7 @@ function ChatMessagesComponent() {
 	}, [messagesByChat.get]);
 
 	return (
-		<div className="flex flex-col h-full bg-zinc-900 text-white border-zinc-800 rounded-lg">
+		<div className="flex flex-col h-full bg-zinc-900 text-white border-zinc-800 rounded-lg w-full">
 			<header className="px-6 py-4 border-b border-zinc-800 text-lg font-semibold flex items-center justify-between">
 				<div className="text-secondary mr-2 flex items-center gap-2">
 					<Bot />
@@ -64,18 +64,16 @@ function ChatMessagesComponent() {
 									animate={{ opacity: 1, y: 0 }}
 									exit={{ opacity: 0, y: -20 }}
 									transition={{ duration: 0.2 }}
-									className={`flex ${
-										msg.send_by === "U"
-											? "justify-end"
-											: "justify-start"
-									}`}
+									className={`flex ${msg.send_by === "U"
+										? "justify-end"
+										: "justify-start"
+										}`}
 								>
 									<div
-										className={`max-w-3xl px-4 py-3 rounded-xl text-sm whitespace-pre-line ${
-											msg.send_by === "U"
-												? "bg-zinc-600 text-white rounded-br-none"
-												: "bg-zinc-800 text-gray-100 rounded-bl-none"
-										}`}
+										className={`max-w-3xl px-4 py-3 rounded-xl text-sm whitespace-pre-line ${msg.send_by === "U"
+											? "bg-zinc-600 text-white rounded-br-none"
+											: "bg-zinc-800 text-gray-100 rounded-bl-none"
+											}`}
 									>
 										{msg.send_by === "B" ? (
 											<div className="flex items-center gap-2">
@@ -93,7 +91,7 @@ function ChatMessagesComponent() {
 											</div>
 										) : null}
 										{msg.mensagem ===
-										"Carregando resposta..." ? (
+											"Carregando resposta..." ? (
 											<span className="animate-pulse">
 												Carregando...
 											</span>
@@ -115,27 +113,37 @@ function ChatMessagesComponent() {
 					</div>
 				</ScrollArea>
 			)}
-
 			<footer className="border-t border-zinc-800 p-4">
-				<div className="flex items-center gap-2 max-w-6xl mx-auto">
-					<button
-						className="text-zinc-400 hover:text-white transition-colors cursor-pointer"
-						onClick={() => navigate(-1)}
-					>
-						<Undo2 />
-					</button>
-					<button
-						className="text-zinc-400 hover:text-white transition-colors cursor-pointer"
-						onClick={() => navigate("/chats/historico")}
-					>
-						<GalleryHorizontalEnd />
-					</button>
-					<button
-						className="text-zinc-400 hover:text-white transition-colors cursor-pointer"
-						onClick={() => navigate("/chats/create")}
-					>
-						<Plus />
-					</button>
+				<div className="flex items-center gap-4 mx-auto">
+					<div className="flex gap-4">
+						<button
+							className="text-zinc-400 hover:text-white transition-colors cursor-pointer text-center flex items-center gap-1"
+							onClick={() => navigate(-1)}
+						>
+							<Undo2 />
+							<span className="text-sm">
+								Voltar
+							</span>
+						</button>
+						<button
+							className="text-zinc-400 hover:text-white transition-colors cursor-pointer text-center flex items-center gap-1"
+							onClick={() => navigate("/chats/historico")}
+						>
+							<GalleryHorizontalEnd />
+							<span className="text-sm">
+								Histórico
+							</span>
+						</button>
+						<button
+							className="text-zinc-400 hover:text-white transition-colors cursor-pointer text-center flex items-center gap-1"
+							onClick={() => navigate("/chats/create")}
+						>
+							<Plus />
+							<span className="text-sm">
+								Novo
+							</span>
+						</button>
+					</div>
 					<Input
 						className="flex-1 h-12 bg-zinc-800 border-zinc-700 text-white placeholder-zinc-400"
 						placeholder="Digite sua mensagem..."

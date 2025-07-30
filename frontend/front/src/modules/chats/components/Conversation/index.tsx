@@ -7,7 +7,7 @@ function ChatConversationComponent() {
 	const { messagesByChat, user } = useConversation();
 
 	return (
-		<div className="flex flex-col h-[78vh] w-full">
+		<div className="flex flex-col h-[80vh] w-full">
 			{user.value.hasChat && messagesByChat.get.length > 0 ? (
 				<ChatMessagesComponent />
 			) : (
