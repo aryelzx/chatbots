@@ -1,15 +1,15 @@
-import type { IUser } from "@/modules/usuarios/interfaces/user-interface";
-import type { LoginInputDto } from "../dtos/login";
-import { useAuthService } from "../services/login.service";
-import { useUserContext } from "../context/useUserContext";
-import { useNavigate } from "react-router-dom";
-import { errorHandler } from "@/shared/api/errorHandler";
-import toast from "react-hot-toast";
 import { useChatContext } from "@/modules/chats/context/useChatContext";
 import type { IChat } from "@/modules/chats/interfaces/chat.interface";
-import { useForm } from "react-hook-form";
-import z from "zod";
+import type { IUser } from "@/modules/usuarios/interfaces/user-interface";
+import { errorHandler } from "@/shared/api/errorHandler";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import z from "zod";
+import { useUserContext } from "../context/useUserContext";
+import type { LoginInputDto } from "../dtos/login";
+import { useAuthService } from "../services/login.service";
 
 function UseLoginHook() {
 	const { user: currentUser } = useUserContext();
@@ -32,7 +32,11 @@ function UseLoginHook() {
 
 	async function handleLogin(data: LoginInputDto): Promise<void> {
 		try {
-			const loginPromise = useAuthService.login(data);
+			const handleParams: LoginInputDto = {
+				cpf: data.cpf.split(".").join("").replace("-", ""),
+				senha: data.senha,
+			}
+			const loginPromise = useAuthService.login(handleParams);
 
 			const response = await toast.promise(loginPromise, {
 				loading: "Fazendo login...",

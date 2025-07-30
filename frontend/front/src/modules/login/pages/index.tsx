@@ -1,13 +1,6 @@
 import Robo from "@/assets/robo.png";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { UseLoginHook } from "../hooks/useLogin";
-import type { LoginInputDto } from "../dtos/login";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { RegisterUserFormComponent } from "../components/registerForm";
-import { useState } from "react";
-import { Eye, EyeClosed } from "lucide-react";
 import {
 	Form,
 	FormControl,
@@ -16,6 +9,13 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Eye, EyeClosed } from "lucide-react";
+import { useState } from "react";
+import { RegisterUserFormComponent } from "../components/registerForm";
+import type { LoginInputDto } from "../dtos/login";
+import { UseLoginHook } from "../hooks/useLogin";
 
 function LoginPage() {
 	const { handleLogin, form } = UseLoginHook();
@@ -26,8 +26,11 @@ function LoginPage() {
 		handleLogin(data);
 	});
 
-	function handleTabsChange(value: string) {
-		setTabsValue(value);
+	function handleTabsChange(tabs: string, cpf: string) {
+		setTabsValue(tabs);
+		if (tabs === "login") {
+			form.setValue("cpf", cpf);
+		}
 	}
 
 	return (
@@ -47,7 +50,7 @@ function LoginPage() {
 
 					<Tabs
 						value={tabsValue}
-						onValueChange={handleTabsChange}
+						onValueChange={(e) => handleTabsChange(e, form.watch("cpf"))}
 						defaultValue="login"
 						className="flex flex-col"
 					>
@@ -115,27 +118,27 @@ function LoginPage() {
 														{form.watch(
 															"senha"
 														) && (
-															<button
-																type="button"
-																onClick={() =>
-																	setShowPassword(
-																		!showPassword
-																	)
-																}
-																className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition"
-																aria-label={
-																	showPassword
-																		? "Esconder senha"
-																		: "Mostrar senha"
-																}
-															>
-																{showPassword ? (
-																	<EyeClosed />
-																) : (
-																	<Eye />
-																)}
-															</button>
-														)}
+																<button
+																	type="button"
+																	onClick={() =>
+																		setShowPassword(
+																			!showPassword
+																		)
+																	}
+																	className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition"
+																	aria-label={
+																		showPassword
+																			? "Esconder senha"
+																			: "Mostrar senha"
+																	}
+																>
+																	{showPassword ? (
+																		<EyeClosed />
+																	) : (
+																		<Eye />
+																	)}
+																</button>
+															)}
 													</div>
 												</FormControl>
 												<FormMessage />
@@ -157,7 +160,7 @@ function LoginPage() {
 							className="w-full max-w-lg mx-auto"
 						>
 							<RegisterUserFormComponent
-								callBack={(e) => handleTabsChange(e)}
+								callBack={(tabs, cpf) => handleTabsChange(tabs, cpf)}
 							/>
 						</TabsContent>
 					</Tabs>

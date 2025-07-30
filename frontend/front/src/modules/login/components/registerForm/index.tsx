@@ -1,29 +1,29 @@
-import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
-	FormMessage,
+	FormMessage
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { errorHandler } from "@/shared/api/errorHandler";
+import { LoaderComponent } from "@/shared/components/loader";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Eye, EyeClosed } from "lucide-react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import type { RegisterInputDto } from "../../dtos/login";
 import {
 	registerUserSchema,
 	type registerUserSchemaType,
 } from "../../schemas/register";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { useAuthService } from "../../services/login.service";
-import { errorHandler } from "@/shared/api/errorHandler";
-import { useState } from "react";
-import { LoaderComponent } from "@/shared/components/loader";
-import toast from "react-hot-toast";
-import { Eye, EyeClosed } from "lucide-react";
 
 type Props = {
-	callBack: (value: string) => void;
+	callBack: (tabs: string, cpf: string) => void;
 };
 
 function RegisterUserFormComponent({ callBack }: Props) {
@@ -44,14 +44,20 @@ function RegisterUserFormComponent({ callBack }: Props) {
 	async function onSubmit(data: registerUserSchemaType) {
 		try {
 			setLoading(true);
-			await useAuthService.register(data);
+			const handleParams: RegisterInputDto = {
+				email: data.email,
+				nome: data.nome,
+				cpf: data.cpf.split(".").join("").replace("-", ""),
+				senha: data.senha,
+				role: data.role,
+			}
+			await useAuthService.register(handleParams);
 			toast.success("Usuário cadastrado com sucesso!");
+			callBack("login", data.cpf);
 			form.reset();
-			callBack("login");
 		} catch (error) {
 			console.error("Error registering user:", error);
 			errorHandler(error, "Erro ao cadastrar usuário");
-			// Handle error appropriately, e.g., show a notification
 		} finally {
 			setLoading(false);
 		}
