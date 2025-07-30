@@ -84,7 +84,7 @@ function HistoricoChatsPage() {
 											<DialogDescription>
 												🕐 criado:{" "}
 												{dayjs(chat.created_at).format(
-													"DD [do] MM [de] YYYY [às] HH:mm"
+													"DD/MM/YYYY HH:mm"
 												)}
 											</DialogDescription>
 										</DialogHeader>
