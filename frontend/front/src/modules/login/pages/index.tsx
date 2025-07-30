@@ -28,10 +28,9 @@ function LoginPage() {
 
 	function handleTabsChange(tabs: string, cpf: string) {
 		setTabsValue(tabs);
-		if (tabs === "login" && cpf.length > 0) {
+		if (tabs === "login") {
 			form.setValue("cpf", cpf);
 		}
-		form.reset()
 	}
 
 	return (

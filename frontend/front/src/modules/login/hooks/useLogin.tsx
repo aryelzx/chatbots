@@ -2,6 +2,7 @@ import { useChatContext } from "@/modules/chats/context/useChatContext";
 import type { IChat } from "@/modules/chats/interfaces/chat.interface";
 import type { IUser } from "@/modules/usuarios/interfaces/user-interface";
 import { errorHandler } from "@/shared/api/errorHandler";
+import { isValidCPF } from "@/shared/utils/validateCpf";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -18,7 +19,13 @@ function UseLoginHook() {
 	const navigate = useNavigate();
 
 	const loginSchema = {
-		cpf: z.string().min(11, "CPF deve ter 11 dígitos"),
+		cpf: z
+			.string()
+			.min(11, "CPF deve ter 11 dígitos")
+			.max(14, "CPF inválido")
+			.refine(isValidCPF, {
+				message: "CPF inválido",
+			}),
 		senha: z.string().min(6, "Senha deve ter no mínimo 6 caracteres"),
 	};
 
