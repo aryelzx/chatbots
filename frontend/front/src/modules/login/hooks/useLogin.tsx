@@ -4,6 +4,7 @@ import { useAuthService } from "../services/login.service";
 import { useUserContext } from "../context/useUserContext";
 import { useNavigate } from "react-router-dom";
 import { errorHandler } from "@/shared/api/errorHandler";
+import toast from "react-hot-toast";
 
 function UseLoginHook() {
 	const { user: currentUser } = useUserContext();
@@ -17,6 +18,7 @@ function UseLoginHook() {
 				"@chatbots_access_token",
 				JSON.stringify(response.token)
 			);
+			toast.success("Seja bem vindo!");
 			navigate("/dashboard");
 		} catch (error) {
 			errorHandler(error, "Erro ao fazer login");
