@@ -65,6 +65,12 @@ caso os scrips em /sql/init.sql não forem executados, verifica se o volume chat
 ### Orientações
 Para criar um chat é necessário criar um usuário, pois existe uma restrição nas colunas 'created_by, user_id' com FK na coluna 'id' na tabela 'usuarios'.
 
+iniciar o front
+caso o ts aponte erro da tipagem 'AxiosInstance' é necessário instalar os tipos na mão com o comando:
+```bash
+npm install --save-dev @types/axios
+```
+
 ### pacotes da API
 ```cmd
   dotnet add package Microsoft.EntityFrameworkCore
