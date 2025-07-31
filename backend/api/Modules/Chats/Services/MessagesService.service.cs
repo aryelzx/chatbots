@@ -22,13 +22,24 @@ public class MessagesService
     /// <returns>Resposta da IA.</returns>
     public async Task<Mensagem> RegisterMessage(int id_chat, MensagemInputDto pergunta)
     {
-        var chat = _context.chats.FirstOrDefault(c => c.id == id_chat && c.deleted_at == null);
+        var chat = _context.chats.FirstOrDefault(c => c.id == id_chat && c.deleted_at == null && c.status == "A");
         if (chat == null)
         {
             throw new Exception("Chat não encontrado ou inativo.");
         }
 
-        var resposta = await _openAiService.QuestionAsync(pergunta);
+        var perguntaParam = new MensagemInputDto
+        {
+            user_id = pergunta.user_id,
+            prompt_input_text = pergunta.prompt_input_text,
+            context = chat.context,
+            tipo = pergunta.tipo,
+            send_by = pergunta.send_by,
+            modelo = chat.modelo,
+            created_by = pergunta.created_by
+        };
+
+        var resposta = await _openAiService.QuestionAsync(perguntaParam);
 
         var mensagem = new Mensagem
         {
@@ -37,10 +48,11 @@ public class MessagesService
             user_id = pergunta.user_id,
             mensagem = resposta,
             prompt_input_text = pergunta.prompt_input_text,
-            prompt_context = pergunta.context,
+            prompt_context = chat.context,
             tipo = pergunta.tipo,
             send_by = pergunta.send_by,
-            created_by = pergunta.created_by
+            created_by = pergunta.created_by,
+            prompt_modelo = chat.modelo
         };
 
         _context.mensagens.Add(mensagem);
@@ -55,7 +67,10 @@ public class MessagesService
             prompt_input_text = mensagem.prompt_input_text,
             prompt_context = mensagem.prompt_context,
             tipo = mensagem.tipo,
-            created_at = mensagem.created_at
+            created_at = mensagem.created_at,
+            prompt_modelo = mensagem.prompt_modelo,
+            send_by = mensagem.send_by,
+            created_by = mensagem.created_by,
         };
     }
 

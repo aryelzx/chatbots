@@ -24,9 +24,9 @@ namespace ModularApi.Modules.Users.Models
         public string mensagem { get; set; } = string.Empty;
         public string prompt_input_text { get; set; } = string.Empty;
         public string tipo { get; set; } = string.Empty;
-        public string? prompt_context { get; set; } = string.Empty;
-        public string? prompt_role { get; set; } = string.Empty;
-        public string? prompt_modelo { get; set; } = string.Empty;
+        public string? prompt_context { get; set; }
+        public string? prompt_role { get; set; }
+        public string? prompt_modelo { get; set; }
         public string send_by { get; set; }
         public int? created_by { get; set; }
         public int? updated_by { get; set; }
