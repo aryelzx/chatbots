@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using ModularApi.Infrastructure.Data;
 using ModularApi.Modules.Auth.DTOs;
+using System.Reflection.Metadata;
 
 namespace ModularApi.Modules.Auth.Controllers
 {
@@ -13,10 +14,12 @@ namespace ModularApi.Modules.Auth.Controllers
     public class AuthController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly ChatsService _chatsService;
 
         public AuthController(ApplicationDbContext context)
         {
             _context = context;
+            _chatsService = new ChatsService(context);
         }
 
         /// <summary>
@@ -27,15 +30,18 @@ namespace ModularApi.Modules.Auth.Controllers
         public IActionResult Login([FromBody] LoginDto dto)
         {
             var user = _context.usuarios.FirstOrDefault(u => u.cpf == dto.cpf);
-
             if (user == null || string.IsNullOrEmpty(user.senha))
-            {
+            {   
+                Console.WriteLine("primeiro if");
                 return Unauthorized(new { Message = "CPF ou senha inválidos." });
             }
 
             bool isPasswordValid = BCrypt.Net.BCrypt.Verify(dto.senha, user?.senha);
+            Console.WriteLine(user?.senha);
+            Console.WriteLine(dto.senha);
             if (!isPasswordValid)
             {
+                Console.WriteLine("segundo if");
                 return Unauthorized(new { Message = "CPF ou senha inválidos." });
             }
 
@@ -60,6 +66,8 @@ namespace ModularApi.Modules.Auth.Controllers
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(secretKey), SecurityAlgorithms.HmacSha256)
             );
 
+            var hasChat = _chatsService.GetChatById(user.id);
+
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
             var userResponse = new LoginResponseDto
@@ -68,7 +76,8 @@ namespace ModularApi.Modules.Auth.Controllers
                 nome = user.nome ?? string.Empty,
                 cpf = user.cpf,
                 email = user.email ?? string.Empty,
-                role = user.role
+                role = user.role,
+                hasChat = hasChat
             };
 
             return Ok(new

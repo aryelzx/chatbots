@@ -9,6 +9,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 Env.Load();
 
+// CORS CONFIGURATION
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials(); 
+    });
+});
+
+// DB CONFIGURATION
 var connectionString = $"Host={Environment.GetEnvironmentVariable("POSTGRES_HOST")};" +
                        $"Database={Environment.GetEnvironmentVariable("POSTGRES_DB")};" +
                        $"Username={Environment.GetEnvironmentVariable("POSTGRES_USER")};" +
@@ -61,6 +74,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.MapOpenApi();
 }
+
+app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 app.UseAuthentication();

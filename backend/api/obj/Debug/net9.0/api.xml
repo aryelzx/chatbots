@@ -42,9 +42,9 @@
         </member>
         <member name="M:ModularApi.Modules.Chats.Controllers.ChatsController.GetAllMessagesByChat(System.Int32)">
             <summary>
-             Manda mensagem para o Chat.
+             Lista todas as mensagens baseadas no id do Chat.
              </summary>
-             <returns>Manda mensagem para o Chat.</returns>
+             <returns>Lista todas as mensagens baseadas no id do Chat.</returns>
         </member>
         <member name="M:ModularApi.Modules.Users.Controllers.UsersController.GetAllUsers">
             <summary>

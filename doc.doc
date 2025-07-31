@@ -1,0 +1,15 @@
+# primeiro acesso
+
+ao entrar no modulo de chats, será verificado se o usuário possue um chat criado, se não possui, a tela mostrará o formulário
+de criação de chat, sendo assim, após a criação do primeiro chat, será aberto o mesmo automaticamente, após fechar o chat e entrar
+novamente, será retornado sempre o último chat do usuário. 
+  precisa ser adicionado:
+     botão de criação de chat sempre;
+     botão para navegar para o histórico de chats;
+     botão de informações do chat, abrindo um modal de formulário preenchido, podendo editar o mesmo;
+
+
+#backend
+a verificação se o usuário possui um chat será retornado em um parâmetro true ou false no retorno do login;
+se o usuario criar um, sera alterado o parametro no storage local da aplicação. assim no proximo login, sera verificado
+que ele já possui um chat;
