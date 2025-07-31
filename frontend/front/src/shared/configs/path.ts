@@ -1,6 +1,6 @@
 const pathBuilder = (mode: string) => {
-	const production = import.meta.env.VITE_API_URL_PRODUCTION;
-	const development = import.meta.env.VITE_API_URL_DEVELOPMENT;
+	const production = "http://localhost:5074/api";
+	const development = "http://localhost:5074/api";
 
 	return mode === "production" ? production : development;
 };
