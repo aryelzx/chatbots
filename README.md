@@ -59,6 +59,8 @@ chmod +x start.sh
 ```cmd
 ./start.sh reset
 ```
+### Observações
+caso os scrips em /sql/init.sql não forem executados, verifica se o volume chatbots_pgdata já foi inicializado antes, então o Postgres não irá rodar novamente os scripts .sql, pois ele só roda esses scripts quando o diretório de dados está vazio (ou seja, na criação do volume).
 
 ### pacotes da API
 ```cmd
