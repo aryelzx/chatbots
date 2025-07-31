@@ -21,6 +21,12 @@ const SidebarDrawer = ({ children, buttons }: Props) => {
 	const { user } = useUserContext();
 	const navigate = useNavigate();
 
+	function handleLogout() {
+		localStorage.removeItem("@chatbots_access_token");
+		localStorage.removeItem("@chatbots_user");
+		navigate("/");
+	}
+
 	return (
 		<div>
 			<Sheet modal={true}>
@@ -114,7 +120,7 @@ const SidebarDrawer = ({ children, buttons }: Props) => {
 								<Button variant="outline" onClick={() => setIsOpenDialog(!isOpenDialog)}>
 									Cancelar
 								</Button>
-								<Button onClick={() => setIsOpenDialog(!isOpenDialog)}>Confirmar</Button>
+								<Button onClick={handleLogout()}>Confirmar</Button>
 							</DialogFooter>
 						</DialogContent>
 					</Dialog>

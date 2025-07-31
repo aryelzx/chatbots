@@ -16,10 +16,10 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "role": "U",
-  "email": "teste10@gmail.com",
-  "nome": "André Hasvowlinks",
-  "cpf": "61242278767",
+  "role": "A",
+  "email": "teste1@gmail.com",
+  "nome": "Aryel Cordeiro Ramos Gonçalves",
+  "cpf": "61942248350",
   "senha": "liv@1202"
 }
 
@@ -45,7 +45,7 @@ Accept: application/json
   "role": "A",
   "email": "testee1@gmail.com",
   "nome": "André Hasvowlinks",
-  "cpf": "61942248350",
+  "cpf": "61942248351",
   "senha": "liv@1202"
 }
 ###

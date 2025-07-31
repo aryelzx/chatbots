@@ -4,4 +4,5 @@ export interface IUser {
   email: string;
   role: string;
   cpf: string;
+  hasChat: boolean;
 }
