@@ -62,6 +62,9 @@ chmod +x start.sh
 ### Observações
 caso os scrips em /sql/init.sql não forem executados, verifica se o volume chatbots_pgdata já foi inicializado antes, então o Postgres não irá rodar novamente os scripts .sql, pois ele só roda esses scripts quando o diretório de dados está vazio (ou seja, na criação do volume).
 
+### Orientações
+Para criar um chat é necessário criar um usuário, pois existe uma restrição nas colunas 'created_by, user_id' com FK na coluna 'id' na tabela 'usuarios'.
+
 ### pacotes da API
 ```cmd
   dotnet add package Microsoft.EntityFrameworkCore
