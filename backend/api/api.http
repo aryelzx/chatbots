@@ -71,27 +71,26 @@ Content-Type: application/json
 Accept: application/json3
 
 {
-  "context": "Teste de chat",
+  "context": "Fale em inglês",
   "nome": "Chat de teste",
-  "modelo": "gpt-3.5-turbo",
-  "descricao": "Este é um chat de teste",
+  "modelo": "moonshotai/kimi-k2:free",
+  "descricao": "Este é um chat moonshotai/kimi-k2:free",
   "status": "A",
-  "user_id": 1,
-  "created_by": 1
+  "user_id": 2,
+  "created_by": 2
 }
  
 ###
-POST {{api_HostAddress}}/api/chats/send-message/2 HTTP/1.1
+POST {{api_HostAddress}}/api/chats/send-message/3 HTTP/1.1
 Content-Type: application/json
 Accept: application/json3
 
 {
-  "user_id": 1,
-  "prompt_input_text": "diga ola",
+  "user_id": 2,
+  "prompt_input_text": "diga o meu nome 'Aryel'",
   "tipo": "U",
-  "context": "responda em inglês",
   "send_by": "P",
-  "created_by": 1
+  "created_by": 2
 }
 
 ###
