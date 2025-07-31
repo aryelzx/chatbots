@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ModularApi.Infrastructure.Data;
 using ModularApi.Modules.Chats.DTOs;
 using ModularApi.Modules.Users.Models;
@@ -57,6 +57,32 @@ public class MessagesService
             tipo = mensagem.tipo,
             created_at = mensagem.created_at
         };
+    }
 
+    /// <summary>
+    /// Retorna todas as mensagens baseadas no ID do chat.
+    /// </summary>
+    /// <param name="id_chat">ID do chat.</param>
+    /// <returns>Lista de mensagens do chat.</returns>
+    public async Task<List<Mensagem>> GetMessagesByChat(int id_chat)
+    {
+        try
+        {
+
+            var chat = _context.chats.FirstOrDefault(c => c.id == id_chat && c.deleted_at == null);
+            if (chat == null)
+            {
+                throw new Exception("Chat não encontrado ou inativo.");
+            }
+            var mensagens = await  _context.mensagens
+                .Where(m => m.chat_id == id_chat && m.deleted_at == null)
+                .OrderByDescending(m => m.created_at)
+                .ToListAsync();
+            return mensagens;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Erro ao buscar mensagens do chat.", ex);
+        }
     }
 }
