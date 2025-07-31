@@ -8,7 +8,11 @@ type messageInputDto = {
 }
 
 type messageOutputDto = {
-  id: number;
+  messages: messageType[];
+}
+
+type messageType = {
+    id: number;
   chat_id: number;
   user_id: number;
   mensagem: string;
@@ -26,4 +30,4 @@ type messageOutputDto = {
   deleted_at?: Date;
 }
 
-export { messageInputDto, messageOutputDto };
+export { messageInputDto, messageOutputDto, messageType };

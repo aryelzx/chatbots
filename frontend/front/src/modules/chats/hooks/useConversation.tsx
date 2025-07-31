@@ -1,29 +1,27 @@
 import { errorHandler } from "@/shared/api/errorHandler";
 import { useConversationService } from "../services/conversation.service";
-import type { messageOutputDto } from "../dtos/conversation";
+import type { messageOutputDto, messageType } from "../dtos/conversation";
 import { useEffect, useState } from "react";
 
 type useConversationReturn = {
 	handleGetConversation: (
 		chat_id: number
-	) => Promise<messageOutputDto[] | null>;
+	) => Promise<messageOutputDto | null>;
 	messages: {
-		get: messageOutputDto[];
-		set: (messages: messageOutputDto[]) => void;
+		get: messageType[];
+		set: (messages: messageType[]) => void;
 	};
 };
 
 function useConversation(): useConversationReturn {
-	const [messagesByChat, setMessagesByChat] = useState<messageOutputDto[]>(
-		[]
-	);
+	const [messagesByChat, setMessagesByChat] = useState<messageType[]>([]);
 
 	async function handleGetConversation(chat_id: number) {
 		try {
 			const conversation = await useConversationService.getMessages(
 				chat_id
 			);
-			setMessagesByChat(conversation);
+			setMessagesByChat(conversation.messages);
 			return conversation;
 		} catch (e) {
 			errorHandler(e, "useConversation.handleGetConversation");

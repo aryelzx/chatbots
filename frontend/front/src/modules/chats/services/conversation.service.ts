@@ -8,7 +8,7 @@ class ConversationService {
 		this.api = api;
 	}
 
-	async getMessages(id_chat: number): Promise<messageOutputDto[]> {
+	async getMessages(id_chat: number): Promise<messageOutputDto> {
 		try {
 			const response = await this.api.get(
 				`${this.baseURL}/get-messages/${id_chat}`
