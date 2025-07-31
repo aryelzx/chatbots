@@ -43,6 +43,24 @@ public class ChatsService : IChatsService
             .ToList();
     }
 
+    public bool GetChatById(int id)
+    {
+        var chat = _context.chats
+            .Where(c => c.id == id && c.deleted_at == null)
+            .Select(c => new ChatDto
+            {
+                id = c.id
+            })
+            .FirstOrDefault();
+
+        if (chat == null)
+        {
+           return false;
+        }
+
+        return true;
+    }
+
     public List<ChatDto> ChatByName(string nome)
     {
         var chats = _context.chats

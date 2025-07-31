@@ -13,6 +13,7 @@ namespace ModularApi.Modules.Auth.DTOs
         public string email { get; set; } = string.Empty;
         public string role { get; set; } = string.Empty;
         public string cpf { get; set; } = string.Empty;
+        public bool hasChat { get; set; } = false;
     
     }
 
