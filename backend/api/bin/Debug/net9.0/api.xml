@@ -40,6 +40,12 @@
              </summary>
              <returns>Manda mensagem para o Chat.</returns>
         </member>
+        <member name="M:ModularApi.Modules.Chats.Controllers.ChatsController.GetAllMessagesByChat(System.Int32)">
+            <summary>
+             Manda mensagem para o Chat.
+             </summary>
+             <returns>Manda mensagem para o Chat.</returns>
+        </member>
         <member name="M:ModularApi.Modules.Users.Controllers.UsersController.GetAllUsers">
             <summary>
             Retorna todos os usuário.
@@ -77,6 +83,13 @@
             <param name="id_chat">ID do chat.</param>
             <param name="pergunta">Pergunta a ser enviada.</param>
             <returns>Resposta da IA.</returns>
+        </member>
+        <member name="M:MessagesService.GetMessagesByChat(System.Int32)">
+            <summary>
+            Retorna todas as mensagens baseadas no ID do chat.
+            </summary>
+            <param name="id_chat">ID do chat.</param>
+            <returns>Lista de mensagens do chat.</returns>
         </member>
     </members>
 </doc>
