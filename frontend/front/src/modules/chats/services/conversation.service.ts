@@ -1,18 +1,17 @@
-import type { AxiosInstance } from "axios";
 import type { messageOutputDto } from "../dtos/conversation";
 import { http } from "@/shared/api/http";
-
+import type { AxiosInstance } from "axios";
 class ConversationService {
 	private readonly api: AxiosInstance;
-
+	private readonly baseURL = "/chats";
 	constructor(api: AxiosInstance) {
 		this.api = api;
 	}
 
-	async getMessages(conversationId: number): Promise<messageOutputDto[]> {
+	async getMessages(id_chat: number): Promise<messageOutputDto[]> {
 		try {
 			const response = await this.api.get(
-				`/conversations/${conversationId}/messages`
+				`${this.baseURL}/get-messages/${id_chat}`
 			);
 			return response.data;
 		} catch (error) {

@@ -1,9 +1,12 @@
 
 import { useState } from "react";
 import { WellcomeComponent } from "../Wellcome";
+import useConversation from "../../hooks/useConversation";
 
 function ChatConversationComponent() {
     const [wellcomeMessage, setWelcomeMessage] = useState<boolean>(true);
+    const { messages } = useConversation();
+
     return (
         <div className="flex flex-col h-full w-full">
             {wellcomeMessage ? (
@@ -12,9 +15,9 @@ function ChatConversationComponent() {
                 <div className="flex flex-col h-full p-4">
                     <div className="flex-1 overflow-y-auto">
                         {/* Aqui você pode adicionar a lógica para exibir mensagens de chat */}
-                        <p>Mensagem 1</p>
-                        <p>Mensagem 2</p>
-                        <p>Mensagem 3</p>
+                        {messages.get.map((message) => (
+                            <p key={message.id}>{message.mensagem}</p>
+                        ))}
                     </div>
                     <div className="mt-4">
                         <input
