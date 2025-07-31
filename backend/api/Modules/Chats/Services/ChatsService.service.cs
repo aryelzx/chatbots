@@ -6,7 +6,7 @@ public interface IChatsService
 {
     List<ChatDto> GetAllChats();
     List<ChatDto> ChatByName(string nome);
-    ChatDto CreateChat(ChatDto chat);
+    ChatDto CreateChat(ChatInputDto chat);
     ChatDto UpdateChatById(int id, ChatDto chatDto);
 
 }
@@ -88,7 +88,7 @@ public class ChatsService : IChatsService
         return chats;
     }
 
-    public ChatDto CreateChat(ChatDto chatDto)
+    public ChatDto CreateChat(ChatInputDto chatDto)
     {
         var chat = new Chats
         {
@@ -98,7 +98,7 @@ public class ChatsService : IChatsService
             descricao = chatDto.descricao,
             status = chatDto.status,
             user_id = chatDto.user_id,
-            created_by = chatDto.created_by,
+            created_by = chatDto.user_id,
             created_at = DateTime.UtcNow
         };
 

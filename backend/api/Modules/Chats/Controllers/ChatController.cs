@@ -62,7 +62,7 @@ namespace ModularApi.Modules.Chats.Controllers
         /// </summary>
         /// <returns>Registro de Chats</returns>
         [HttpPost("create")]
-        public IActionResult CreateChat([FromBody] ChatDto chat)
+        public IActionResult CreateChat([FromBody] ChatInputDto chat)
         {
             try
             {
