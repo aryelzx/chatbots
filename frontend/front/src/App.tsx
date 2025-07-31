@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import toast, { Toaster, useToasterStore } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router/main.routes";
+import { ContextProviders } from "./shared/context/main.context";
 
 function App() {
   const { toasts } = useToasterStore();
@@ -15,10 +16,10 @@ function App() {
   }, [toasts]);
 
   return (
-    <>
+    <ContextProviders>
       <Toaster position="top-right" />
       <RouterProvider router={router} />
-    </>
+    </ContextProviders>
   )
 }
 

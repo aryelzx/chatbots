@@ -9,6 +9,7 @@ import { MdOutlineLogout } from "react-icons/md";
 import { PiArrowRight, PiCaretLeftBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import type { SidebarButton } from "../layout";
+import { useUserContext } from "@/modules/login/context/useUserContext";
 
 type Props = {
 	children: React.ReactNode;
@@ -17,6 +18,7 @@ type Props = {
 
 const SidebarDrawer = ({ children, buttons }: Props) => {
 	const [isOpenDialog, setIsOpenDialog] = useState(false);
+	const { user } = useUserContext();
 	const navigate = useNavigate();
 
 	return (
@@ -80,9 +82,9 @@ const SidebarDrawer = ({ children, buttons }: Props) => {
 									<PiArrowRight className=" text-lg" />
 								</button>
 							</div>
-							{/* <div className="flex flex-col items-center">
-								<p className="text-zinc-50 text-lg">{user.value}</p>
-							</div> */}
+							<div className="flex flex-col items-center">
+								<p className="text-zinc-50 text-lg">{user.value.nome}</p>
+							</div> 
 						</SheetDescription>
 						<SheetClose>
 							<button
