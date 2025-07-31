@@ -121,5 +121,27 @@ namespace ModularApi.Modules.Chats.Controllers
                 return StatusCode(500, new { Message = "Erro inesperado.", Details = ex.Message });
             }
         }
+
+        /// <summary>
+        ///  Lista todas as mensagens baseadas no id do Chat.
+        ///  </summary>
+        ///  <returns>Lista todas as mensagens baseadas no id do Chat.</returns>
+        [HttpGet("get-messages/{id_chat}")]
+        public async Task<IActionResult> GetAllMessagesByChat(int id_chat)
+        {
+            if (id_chat <= 0)
+            {
+                return BadRequest(new { Message = "ID do chat inválido." });
+            }
+            try
+            {
+                var messages = await _messagesService.GetMessagesByChat(id_chat);
+                return Ok(new { messages });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Erro inesperado.", Details = ex.Message });
+            }
+        }
     }
 }
