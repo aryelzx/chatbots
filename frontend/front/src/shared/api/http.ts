@@ -1,8 +1,9 @@
+import axios, { type AxiosInstance } from "axios";
 import { baseURL } from "../configs/path";
 
 ;
 
-function httpClientBuilder() {
+function httpClientBuilder(): AxiosInstance {
     const client = axios.create({ baseURL })
 
     client.interceptors.request.use(
@@ -10,10 +11,7 @@ function httpClientBuilder() {
             const token = localStorage.getItem("@chatbots_access_token");
 
             if (token){
-                config.headers = {
-                    ...config.headers,
-                    Authorization: `Bearer ${token}`,
-                };
+                config.headers["Authorization"] = `Bearer ${token}`;
             }
 
             return config;
@@ -23,6 +21,8 @@ function httpClientBuilder() {
             return Promise.reject(error);
         }
     );
+
+    return client;
 }
 
 const http = httpClientBuilder();
