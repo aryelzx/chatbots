@@ -2,11 +2,18 @@
 import useConversation from "../../hooks/useConversation";
 import { useUserContext } from "@/modules/login/context/useUserContext";
 import { CreateChatComponent } from "../CreateChat";
+import { useEffect } from "react";
 
 function ChatConversationComponent() {
     const { user } = useUserContext();
     const { messages } = useConversation();
-    console.log(messages.get, 'messages');
+
+    useEffect(() => {
+        if (user.value.hasChat) {
+            console.log("Usuário tem chat!", user.value.hasChat);
+        }
+    }, [user.value.hasChat, messages]);
+
     return (
         <div className="flex flex-col h-full w-full">
             {!user.value.hasChat ? (
