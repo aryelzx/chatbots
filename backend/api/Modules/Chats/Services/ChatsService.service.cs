@@ -46,13 +46,12 @@ public class ChatsService : IChatsService
     public bool GetChatById(int id)
     {
         var chat = _context.chats
-            .Where(c => c.id == id && c.deleted_at == null)
+            .Where(c => c.user_id == id && c.deleted_at == null)
             .Select(c => new ChatDto
             {
                 id = c.id
             })
             .FirstOrDefault();
-
         if (chat == null)
         {
            return false;
