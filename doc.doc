@@ -11,3 +11,5 @@ novamente, será retornado sempre o último chat do usuário.
 
 #backend
 a verificação se o usuário possui um chat será retornado em um parâmetro true ou false no retorno do login;
+se o usuario criar um, sera alterado o parametro no storage local da aplicação. assim no proximo login, sera verificado
+que ele já possui um chat;
