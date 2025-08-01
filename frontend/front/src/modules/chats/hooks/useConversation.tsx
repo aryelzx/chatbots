@@ -2,6 +2,7 @@ import { errorHandler } from "@/shared/api/errorHandler";
 import { useConversationService } from "../services/conversation.service";
 import type { messageOutputDto, messageType } from "../dtos/conversation";
 import { useEffect, useState } from "react";
+import { useUserContext } from "@/modules/login/context/useUserContext";
 
 type useConversationReturn = {
 	handleGetConversation: (
@@ -14,8 +15,8 @@ type useConversationReturn = {
 };
 
 function useConversation(): useConversationReturn {
+	const { user } = useUserContext();
 	const [messagesByChat, setMessagesByChat] = useState<messageType[]>([]);
-
 	async function handleGetConversation(chat_id: number) {
 		try {
 			const conversation = await useConversationService.getMessages(
@@ -28,7 +29,7 @@ function useConversation(): useConversationReturn {
 			return null;
 		}
 	}
-	
+
 	useEffect(() => {
 		handleGetConversation(2);
 	}, []);
