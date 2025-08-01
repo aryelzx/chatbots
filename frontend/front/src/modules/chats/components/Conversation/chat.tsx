@@ -1,19 +1,25 @@
 import { useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Bot, CircleEllipsis, Info, Send } from "lucide-react";
+import {
+	Backpack,
+	Bot,
+	CircleEllipsis,
+	GalleryHorizontalEnd,
+	Info,
+	Leaf,
+	MoveLeft,
+	Plus,
+	Send,
+	Undo2,
+} from "lucide-react";
 import type { messageType } from "../../dtos/conversation";
 import { useChatContext } from "../../context/useChatContext";
 import dayjs from "dayjs";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ChatInfoDialog } from "./chatDialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useNavigate } from "react-router-dom";
+import { Tooltip } from "@/components/ui/tooltip";
 
 type Props = {
 	messages: messageType[];
@@ -23,7 +29,7 @@ function ChatMessagesComponent({ messages }: Props) {
 	const [input, setInput] = useState("");
 	const bottomRef = useRef<HTMLDivElement>(null);
 	const { currentChat } = useChatContext();
-
+	const navigate = useNavigate();
 	useEffect(() => {
 		bottomRef.current?.scrollIntoView({ behavior: "smooth" });
 	}, [messages]);
@@ -88,7 +94,25 @@ function ChatMessagesComponent({ messages }: Props) {
 			</ScrollArea>
 
 			<footer className="border-t border-zinc-800 p-4">
-				<div className="flex items-center gap-2 max-w-5xl mx-auto">
+				<div className="flex items-center gap-2 max-w-6xl mx-auto">
+					<button
+						className="text-zinc-400 hover:text-white transition-colors cursor-pointer"
+						onClick={() => navigate(-1)}
+					>
+						<Undo2 />
+					</button>
+					<button
+						className="text-zinc-400 hover:text-white transition-colors cursor-pointer"
+						onClick={() => navigate("/chats/historico")}
+					>
+						<GalleryHorizontalEnd />
+					</button>
+					<button
+						className="text-zinc-400 hover:text-white transition-colors cursor-pointer"
+						onClick={() => navigate("/chats/create")}
+					>
+						<Plus />
+					</button>
 					<Input
 						className="flex-1 h-12 bg-zinc-800 border-zinc-700 text-white placeholder-zinc-400"
 						placeholder="Digite sua mensagem..."
@@ -100,7 +124,7 @@ function ChatMessagesComponent({ messages }: Props) {
 					/>
 					<button
 						// onClick={handleSend}
-						className="p-2 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors"
+						className="p-2 rounded-lg bg-gray-600 hover:bg-gray-700 transition-colors cursor-pointer"
 					>
 						<Send size={20} color="white" />
 					</button>
