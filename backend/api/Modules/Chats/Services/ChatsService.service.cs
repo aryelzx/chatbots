@@ -113,7 +113,22 @@ public class ChatsService : IChatsService
 
         if (chat == null)
         {
-            throw new Exception("Chat não encontrado.");
+            return new ChatDto
+            {
+                id = 0,
+                context = string.Empty,
+                nome = string.Empty,
+                modelo = string.Empty,
+                descricao = string.Empty,
+                status = string.Empty,
+                user_id = userId,
+                created_by = null,
+                updated_by = null,
+                deleted_by = null,
+                created_at = DateTime.MinValue,
+                updated_at = null,
+                deleted_at = null
+            }; 
         }
 
         return chat;

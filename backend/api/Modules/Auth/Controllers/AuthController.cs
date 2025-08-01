@@ -6,6 +6,7 @@ using System.Text;
 using ModularApi.Infrastructure.Data;
 using ModularApi.Modules.Auth.DTOs;
 using System.Reflection.Metadata;
+using ModularApi.Modules.Chats.DTOs;
 
 namespace ModularApi.Modules.Auth.Controllers
 {
@@ -78,7 +79,7 @@ namespace ModularApi.Modules.Auth.Controllers
                 email = user.email ?? string.Empty,
                 role = user.role,
                 hasChat = hasChat,
-                latestChat = _chatsService.GetLatestChatByUserId(user.id)
+                latestChat = _chatsService.GetLatestChatByUserId(user.id) ?? new ChatDto()
             };
 
             return Ok(new
