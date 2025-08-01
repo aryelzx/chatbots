@@ -1,3 +1,5 @@
+using ModularApi.Modules.Chats.DTOs;
+
 namespace ModularApi.Modules.Auth.DTOs
 {
     public class LoginDto
@@ -14,7 +16,9 @@ namespace ModularApi.Modules.Auth.DTOs
         public string role { get; set; } = string.Empty;
         public string cpf { get; set; } = string.Empty;
         public bool hasChat { get; set; } = false;
-    
+
+        public int latestChat { get; set; } = 0;
+
     }
 
 }

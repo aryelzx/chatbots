@@ -88,6 +88,37 @@ public class ChatsService : IChatsService
         return chats;
     }
 
+    public ChatDto GetLatestChatByUserId(int userId)
+    {
+        var chat = _context.chats
+            .Where(c => c.user_id == userId && c.deleted_at == null)
+            .OrderByDescending(c => c.created_at)
+            .Select(c => new ChatDto
+            {
+                id = c.id,
+                context = c.context,
+                nome = c.nome,
+                modelo = c.modelo,
+                descricao = c.descricao,
+                status = c.status,
+                user_id = c.user_id,
+                created_by = c.created_by,
+                updated_by = c.updated_by,
+                deleted_by = c.deleted_by,
+                created_at = c.created_at,
+                updated_at = c.updated_at,
+                deleted_at = c.deleted_at
+            })
+            .FirstOrDefault();
+
+        if (chat == null)
+        {
+            throw new Exception("Chat não encontrado.");
+        }
+
+        return chat;
+    }
+
     public ChatDto CreateChat(ChatInputDto chatDto)
     {
         var chat = new Chats

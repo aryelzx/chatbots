@@ -77,7 +77,8 @@ namespace ModularApi.Modules.Auth.Controllers
                 cpf = user.cpf,
                 email = user.email ?? string.Empty,
                 role = user.role,
-                hasChat = hasChat
+                hasChat = hasChat,
+                latestChat = _chatsService.GetLatestChatByUserId(user.id).id
             };
 
             return Ok(new
