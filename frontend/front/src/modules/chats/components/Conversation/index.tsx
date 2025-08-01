@@ -16,7 +16,11 @@ function ChatConversationComponent() {
 
     return (
         <div className="flex flex-col h-full w-full">
-            {!user.value.hasChat ? (
+            <header>
+                <h1 className="text-2xl font-bold">Chats</h1>
+                <p className="text-gray-600">Gerencie suas conversas aqui.</p>
+            </header>
+            {user.value.hasChat ? (
                <CreateChatComponent />
                 // <WellcomeComponent />
             ) : (

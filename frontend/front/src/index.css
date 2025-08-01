@@ -1,7 +1,26 @@
+@import "@fontsource/inter/index.css";
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
+
+body {
+  @apply font-sans;
+}
+@layer utilities {
+  .custom-variant {
+    @apply bg-background text-foreground;
+  }
+}
+@custom-variant light (&:is(.light *));
+@custom-variant light (&:is(.light *):not(.dark *));
+@custom-variant light (&:is(.light *) .dark *);
+@custom-variant light (&:is(.light *) .dark *:not(.dark *));
 @custom-variant dark (&:is(.dark *));
+
+body {
+  font-family: "Inter", sans-serif;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
