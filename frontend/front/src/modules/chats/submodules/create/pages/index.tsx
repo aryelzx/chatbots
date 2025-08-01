@@ -21,11 +21,13 @@ import {
 import { Bot, Undo2 } from "lucide-react";
 import { ChatsLayout } from "@/modules/chats/layout";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "@/modules/login/context/useUserContext";
 
 function CreateChatPage() {
 	const { form, handleCreateChat } = useCreateChatHook();
+	const { user } = useUserContext();
 	const navigate = useNavigate();
-	function handleGoBack() {	
+	function handleGoBack() {
 		navigate(-1); // Navigate back to the previous page
 	}
 	return (
@@ -38,9 +40,14 @@ function CreateChatPage() {
 					style={{ filter: "blur(0px)" }}
 				/>
 				<div className="flex  items-center mb-8 gap-2">
-					<button onClick={handleGoBack} className="px-2 py-2 rounded-full bg-zinc-200 hover:bg-zinc-300 transition-colors">
-						<Undo2 color="gray" size={15} />
-					</button>
+					{user.value.hasChat && (
+						<button
+							onClick={handleGoBack}
+							className="px-2 py-2 rounded-full bg-zinc-200 hover:bg-zinc-300 transition-colors"
+						>
+							<Undo2 color="gray" size={15} />
+						</button>
+					)}
 					<h1 className="text-2xl font-semibold text-center">
 						Criar Novo Chat
 					</h1>
@@ -132,14 +139,14 @@ function CreateChatPage() {
 											</SelectTrigger>
 										</FormControl>
 										<SelectContent>
-											<SelectItem value="gpt-3.5-turbo">
-												GPT-3.5 Turbo
+											<SelectItem value="mistralai/mistral-7b-instruct:free">
+												Mistralai/mistral
 											</SelectItem>
-											<SelectItem value="gpt-4">
-												GPT-4
+											<SelectItem value="moonshotai/kimi-k2:free">
+												Moonshotai
 											</SelectItem>
-											<SelectItem value="gpt-4o">
-												GPT-4o
+											<SelectItem value="google/gemma-3n-e2b-it:free">
+												Google/Gemma
 											</SelectItem>
 										</SelectContent>
 									</Select>

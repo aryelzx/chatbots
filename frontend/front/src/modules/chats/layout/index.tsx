@@ -1,3 +1,4 @@
+import { useUserContext } from "@/modules/login/context/useUserContext";
 import {
 	Layout,
 	type Breadcrumb,
@@ -11,6 +12,7 @@ export type Children = {
 };
 
 const ChatsLayout = ({ children }: Children) => {
+	const { user } = useUserContext();
 	const [breadcrumbs, setBreadcrumbs] = useState<Breadcrumb[]>([
 		{ label: "Chats", path: "/chats" },
 	]);
@@ -20,7 +22,7 @@ const ChatsLayout = ({ children }: Children) => {
 			icon: <MessageSquareText />,
 			label: "Chats",
 			path: "/chats",
-			disabled: false,
+			disabled: user.value.hasChat ? false : true,
 		},
 		{
 			icon: <BotIcon />,
@@ -32,7 +34,7 @@ const ChatsLayout = ({ children }: Children) => {
 			icon: <MessagesSquare />,
 			label: "Histórico de chats",
 			path: "/chats/historico",
-			disabled: false,
+			disabled: user.value.hasChat ? false : true,
 		},
 	];
 

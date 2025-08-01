@@ -12,11 +12,13 @@ import { useUserContext } from "@/modules/login/context/useUserContext";
 import { useChatContext } from "@/modules/chats/context/useChatContext";
 import toast from "react-hot-toast";
 import type { IUser } from "@/modules/usuarios/interfaces/user-interface";
+import { useNavigate } from "react-router-dom";
 
 function useCreateChatHook() {
 	const [loading, setLoading] = useState(false);
 	const { currentChat } = useChatContext();
 	const { user } = useUserContext();
+	const navigate = useNavigate();
 
 	const form = useForm<CreateChatSchemaType>({
 		resolver: zodResolver(createChatSchema),
@@ -45,11 +47,15 @@ function useCreateChatHook() {
 				...prev,
 				hasChat: true,
 			}));
+			navigate("/chats");
 			toast.success("Chat criado com sucesso!");
 			return response;
 		} catch (error) {
 			errorHandler(error);
 			throw error;
+		} finally {
+			setLoading(false);
+			form.reset();
 		}
 	}
 	return {
