@@ -17,9 +17,9 @@ function WellcomeComponent() {
 	}
 
 	return (
-		<div className="flex flex-col items-center justify-center h-[80vh]">
+		<div className="flex flex-col items-center justify-center h-[80vh] relative">
 			<div className="flex gap-2">
-				<span>
+				<span className="animate-pulse">
 					<BotMessageSquare color="blue" size={30} />
 				</span>
 				<h2 className="text-2xl font-semibold">Bem-vindo ao Chat!</h2>
