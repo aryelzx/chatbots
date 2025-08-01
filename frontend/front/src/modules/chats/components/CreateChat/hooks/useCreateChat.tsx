@@ -45,7 +45,7 @@ function useCreateChatHook() {
 				...prev,
 				hasChat: true,
 			}));
-			toast.success("Chat criad com sucesso!");
+			toast.success("Chat criado com sucesso!");
 			return response;
 		} catch (error) {
 			errorHandler(error);

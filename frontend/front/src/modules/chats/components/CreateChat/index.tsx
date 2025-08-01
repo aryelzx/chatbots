@@ -33,7 +33,7 @@ function CreateChatComponent() {
 			/>
 			<div className="flex  items-center mb-8 gap-2">
 				<span className="text-blue-500 opacity-70">
-					<Bot size={20}/>
+					<Bot size={20} />
 				</span>
 				<h1 className="text-2xl font-semibold text-center">
 					Criar Novo Chat
@@ -52,13 +52,13 @@ function CreateChatComponent() {
 								<FormLabel>Nome</FormLabel>
 								<FormControl>
 									<Input
-									className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
+										className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
 										placeholder="Ex: Chat de JavaScript"
 										{...field}
 									/>
 								</FormControl>
 								<FormDescription>
-									Nome do seu chat!
+									Nome do seu chat.
 								</FormDescription>
 								<FormMessage />
 							</FormItem>
@@ -73,7 +73,7 @@ function CreateChatComponent() {
 								<FormLabel>Descrição</FormLabel>
 								<FormControl>
 									<Input
-									className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
+										className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
 										placeholder="Descrição da conversa"
 										{...field}
 									/>
@@ -94,7 +94,7 @@ function CreateChatComponent() {
 								<FormLabel>Contexto</FormLabel>
 								<FormControl>
 									<Input
-									className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
+										className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
 										placeholder="Informações adicionais"
 										{...field}
 									/>
