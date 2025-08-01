@@ -22,7 +22,7 @@
             </summary>
             <returns>Pesquisa Chats pelo nome</returns>
         </member>
-        <member name="M:ModularApi.Modules.Chats.Controllers.ChatsController.CreateChat(ModularApi.Modules.Chats.DTOs.ChatDto)">
+        <member name="M:ModularApi.Modules.Chats.Controllers.ChatsController.CreateChat(ModularApi.Modules.Chats.DTOs.ChatInputDto)">
             <summary>
             Registra um Chat.
             </summary>
