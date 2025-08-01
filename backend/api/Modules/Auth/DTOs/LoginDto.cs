@@ -17,7 +17,7 @@ namespace ModularApi.Modules.Auth.DTOs
         public string cpf { get; set; } = string.Empty;
         public bool hasChat { get; set; } = false;
 
-        public int latestChat { get; set; } = 0;
+        public ChatDto latestChat { get; set; } = new ChatDto();
 
     }
 
