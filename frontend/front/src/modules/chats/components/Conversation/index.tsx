@@ -16,12 +16,12 @@ function ChatConversationComponent() {
 			navigate("/chats/create");
 			return;
 		}
-	}, [user.value.hasChat, messages]);
+	}, [user.value.hasChat]);
 
 	return (
-		<div className="flex flex-col h-full w-full">
+		<div className="flex flex-col h-[78vh] w-full">
 			{user.value.hasChat ? (
-				<ChatMessagesComponent />
+				<ChatMessagesComponent messages={messages.get} />
 			) : (
 				<WellcomeComponent />
 			)}

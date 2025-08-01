@@ -1,3 +1,5 @@
+import type { IChat } from "@/modules/chats/interfaces/chat.interface";
+
 export interface IUser {
   id: string;
   nome: string;
@@ -5,4 +7,5 @@ export interface IUser {
   role: string;
   cpf: string;
   hasChat: boolean;
+  latestChat?: IChat; 
 }
