@@ -39,7 +39,7 @@ function useConversation(): useConversationReturn {
 	}
 
 	useEffect(() => {
-		if (!user.value.latestChat) return;
+		if (!user.value.latestChat || user.value.latestChat.id === 0) return;
 		handleGetConversation(user.value.latestChat.id);
 		handleSetLatestChatInCurrent(user.value.latestChat);
 	}, [user.value.latestChat?.id]);

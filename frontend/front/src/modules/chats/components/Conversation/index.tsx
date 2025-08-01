@@ -20,7 +20,7 @@ function ChatConversationComponent() {
 
 	return (
 		<div className="flex flex-col h-[78vh] w-full">
-			{user.value.hasChat ? (
+			{user.value.hasChat && messages.get.length > 0 ? (
 				<ChatMessagesComponent messages={messages.get} />
 			) : (
 				<WellcomeComponent />

@@ -2,8 +2,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
 	BotMessageSquare,
-	Paperclip,
-	PlusCircle,
+	GalleryHorizontalEnd,
+	Plus,
 	Send,
 	Undo2,
 } from "lucide-react";
@@ -11,9 +11,11 @@ import { useNavigate } from "react-router-dom";
 
 function WellcomeComponent() {
 	const navigate = useNavigate();
-	function handleRedirectToCreateChat() {
-		navigate("/chats/create");
+
+	function handleRedirectToCreateChat(path: string) {
+		navigate(path);
 	}
+
 	return (
 		<div className="flex flex-col items-center justify-center h-[80vh]">
 			<div className="flex gap-2">
@@ -28,26 +30,39 @@ function WellcomeComponent() {
 						placeholder="Pergunte qualquer coisa"
 						className="border-none focus:border-none h-13"
 					/>
-					<div className="mt-8 flex justify-between">
-						<div className="flex  gap-2">
-							<button className="px-2 py-2 rounded-full bg-zinc-200 hover:bg-zinc-300 transition-colors">
-								<Undo2 color="gray" />
-							</button>
-							<button className="px-2 py-2 rounded-full bg-zinc-200 hover:bg-zinc-300 transition-colors">
-								<Paperclip color="gray" />
+					<div className="flex items-center max-w-6xl mx-auto mt-4 justify-between">
+						<div className="gap-2 flex items-center">
+							<button
+								className="text-zinc-400 hover:text-zinc-500 transition-colors cursor-pointer"
+								onClick={() => navigate(-1)}
+							>
+								<Undo2 />
 							</button>
 							<button
-								onClick={handleRedirectToCreateChat}
-								className="px-2 py-2 rounded-full bg-zinc-100 hover:bg-zinc-300 transition-colors"
+								className="text-zinc-400 hover:text-zinc-500 transition-colors cursor-pointer"
+								onClick={() =>
+									handleRedirectToCreateChat(
+										"/chats/historico"
+									)
+								}
 							>
-								<PlusCircle color="gray" />
+								<GalleryHorizontalEnd />
+							</button>
+							<button
+								className="text-zinc-400 hover:text-zinc-500 transition-colors cursor-pointer"
+								onClick={() =>
+									handleRedirectToCreateChat("/chats/create")
+								}
+							>
+								<Plus />
 							</button>
 						</div>
-						<div>
-							<button className="px-2 py-2 rounded-full bg-zinc-100 hover:bg-zinc-300 transition-colors">
-								<Send color="gray" />
-							</button>
-						</div>
+						<button
+							// onClick={handleSend}
+							className="p-2 rounded-lg bg-gray-600 hover:bg-gray-700 transition-colors cursor-pointer"
+						>
+							<Send size={20} color="white" />
+						</button>
 					</div>
 				</CardContent>
 			</Card>
