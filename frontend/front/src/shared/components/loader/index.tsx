@@ -2,18 +2,19 @@ import { BotMessageSquare } from "lucide-react";
 
 type Props = {
 	message?: string;
+	variant: "blue" | "white";
 };
 
-function LoaderComponent({ message }: Props) {
+function LoaderComponent({ message, variant }: Props) {
 	return (
 		<div className="flex items-center space-x-2 animate-pulse">
 			{message && (
 				<>
-					<BotMessageSquare color="blue" size={30} />
+					<BotMessageSquare color={variant} size={30} />
 				</>
 			)}
 			<div className="flex items-center space-x-2">
-				<span className="ml-2 text-2xl font-semibold">{message}</span>
+				<span className="ml-2 text-xl">{message}</span>
 			</div>
 		</div>
 	);
