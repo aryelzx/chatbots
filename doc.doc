@@ -21,3 +21,6 @@ descomentar o modelo mistralai/mistral-7b-instruct:free
 
 adicionar um loading state no login.
 adicioanr um loading state no send message.
+
+consertar as mensagens após ser redirecionado para o chat do historico;
+verificar as requisições duplicadas;

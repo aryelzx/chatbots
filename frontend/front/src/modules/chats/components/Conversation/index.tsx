@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { ChatMessagesComponent } from "./chat";
 import { useChatContext } from "../../context/useChatContext";
 import useConversation from "../../hooks/useConversation";
+import { useConversationService } from "../../services/conversation.service";
+import { errorHandler } from "@/shared/api/errorHandler";
 
 function ChatConversationComponent() {
 	const { user } = useUserContext();
-	const { messagesByChat } = useChatContext();
+	const { messagesByChat, currentChat } = useChatContext();
 
 	const navigate = useNavigate();
 	useConversation();
@@ -19,6 +21,22 @@ function ChatConversationComponent() {
 			return;
 		}
 	}, [user.value.hasChat]);
+
+	async function handleGetMessagesByChat() {
+		try {
+			const { messages } = await useConversationService.getMessages(
+				currentChat.value.id
+			);
+			messagesByChat.set(messages);
+		} catch (err) {
+			console.error("Error fetching messages:", err);
+			errorHandler(err, "Error fetching messages");
+		}
+	}
+	
+	useEffect(() => {
+		handleGetMessagesByChat();
+	}, []);
 
 	return (
 		<div className="flex flex-col h-[78vh] w-full">
