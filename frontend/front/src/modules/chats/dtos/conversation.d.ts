@@ -8,6 +8,11 @@ type messageInputDto = {
 };
 
 type messageOutputDto = {
+	pergunta: messageType;
+	resposta: messageType;
+};
+
+type getMessagesOutputDto = {
 	messages: messageType[];
 };
 
@@ -26,9 +31,9 @@ type messageType = {
 	created_by?: number;
 	updated_by?: number;
 	deleted_by?: number;
-	created_at?: Date;
+	created_at: Date;
 	updated_at?: Date;
 	deleted_at?: Date;
 };
 
-export { messageInputDto, messageOutputDto, messageType };
+export { messageInputDto, messageOutputDto, messageType, getMessagesOutputDto };

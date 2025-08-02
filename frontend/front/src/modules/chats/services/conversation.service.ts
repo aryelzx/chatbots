@@ -1,4 +1,8 @@
-import type { messageInputDto, messageOutputDto } from "../dtos/conversation";
+import type {
+	getMessagesOutputDto,
+	messageInputDto,
+	messageOutputDto
+} from "../dtos/conversation";
 import { http } from "@/shared/api/http";
 import type { AxiosInstance } from "axios";
 class ConversationService {
@@ -8,7 +12,7 @@ class ConversationService {
 		this.api = api;
 	}
 
-	async getMessages(id_chat: number): Promise<messageOutputDto> {
+	async getMessages(id_chat: number): Promise<getMessagesOutputDto> {
 		try {
 			const response = await this.api.get(
 				`${this.baseURL}/get-messages/${id_chat}`
@@ -20,17 +24,22 @@ class ConversationService {
 		}
 	}
 
-	async sendMessage(id_chat: number, params: messageInputDto): Promise<messageOutputDto> {
+	async sendMessage(
+		id_chat: number,
+		params: messageInputDto
+	): Promise<messageOutputDto> {
 		try {
-			const response = await this.api.post<messageOutputDto>(`${this.baseURL}/send-message/${id_chat}`, params);
+			const response = await this.api.post<messageOutputDto>(
+				`${this.baseURL}/send-message/${id_chat}`,
+				params
+			);
 			return response.data;
 		} catch (error) {
 			console.error("Error sending message:", error);
 			throw error;
 		}
-	}	
+	}
 }
-
 
 const useConversationService = new ConversationService(http);
 

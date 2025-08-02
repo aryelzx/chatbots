@@ -10,6 +10,11 @@ type ChatContextType = {
 		get: messageType[];
 		set: React.Dispatch<React.SetStateAction<messageType[]>>;
 	};
+	handleSendMessage: (inputText: string) => Promise<void>;
+	loadingMessages: {
+		value: boolean;
+		set: React.Dispatch<React.SetStateAction<boolean>>;
+	};
 };
 
 export type { ChatContextType };

@@ -4,12 +4,14 @@ import { WellcomeComponent } from "../Wellcome";
 import { useNavigate } from "react-router-dom";
 import { ChatMessagesComponent } from "./chat";
 import { useChatContext } from "../../context/useChatContext";
-import { useConversationService } from "../../services/conversation.service";
+import useConversation from "../../hooks/useConversation";
 
 function ChatConversationComponent() {
 	const { user } = useUserContext();
 	const { messagesByChat } = useChatContext();
+
 	const navigate = useNavigate();
+	useConversation();
 
 	useEffect(() => {
 		if (!user.value.hasChat) {
@@ -17,32 +19,6 @@ function ChatConversationComponent() {
 			return;
 		}
 	}, [user.value.hasChat]);
-
-	useEffect(() => {
-		async function handleGetMessagesByIdChat(id_chat: number) {
-			try {
-				const { messages } = await useConversationService.getMessages(
-					id_chat
-				);
-				if (messages) {
-					messagesByChat.set((prev) => {
-						const existingIds = new Set(prev.map((msg) => msg.id));
-						const newMessages = messages.filter(
-							(msg) => !existingIds.has(msg.id)
-						);
-
-						return [...prev, ...newMessages];
-					});
-				}
-			} catch (error) {
-				console.error("Error fetching messages:", error);
-			}
-		}
-
-		if (user.value.latestChat && user.value.latestChat.id !== 0) {
-			handleGetMessagesByIdChat(user.value.latestChat.id);
-		}
-	}, [user.value.latestChat]);
 
 	return (
 		<div className="flex flex-col h-[78vh] w-full">

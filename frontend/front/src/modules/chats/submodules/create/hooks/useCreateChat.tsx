@@ -46,6 +46,7 @@ function useCreateChatHook() {
 			user.set((prev: IUser) => ({
 				...prev,
 				hasChat: true,
+				latestChat: response.chat,
 			}));
 			navigate("/chats");
 			toast.success("Chat criado com sucesso!");
