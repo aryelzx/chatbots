@@ -8,12 +8,10 @@ import {
 	Undo2,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useConversationService } from "../../services/conversation.service";
-import type { messageInputDto, messageType } from "../../dtos/conversation";
+
 import { useState } from "react";
 import { useChatContext } from "../../context/useChatContext";
-import { useUserContext } from "@/modules/login/context/useUserContext";
-import { errorHandler } from "@/shared/api/errorHandler";
+
 import { LoaderComponent } from "@/shared/components/loader";
 import { ChatInfoDialog } from "../Conversation/chatDialog";
 
@@ -27,11 +25,21 @@ function WellcomeComponent() {
 		navigate(path);
 	}
 
+	async function handleSend() {
+		try {
+			setLoading(true);
+			await handleSendMessage(inputText);
+			setInputText("");
+		} finally {
+			setLoading(false);
+		}
+	}
+
 	return (
 		<div className="flex flex-col items-center justify-center h-[80vh] relative">
 			{loading ? (
 				<>
-					<LoaderComponent message="Carregando" variant="white" />
+					<LoaderComponent message="Gerando uma nova conversa..." variant="blue" />
 				</>
 			) : (
 				<>
@@ -57,7 +65,7 @@ function WellcomeComponent() {
 										!loading &&
 										inputText.trim()
 									) {
-										handleSendMessage(inputText);
+										handleSend();
 									}
 								}}
 							/>
@@ -95,7 +103,7 @@ function WellcomeComponent() {
 									</button>
 								</div>
 								<button
-									onClick={() => handleSendMessage(inputText)}
+									onClick={() => handleSend()}
 									className="p-2 rounded-lg bg-gray-600 hover:bg-gray-700 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
 									disabled={loading || !inputText.trim()}
 								>
