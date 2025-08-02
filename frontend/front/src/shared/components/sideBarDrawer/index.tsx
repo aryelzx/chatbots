@@ -10,6 +10,9 @@ import { PiArrowRight, PiCaretLeftBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import type { SidebarButton } from "../layout";
 import { useUserContext } from "@/modules/login/context/useUserContext";
+import { useChatContext } from "@/modules/chats/context/useChatContext";
+import toast from "react-hot-toast";
+import type { IChat } from "@/modules/chats/interfaces/chat.interface";
 
 type Props = {
 	children: React.ReactNode;
@@ -19,11 +22,16 @@ type Props = {
 const SidebarDrawer = ({ children, buttons }: Props) => {
 	const [isOpenDialog, setIsOpenDialog] = useState(false);
 	const { user } = useUserContext();
+	const { currentChat, messagesByChat } = useChatContext();
 	const navigate = useNavigate();
 
 	function handleLogout() {
 		localStorage.removeItem("@chatbots_access_token");
 		localStorage.removeItem("@chatbots_user");
+		localStorage.removeItem("@chatbots_chat");
+		toast.success("Logout realizado com sucesso!");
+		currentChat.set({} as IChat);
+		messagesByChat.set([]);
 		navigate("/");
 	}
 
@@ -120,7 +128,7 @@ const SidebarDrawer = ({ children, buttons }: Props) => {
 								<Button variant="outline" onClick={() => setIsOpenDialog(!isOpenDialog)}>
 									Cancelar
 								</Button>
-								<Button onClick={handleLogout()}>Confirmar</Button>
+								<Button onClick={() => handleLogout()}>Confirmar</Button>
 							</DialogFooter>
 						</DialogContent>
 					</Dialog>
