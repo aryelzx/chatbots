@@ -12,14 +12,14 @@ import truncateText from "@/shared/utils/truncateText";
 import { useUserContext } from "@/modules/login/context/useUserContext";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
-dayjs.extend(utc)
+dayjs.extend(utc);
 
 interface ChatInfoDialogProps {
-	currentChat: { value: IChat };
+	currentChat: IChat;
 }
 
 export function ChatInfoDialog({ currentChat }: ChatInfoDialogProps) {
-	const chat = currentChat.value;
+	const chat = currentChat;
 	const { user } = useUserContext();
 
 	return (
@@ -72,7 +72,9 @@ export function ChatInfoDialog({ currentChat }: ChatInfoDialogProps) {
 								📅 Criado em:
 							</strong>{" "}
 							<span className="text-zinc-200">
-								{dayjs(chat.created_at).utc().format("DD/MM/YYYY HH:mm")}
+								{dayjs(chat.created_at)
+									.utc()
+									.format("DD/MM/YYYY HH:mm")}
 							</span>
 						</p>
 					)}

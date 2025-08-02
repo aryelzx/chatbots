@@ -32,7 +32,7 @@ function ChatMessagesComponent() {
 					<p className="text-sm">{currentChat.value.modelo}</p>
 				</div>
 				<div>
-					<ChatInfoDialog currentChat={currentChat} />
+					<ChatInfoDialog currentChat={currentChat.value} />
 				</div>
 			</header>
 			<ScrollArea className="flex-1 px-6 py-4 h-[70vh] overflow-y-auto">

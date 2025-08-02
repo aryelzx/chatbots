@@ -14,10 +14,9 @@ function LoginPage() {
 			cpf: (event.target as HTMLFormElement).cpf.value,
 			senha: (event.target as HTMLFormElement).password.value,
 		};
-		console.log(params, "params");
-
 		return await handleLogin(params);
 	};
+
 	return (
 		<div className="min-h-screen bg-primary bg-cover bg-center flex items-center justify-center h-screen">
 			<Card className="w-full max-w-md max-h-[65%] bg-white backdrop-blur-md shadow-xl relative">

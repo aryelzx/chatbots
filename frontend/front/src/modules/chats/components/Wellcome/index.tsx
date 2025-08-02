@@ -10,11 +10,12 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useConversationService } from "../../services/conversation.service";
 import type { messageInputDto, messageType } from "../../dtos/conversation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useChatContext } from "../../context/useChatContext";
 import { useUserContext } from "@/modules/login/context/useUserContext";
 import { errorHandler } from "@/shared/api/errorHandler";
 import { LoaderComponent } from "@/shared/components/loader";
+import { ChatInfoDialog } from "../Conversation/chatDialog";
 
 function WellcomeComponent() {
 	const navigate = useNavigate();
@@ -129,6 +130,9 @@ function WellcomeComponent() {
 							/>
 							<div className="flex items-center max-w-6xl mx-auto mt-4 justify-between">
 								<div className="gap-2 flex items-center">
+									<ChatInfoDialog
+										currentChat={currentChat.value}
+									/>
 									<button
 										className="text-zinc-400 hover:text-zinc-500 transition-colors cursor-pointer"
 										onClick={() => navigate(-1)}

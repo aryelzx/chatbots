@@ -5,9 +5,13 @@ import { useUserContext } from "../context/useUserContext";
 import { useNavigate } from "react-router-dom";
 import { errorHandler } from "@/shared/api/errorHandler";
 import toast from "react-hot-toast";
+import { useChatContext } from "@/modules/chats/context/useChatContext";
+import type { IChat } from "@/modules/chats/interfaces/chat.interface";
 
 function UseLoginHook() {
 	const { user: currentUser } = useUserContext();
+	const { currentChat } = useChatContext();
+
 	const navigate = useNavigate();
 
 	async function handleLogin(data: LoginInputDto): Promise<void> {
@@ -18,6 +22,7 @@ function UseLoginHook() {
 				"@chatbots_access_token",
 				JSON.stringify(response.token)
 			);
+			currentChat.set(response.usuario?.latestChat || ({} as IChat));
 			toast.success("Seja bem vindo!");
 			navigate("/dashboard");
 		} catch (error) {

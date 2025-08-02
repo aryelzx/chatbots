@@ -8,20 +8,12 @@ import { CreateChatPage } from "../submodules/create/pages";
 const chatRoutes: RouteObject[] = [
 	{
 		path: "/chats",
-		element: (
-			<ChatContextProvider>
-				<ChatsPage />
-			</ChatContextProvider>
-		),
+		element: <ChatsPage />,
 		loader: authLoader,
 	},
 	{
 		path: "/chats/create",
-		element: (
-			<ChatContextProvider>
-				<CreateChatPage />
-			</ChatContextProvider>
-		),
+		element: <CreateChatPage />,
 		loader: authLoader,
 	},
 	{
