@@ -33,7 +33,7 @@ namespace ModularApi.Modules.Chats.DTOs
         public string? context { get; set; }
         public string tipo { get; set; }
         public string send_by { get; set; }
-        public string modelo { get; set; } = string.Empty;
+        public string modelo { get; set; }
         public int? created_by { get; set; }
 
     }
