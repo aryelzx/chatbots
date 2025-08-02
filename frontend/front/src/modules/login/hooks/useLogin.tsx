@@ -12,6 +12,7 @@ function UseLoginHook() {
 	const { user: currentUser } = useUserContext();
 	const { currentChat } = useChatContext();
 
+
 	const navigate = useNavigate();
 
 	async function handleLogin(data: LoginInputDto): Promise<void> {
@@ -33,6 +34,7 @@ function UseLoginHook() {
 
 	function handleStorageUser(user: IUser) {
 		localStorage.setItem("@chatbots_user", JSON.stringify(user));
+		localStorage.setItem("@chatbots_chat", JSON.stringify(user.latestChat || {}));
 		currentUser.set(user);
 	}
 	return {
