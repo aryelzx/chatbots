@@ -7,6 +7,7 @@ import { ChatInfoDialog } from "./chatDialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useNavigate } from "react-router-dom";
 import { LoaderComponent } from "@/shared/components/loader";
+import { motion, AnimatePresence } from "framer-motion";
 
 function ChatMessagesComponent() {
 	const [inputText, setInputText] = useState("");
@@ -27,12 +28,12 @@ function ChatMessagesComponent() {
 			bottomRef.current?.scrollIntoView({ behavior: "smooth" });
 		}
 	}, [messagesByChat.get]);
-	
+
 	useEffect(() => {
-	if (bottomRef.current) {
-		bottomRef.current.scrollIntoView({ behavior: "smooth" });
-	}
-}, [messagesByChat.get]);
+		if (bottomRef.current) {
+			bottomRef.current.scrollIntoView({ behavior: "smooth" });
+		}
+	}, [messagesByChat.get]);
 
 	return (
 		<div className="flex flex-col h-full bg-zinc-900 text-white border-zinc-800 rounded-lg">
@@ -55,53 +56,54 @@ function ChatMessagesComponent() {
 			) : (
 				<ScrollArea className="flex-1 px-6 py-4 h-[70vh] overflow-y-auto">
 					<div className="flex flex-col space-y-3">
-						{messagesByChat.get.length > 0 &&
-							messagesByChat.get?.map((msg) => (
-								<div
+						<AnimatePresence>
+							{messagesByChat.get.map((msg) => (
+								<motion.div
 									key={msg.id}
+									initial={{ opacity: 0, y: 20 }}
+									animate={{ opacity: 1, y: 0 }}
+									exit={{ opacity: 0, y: -20 }}
+									transition={{ duration: 0.2 }}
 									className={`flex ${
 										msg.send_by === "U"
 											? "justify-end"
 											: "justify-start"
 									}`}
 								>
-									<>
-										<div
-											className={`max-w-3xl px-4 py-3 rounded-xl text-sm whitespace-pre-line ${
-												msg.send_by === "U"
-													? "bg-zinc-600 text-white rounded-br-none"
-													: "bg-zinc-800 text-gray-100 rounded-bl-none"
-											}`}
-										>
-											{msg.send_by === "B" ? (
-												<div className="flex items-center gap-2">
-													<Bot
-														size={20}
-														className="text-blue-500"
-													/>
-													<span className="text-xs text-zinc-400">
-														{dayjs(
-															msg.created_at
-														).format(
-															"HH:mm - DD/MM/YY"
-														)}
-													</span>
-												</div>
-											) : null}
-											{msg.mensagem}
-											{msg.send_by === "U" && (
-												<span className="text-xs text-zinc-400 block mt-1">
+									<div
+										className={`max-w-3xl px-4 py-3 rounded-xl text-sm whitespace-pre-line ${
+											msg.send_by === "U"
+												? "bg-zinc-600 text-white rounded-br-none"
+												: "bg-zinc-800 text-gray-100 rounded-bl-none"
+										}`}
+									>
+										{msg.send_by === "B" ? (
+											<div className="flex items-center gap-2">
+												<Bot
+													size={20}
+													className="text-blue-500"
+												/>
+												<span className="text-xs text-zinc-400">
 													{dayjs(
 														msg.created_at
 													).format(
 														"HH:mm - DD/MM/YY"
 													)}
 												</span>
-											)}
-										</div>
-									</>
-								</div>
+											</div>
+										) : null}
+										{msg.mensagem}
+										{msg.send_by === "U" && (
+											<span className="text-xs text-zinc-400 block mt-1">
+												{dayjs(msg.created_at).format(
+													"HH:mm - DD/MM/YY"
+												)}
+											</span>
+										)}
+									</div>
+								</motion.div>
 							))}
+						</AnimatePresence>
 						<div ref={bottomRef} />
 					</div>
 				</ScrollArea>
