@@ -114,7 +114,7 @@ namespace ModularApi.Modules.Chats.Controllers
             try
             {
                 var response = await _messagesService.RegisterMessage(id, messageDto);
-                return Ok(new { response });
+                return Ok(new { pergunta = response[0], resposta = response[1] });
             }
             catch (Exception ex)
             {

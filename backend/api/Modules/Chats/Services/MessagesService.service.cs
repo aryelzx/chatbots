@@ -20,7 +20,7 @@ public class MessagesService
     /// <param name="id_chat">ID do chat.</param>
     /// <param name="pergunta">Pergunta a ser enviada.</param>
     /// <returns>Resposta da IA.</returns>
-    public async Task<Mensagem> RegisterMessage(int id_chat, MensagemInputDto pergunta)
+    public async Task<List<Mensagem>> RegisterMessage(int id_chat, MensagemInputDto pergunta)
     {
         var chat = _context.chats.FirstOrDefault(c => c.id == id_chat && c.deleted_at == null && c.status == "A");
         if (chat == null)
@@ -28,84 +28,47 @@ public class MessagesService
             throw new Exception("Chat não encontrado ou inativo.");
         }
 
-        var perguntaParam = new MensagemInputDto
-        {
-            user_id = pergunta.user_id,
-            prompt_input_text = pergunta.prompt_input_text,
-            context = chat.context,
-            tipo = pergunta.tipo,
-            send_by = pergunta.send_by,
-            modelo = chat.modelo,
-            created_by = pergunta.created_by
-        };
-
-        if (perguntaParam.send_by == "B")
-        {
-            var message = new Mensagem
-            {
-                chat_id = id_chat,
-                created_at = DateTime.UtcNow,
-                user_id = pergunta.user_id,
-                mensagem = pergunta.prompt_input_text,
-                prompt_input_text = pergunta.prompt_input_text,
-                prompt_context = chat.context,
-                tipo = pergunta.tipo,
-                send_by = pergunta.send_by,
-                created_by = pergunta.created_by,
-                prompt_modelo = chat.modelo
-            };
-            _context.mensagens.Add(message);
-            _context.SaveChanges();
-
-            return new Mensagem
-            {
-                id = message.id,
-                chat_id = message.chat_id,
-                user_id = message.user_id,
-                mensagem = message.mensagem,
-                prompt_input_text = message.prompt_input_text,
-                prompt_context = message.prompt_context,
-                tipo = message.tipo,
-                created_at = message.created_at,
-                prompt_modelo = message.prompt_modelo,
-                send_by = message.send_by,
-                created_by = message.created_by,
-            };
-
-        }
-
-        var resposta = await _openAiService.QuestionAsync(perguntaParam);
-        var mensagem = new Mensagem
+      var now = DateTime.UtcNow;
+        var userMessage = new Mensagem
         {
             chat_id = id_chat,
-            created_at = DateTime.UtcNow,
+            created_at = now,
+            user_id = pergunta.user_id,
+            mensagem = pergunta.prompt_input_text,
+            prompt_input_text = pergunta.prompt_input_text,
+            prompt_context = chat.context,
+            tipo = "P",
+            send_by = "U",
+            created_by = pergunta.created_by,
+            prompt_modelo = chat.modelo
+        };
+        _context.mensagens.Add(userMessage);
+        await _context.SaveChangesAsync();
+
+     
+        var resposta = await _openAiService.QuestionAsync(pergunta);
+
+        var botMessage = new Mensagem
+        {
+            chat_id = id_chat,
+            created_at =  now.AddMilliseconds(5),
             user_id = pergunta.user_id,
             mensagem = resposta,
             prompt_input_text = pergunta.prompt_input_text,
             prompt_context = chat.context,
-            tipo = pergunta.tipo,
-            send_by = pergunta.send_by == "B" ? "U" : "B",
+            tipo = "R",
+            send_by = "B",
             created_by = pergunta.created_by,
             prompt_modelo = chat.modelo
         };
+        _context.mensagens.Add(botMessage);
+        await _context.SaveChangesAsync();
 
-        _context.mensagens.Add(mensagem);
-        _context.SaveChanges();
-
-        return new Mensagem
-        {
-            id = mensagem.id,
-            chat_id = mensagem.chat_id,
-            user_id = mensagem.user_id,
-            mensagem = mensagem.mensagem,
-            prompt_input_text = mensagem.prompt_input_text,
-            prompt_context = mensagem.prompt_context,
-            tipo = mensagem.tipo,
-            created_at = mensagem.created_at,
-            prompt_modelo = mensagem.prompt_modelo,
-            send_by = mensagem.send_by,
-            created_by = mensagem.created_by,
-        };
+        return new List<Mensagem>
+        { 
+            userMessage,
+            botMessage
+         };
     }
 
     /// <summary>
