@@ -145,6 +145,9 @@ function CreateChatPage() {
 											<SelectItem value="moonshotai/kimi-k2:free">
 												Moonshotai
 											</SelectItem>
+											<SelectItem value="qwen/qwen3-coder:free">
+												Qwen/Qwen3 Coder
+											</SelectItem>
 											<SelectItem value="google/gemma-3n-e2b-it:free">
 												Google/Gemma
 											</SelectItem>
