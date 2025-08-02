@@ -16,3 +16,5 @@ que ele já possui um chat;
 
 
 ao criar um novo chat, passa ele para o latestChat do contexto USER
+
+descomentar o modelo mistralai/mistral-7b-instruct:free

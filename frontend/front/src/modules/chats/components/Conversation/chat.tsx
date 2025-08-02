@@ -1,38 +1,28 @@
 import { useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
-import {
-	Backpack,
-	Bot,
-	CircleEllipsis,
-	GalleryHorizontalEnd,
-	Info,
-	Leaf,
-	MoveLeft,
-	Plus,
-	Send,
-	Undo2,
-} from "lucide-react";
-import type { messageType } from "../../dtos/conversation";
+import { Bot, GalleryHorizontalEnd, Plus, Send, Undo2 } from "lucide-react";
 import { useChatContext } from "../../context/useChatContext";
 import dayjs from "dayjs";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { ChatInfoDialog } from "./chatDialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useNavigate } from "react-router-dom";
-import { Tooltip } from "@/components/ui/tooltip";
 
-type Props = {
-	messages: messageType[];
-};
-
-function ChatMessagesComponent({ messages }: Props) {
+function ChatMessagesComponent() {
 	const [input, setInput] = useState("");
 	const bottomRef = useRef<HTMLDivElement>(null);
-	const { currentChat } = useChatContext();
+	const { currentChat, messagesByChat } = useChatContext();
 	const navigate = useNavigate();
+
 	useEffect(() => {
 		bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-	}, [messages]);
+	}, [messagesByChat.get]);
+
+	useEffect(() => {
+		console.log(messagesByChat.get, 'mensagesnesByChat.get');
+		if (messagesByChat.get.length > 0) {
+			bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+		}
+	}, [messagesByChat.get]);
 
 	return (
 		<div className="flex flex-col h-full bg-zinc-900 text-white border-zinc-800 rounded-lg">
@@ -47,7 +37,7 @@ function ChatMessagesComponent({ messages }: Props) {
 			</header>
 			<ScrollArea className="flex-1 px-6 py-4 h-[70vh] overflow-y-auto">
 				<div className="flex flex-col space-y-3">
-					{messages.map((msg) => (
+					{messagesByChat.get?.map((msg) => (
 						<div
 							key={msg.id}
 							className={`flex ${

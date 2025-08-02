@@ -1,7 +1,7 @@
 import { errorHandler } from "@/shared/api/errorHandler";
 import { useConversationService } from "../services/conversation.service";
-import type { messageOutputDto, messageType } from "../dtos/conversation";
-import { useEffect, useState } from "react";
+import type { messageOutputDto } from "../dtos/conversation";
+import { useEffect, useCallback } from "react";
 import { useUserContext } from "@/modules/login/context/useUserContext";
 import { useChatContext } from "../context/useChatContext";
 import type { IChat } from "../interfaces/chat.interface";
@@ -10,46 +10,38 @@ type useConversationReturn = {
 	handleGetConversation: (
 		chat_id: number
 	) => Promise<messageOutputDto | null>;
-	messages: {
-		get: messageType[];
-		set: (messages: messageType[]) => void;
-	};
 };
 
 function useConversation(): useConversationReturn {
 	const { user } = useUserContext();
-	const [messagesByChat, setMessagesByChat] = useState<messageType[]>([]);
-	const { currentChat } = useChatContext();
 
-	async function handleGetConversation(chat_id: number) {
+	const { currentChat, messagesByChat } = useChatContext();
+
+	const handleGetConversation = useCallback(async (chat_id: number) => {
 		try {
 			const conversation = await useConversationService.getMessages(
 				chat_id
 			);
-			setMessagesByChat(conversation.messages);
+			messagesByChat.set((prev) => [...prev, conversation.response]);
 			return conversation;
 		} catch (e) {
 			errorHandler(e, "useConversation.handleGetConversation");
 			return null;
 		}
-	}
+	}, [messagesByChat]);
 
-	function handleSetLatestChatInCurrent(chat: IChat) {
+	const handleSetLatestChatInCurrent = useCallback((chat: IChat) => {
 		currentChat.set(chat);
-	}
+	}, [currentChat]);
 
 	useEffect(() => {
 		if (!user.value.latestChat || user.value.latestChat.id === 0) return;
 		handleGetConversation(user.value.latestChat.id);
 		handleSetLatestChatInCurrent(user.value.latestChat);
-	}, [user.value.latestChat?.id]);
+	}, [user.value.latestChat, handleGetConversation, handleSetLatestChatInCurrent]);
 
 	return {
 		handleGetConversation,
-		messages: {
-			get: messagesByChat,
-			set: setMessagesByChat,
-		},
 	};
 }
 

@@ -8,10 +8,11 @@ type messageInputDto = {
 };
 
 type messageOutputDto = {
-	messages: messageType[];
+	response: messageType;
 };
 
 type messageType = {
+	context: string;
 	id: number;
 	chat_id: number;
 	user_id: number;
