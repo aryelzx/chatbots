@@ -18,11 +18,10 @@ export function ChatInfoDialog() {
 	const { currentChat } = useChatContext();
 	const { user } = useUserContext();
 
-	console.log(currentChat.value, 'currentChat')
 	return (
 		<Dialog>
 			<DialogTrigger className="text-zinc-400 hover:text-white transition-colors cursor-pointer flex items-center gap-1">
-				<CircleEllipsis size={26} />
+				<Info size={26} />
 			</DialogTrigger>
 			<DialogContent className="bg-zinc-900 text-white border-zinc-700 max-w-xl">
 				<DialogHeader>
@@ -37,13 +36,19 @@ export function ChatInfoDialog() {
 				<div className="mt-4 space-y-3 text-sm">
 					<p>
 						<strong className="text-zinc-300">🧠 Modelo:</strong>{" "}
-						<span className="text-zinc-200">
+						<span className="text-zinc-200 capitalize">
 							{currentChat.value?.modelo}
 						</span>
 					</p>
 					<p>
+						<strong className="text-zinc-300">🔎 Contexto:</strong>{" "}
+						<span className="text-zinc-200 capitalize">
+							{truncateText(currentChat.value?.context, 40)}
+						</span>
+					</p>
+					<p>
 						<strong className="text-zinc-300">💬 Nome:</strong>{" "}
-						<span className="text-zinc-200">
+						<span className="text-zinc-200 capitalize">
 							{currentChat.value?.nome}
 						</span>
 					</p>
@@ -52,7 +57,7 @@ export function ChatInfoDialog() {
 							<strong className="text-zinc-300">
 								📄 Descrição:
 							</strong>{" "}
-							<span className="text-zinc-200">
+							<span className="text-zinc-200 textcapitalize">
 								{truncateText(currentChat.value?.descricao, 40)}
 							</span>
 						</p>
