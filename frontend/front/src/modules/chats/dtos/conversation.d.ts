@@ -4,6 +4,7 @@ type messageInputDto = {
 	context?: string;
 	tipo: string;
 	send_by: string;
+	modelo: string;
 	created_by?: string;
 };
 

@@ -30,6 +30,7 @@ const ChatContextProvider = ({ children }: { children: React.ReactNode }) => {
 				user_id: user.value.id,
 				context: chat?.context,
 				created_by: user.value.id,
+				modelo: chat.modelo,
 			};
 			const { pergunta, resposta } =
 				await useConversationService.sendMessage(chat.id, params);
@@ -60,14 +61,15 @@ const ChatContextProvider = ({ children }: { children: React.ReactNode }) => {
 				chat_id: resposta.chat_id,
 				mensagem: resposta.mensagem,
 			};
-			const allMessages = [userMessage, botMessage, ...messagesByChat];
+
+			const allMessages = [...messagesByChat, userMessage, botMessage];
 
 			console.log(
 				"Antes do sort:",
 				allMessages.map((m) => m.created_at)
 			);
 
-			const sortedMessages = allMessages.sort(
+			const sortedMessages = allMessages.slice().sort(
 				(a, b) =>
 					new Date(a.created_at).getTime() -
 					new Date(b.created_at).getTime()
