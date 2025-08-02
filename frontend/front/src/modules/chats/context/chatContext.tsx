@@ -16,6 +16,7 @@ const ChatContextProvider = ({ children }: { children: React.ReactNode }) => {
 	});
 
 	const [messagesByChat, setMessagesByChat] = useState<messageType[]>([]);
+	const [allChats, setAllChats] = useState<IChat[]>([]);
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const { user } = useUserContext();
@@ -63,21 +64,10 @@ const ChatContextProvider = ({ children }: { children: React.ReactNode }) => {
 			};
 
 			const allMessages = [...messagesByChat, userMessage, botMessage];
-
-			console.log(
-				"Antes do sort:",
-				allMessages.map((m) => m.created_at)
-			);
-
 			const sortedMessages = allMessages.slice().sort(
 				(a, b) =>
 					new Date(a.created_at).getTime() -
 					new Date(b.created_at).getTime()
-			);
-
-			console.log(
-				"Depois do sort:",
-				sortedMessages.map((m) => m.created_at)
 			);
 
 			setMessagesByChat(sortedMessages);
@@ -106,6 +96,10 @@ const ChatContextProvider = ({ children }: { children: React.ReactNode }) => {
 		loadingMessages: {
 			value: loading,
 			set: setLoading,
+		},
+		allChats: {
+			value: allChats,
+			set: setAllChats,
 		},
 	};
 	return (
