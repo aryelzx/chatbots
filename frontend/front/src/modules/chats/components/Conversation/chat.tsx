@@ -18,7 +18,6 @@ function ChatMessagesComponent() {
 	}, [messagesByChat.get]);
 
 	useEffect(() => {
-		console.log(messagesByChat.get, 'mensagesnesByChat.get');
 		if (messagesByChat.get.length > 0) {
 			bottomRef.current?.scrollIntoView({ behavior: "smooth" });
 		}
@@ -32,53 +31,56 @@ function ChatMessagesComponent() {
 					<p className="text-sm">{currentChat.value.modelo}</p>
 				</div>
 				<div>
-					<ChatInfoDialog currentChat={currentChat.value} />
+					<ChatInfoDialog />
 				</div>
 			</header>
 			<ScrollArea className="flex-1 px-6 py-4 h-[70vh] overflow-y-auto">
 				<div className="flex flex-col space-y-3">
-					{messagesByChat.get?.map((msg) => (
-						<div
-							key={msg.id}
-							className={`flex ${
-								msg.send_by === "U"
-									? "justify-end"
-									: "justify-start"
-							}`}
-						>
-							<>
-								<div
-									className={`max-w-3xl px-4 py-3 rounded-xl text-sm whitespace-pre-line ${
-										msg.send_by === "U"
-											? "bg-zinc-600 text-white rounded-br-none"
-											: "bg-zinc-800 text-gray-100 rounded-bl-none"
-									}`}
-								>
-									{msg.send_by === "B" ? (
-										<div className="flex items-center gap-2">
-											<Bot
-												size={20}
-												className="text-blue-500"
-											/>
-											<span className="text-xs text-zinc-400">
+					{messagesByChat.get.length > 0 &&
+						messagesByChat.get?.map((msg) => (
+							<div
+								key={msg.id}
+								className={`flex ${
+									msg.send_by === "U"
+										? "justify-end"
+										: "justify-start"
+								}`}
+							>
+								<>
+									<div
+										className={`max-w-3xl px-4 py-3 rounded-xl text-sm whitespace-pre-line ${
+											msg.send_by === "U"
+												? "bg-zinc-600 text-white rounded-br-none"
+												: "bg-zinc-800 text-gray-100 rounded-bl-none"
+										}`}
+									>
+										{msg.send_by === "B" ? (
+											<div className="flex items-center gap-2">
+												<Bot
+													size={20}
+													className="text-blue-500"
+												/>
+												<span className="text-xs text-zinc-400">
+													{dayjs(
+														msg.created_at
+													).format(
+														"HH:mm - DD/MM/YY"
+													)}
+												</span>
+											</div>
+										) : null}
+										{msg.mensagem}
+										{msg.send_by === "U" && (
+											<span className="text-xs text-zinc-400 block mt-1">
 												{dayjs(msg.created_at).format(
 													"HH:mm - DD/MM/YY"
 												)}
 											</span>
-										</div>
-									) : null}
-									{msg.mensagem}
-									{msg.send_by === "U" && (
-										<span className="text-xs text-zinc-400 block mt-1">
-											{dayjs(msg.created_at).format(
-												"HH:mm - DD/MM/YY"
-											)}
-										</span>
-									)}
-								</div>
-							</>
-						</div>
-					))}
+										)}
+									</div>
+								</>
+							</div>
+						))}
 					<div ref={bottomRef} />
 				</div>
 			</ScrollArea>

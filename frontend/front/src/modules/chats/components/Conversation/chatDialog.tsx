@@ -7,21 +7,18 @@ import {
 	DialogDescription,
 } from "@/components/ui/dialog";
 import { CircleEllipsis, Info } from "lucide-react";
-import type { IChat } from "../../interfaces/chat.interface";
 import truncateText from "@/shared/utils/truncateText";
 import { useUserContext } from "@/modules/login/context/useUserContext";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { useChatContext } from "../../context/useChatContext";
 dayjs.extend(utc);
 
-interface ChatInfoDialogProps {
-	currentChat: IChat;
-}
-
-export function ChatInfoDialog({ currentChat }: ChatInfoDialogProps) {
-	const chat = currentChat;
+export function ChatInfoDialog() {
+	const { currentChat } = useChatContext();
 	const { user } = useUserContext();
 
+	console.log(currentChat.value, 'currentChat')
 	return (
 		<Dialog>
 			<DialogTrigger className="text-zinc-400 hover:text-white transition-colors cursor-pointer flex items-center gap-1">
@@ -40,39 +37,45 @@ export function ChatInfoDialog({ currentChat }: ChatInfoDialogProps) {
 				<div className="mt-4 space-y-3 text-sm">
 					<p>
 						<strong className="text-zinc-300">🧠 Modelo:</strong>{" "}
-						<span className="text-zinc-200">{chat.modelo}</span>
+						<span className="text-zinc-200">
+							{currentChat.value?.modelo}
+						</span>
 					</p>
 					<p>
 						<strong className="text-zinc-300">💬 Nome:</strong>{" "}
-						<span className="text-zinc-200">{chat.nome}</span>
+						<span className="text-zinc-200">
+							{currentChat.value?.nome}
+						</span>
 					</p>
-					{chat.descricao && (
+					{currentChat.value?.descricao && (
 						<p>
 							<strong className="text-zinc-300">
 								📄 Descrição:
 							</strong>{" "}
 							<span className="text-zinc-200">
-								{truncateText(chat.descricao, 40)}
+								{truncateText(currentChat.value?.descricao, 40)}
 							</span>
 						</p>
 					)}
 					<p>
 						<strong className="text-zinc-300">🔖 Status:</strong>{" "}
 						<span className="text-zinc-200 capitalize">
-							{chat.status === "A" ? "Ativo" : "Inativo"}
+							{currentChat.value?.status === "A"
+								? "Ativo"
+								: "Inativo"}
 						</span>
 					</p>
 					<p>
 						<strong className="text-zinc-300">👤 Usuário:</strong>{" "}
 						<span className="text-zinc-200">{user.value.nome}</span>
 					</p>
-					{chat.created_at && (
+					{currentChat.value?.created_at && (
 						<p>
 							<strong className="text-zinc-300">
 								📅 Criado em:
 							</strong>{" "}
 							<span className="text-zinc-200">
-								{dayjs(chat.created_at)
+								{dayjs(currentChat.value?.created_at)
 									.utc()
 									.format("DD/MM/YYYY HH:mm")}
 							</span>

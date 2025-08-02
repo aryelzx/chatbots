@@ -130,9 +130,7 @@ function WellcomeComponent() {
 							/>
 							<div className="flex items-center max-w-6xl mx-auto mt-4 justify-between">
 								<div className="gap-2 flex items-center">
-									<ChatInfoDialog
-										currentChat={currentChat.value}
-									/>
+									<ChatInfoDialog />
 									<button
 										className="text-zinc-400 hover:text-zinc-500 transition-colors cursor-pointer"
 										onClick={() => navigate(-1)}

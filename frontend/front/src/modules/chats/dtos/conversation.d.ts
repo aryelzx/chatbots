@@ -8,7 +8,7 @@ type messageInputDto = {
 };
 
 type messageOutputDto = {
-	response: messageType;
+	messages: messageType[];
 };
 
 type messageType = {
