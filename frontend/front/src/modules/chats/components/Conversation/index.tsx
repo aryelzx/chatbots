@@ -25,10 +25,14 @@ function ChatConversationComponent() {
 					id_chat
 				);
 				if (messages) {
-					messagesByChat.set(() => [
-						...messagesByChat.get,
-						...messages,
-					]);
+					messagesByChat.set((prev) => {
+						const existingIds = new Set(prev.map((msg) => msg.id));
+						const newMessages = messages.filter(
+							(msg) => !existingIds.has(msg.id)
+						);
+
+						return [...prev, ...newMessages];
+					});
 				}
 			} catch (error) {
 				console.error("Error fetching messages:", error);
