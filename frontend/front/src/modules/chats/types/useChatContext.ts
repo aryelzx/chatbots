@@ -15,6 +15,10 @@ type ChatContextType = {
 		value: boolean;
 		set: React.Dispatch<React.SetStateAction<boolean>>;
 	};
+	allChats: {
+		value: IChat[];
+		set: React.Dispatch<React.SetStateAction<IChat[]>>;
+	}
 };
 
 export type { ChatContextType };
