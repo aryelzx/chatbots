@@ -4,7 +4,7 @@ using ModularApi.Modules.Users.Models;
 
 public interface IChatsService
 {
-    List<ChatDto> GetAllChats();
+    List<ChatDto> GetAllChats(int userId);
     List<ChatDto> ChatByName(string nome);
     ChatDto CreateChat(ChatInputDto chat);
     ChatDto UpdateChatById(int id, ChatDto chatDto);
@@ -20,10 +20,10 @@ public class ChatsService : IChatsService
         _context = context;
     }
 
-    public List<ChatDto> GetAllChats()
+    public List<ChatDto> GetAllChats(int userId)
     {
         return _context.chats
-            .Where(c => c.deleted_at == null)
+            .Where(c => c.deleted_at == null && c.user_id == userId)
             .Select(c => new ChatDto
             {
                 id = c.id,

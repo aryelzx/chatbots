@@ -24,12 +24,12 @@ namespace ModularApi.Modules.Chats.Controllers
         /// Lista todos os chats.
         /// </summary>
         /// <returns>Lista todos os chats.</returns>
-        [HttpGet("list-all")]
-        public IActionResult GetAllChats()
+        [HttpGet("list-all/{id_user}")]
+        public IActionResult GetAllChats(int id_user)
         {
             try
             {
-                var allChats = _chatsService.GetAllChats();
+                var allChats = _chatsService.GetAllChats(id_user);
                 return Ok(new { chats = allChats });
             }
             catch (Exception ex)

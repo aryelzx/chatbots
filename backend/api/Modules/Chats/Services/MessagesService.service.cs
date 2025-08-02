@@ -45,7 +45,7 @@ public class MessagesService
         _context.mensagens.Add(userMessage);
         await _context.SaveChangesAsync();
 
-     
+    
         var resposta = await _openAiService.QuestionAsync(pergunta);
 
         var botMessage = new Mensagem
