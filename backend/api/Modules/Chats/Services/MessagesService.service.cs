@@ -39,8 +39,42 @@ public class MessagesService
             created_by = pergunta.created_by
         };
 
-        var resposta = await _openAiService.QuestionAsync(perguntaParam);
+        if (perguntaParam.send_by == "B")
+        {
+            var message = new Mensagem
+            {
+                chat_id = id_chat,
+                created_at = DateTime.UtcNow,
+                user_id = pergunta.user_id,
+                mensagem = pergunta.prompt_input_text,
+                prompt_input_text = pergunta.prompt_input_text,
+                prompt_context = chat.context,
+                tipo = pergunta.tipo,
+                send_by = pergunta.send_by,
+                created_by = pergunta.created_by,
+                prompt_modelo = chat.modelo
+            };
+            _context.mensagens.Add(message);
+            _context.SaveChanges();
 
+            return new Mensagem
+            {
+                id = message.id,
+                chat_id = message.chat_id,
+                user_id = message.user_id,
+                mensagem = message.mensagem,
+                prompt_input_text = message.prompt_input_text,
+                prompt_context = message.prompt_context,
+                tipo = message.tipo,
+                created_at = message.created_at,
+                prompt_modelo = message.prompt_modelo,
+                send_by = message.send_by,
+                created_by = message.created_by,
+            };
+
+        }
+
+        var resposta = await _openAiService.QuestionAsync(perguntaParam);
         var mensagem = new Mensagem
         {
             chat_id = id_chat,
@@ -50,7 +84,7 @@ public class MessagesService
             prompt_input_text = pergunta.prompt_input_text,
             prompt_context = chat.context,
             tipo = pergunta.tipo,
-            send_by = pergunta.send_by,
+            send_by = pergunta.send_by == "B" ? "U" : "B",
             created_by = pergunta.created_by,
             prompt_modelo = chat.modelo
         };
@@ -89,7 +123,7 @@ public class MessagesService
             {
                 throw new Exception("Chat não encontrado ou inativo.");
             }
-            var mensagens = await  _context.mensagens
+            var mensagens = await _context.mensagens
                 .Where(m => m.chat_id == id_chat && m.deleted_at == null)
                 .OrderByDescending(m => m.created_at)
                 .ToListAsync();

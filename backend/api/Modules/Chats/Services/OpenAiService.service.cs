@@ -30,7 +30,7 @@ public class OpenAiService : IOpenAiService
     {
         var body = new
         {
-            model = pergunta.modelo,
+            model = "mistralai/mistral-7b-instruct:free",
             messages = new[]
             {
                 new { role = "system", content = pergunta.context },
