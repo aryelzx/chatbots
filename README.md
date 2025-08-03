@@ -27,8 +27,11 @@ Este projeto é um monorepo que agrupa **frontend**, **backend** e **banco de da
 
 ---
 
-## 🚀 Passo a passo da aplicação
+## Variáveis de ambiente (.ENV)
+1. **.env** (na raiz do projeto)
+2. **/backend/api/.env** (a nível de API)
 
+## 🚀 Passo a passo da aplicação
 1. **Registrar novo usuário**
 2. **Fazer login**
 3. **Criar um chat**
