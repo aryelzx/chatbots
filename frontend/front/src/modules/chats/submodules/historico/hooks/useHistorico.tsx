@@ -61,10 +61,12 @@ export function useHistoricoHook() {
 
 	function handleSetValuesInForm(chat: IChat) {
 		setSelectedChat(chat);
-		form.setValue("nome", chat.nome || "");
-		form.setValue("descricao", chat.descricao || "");
-		form.setValue("context", chat.context || "");
-		form.setValue("modelo", chat.modelo || "");
+		form.reset({
+		nome: chat.nome || "",
+		descricao: chat.descricao || "",
+		context: chat.context || "",
+		modelo: chat.modelo || "",
+	});
 	}
 
 	async function handleUpdateChat(data: CreateChatSchemaType) {
@@ -125,18 +127,7 @@ export function useHistoricoHook() {
 	useEffect(() => {
 		handleGetAllChats();
 	}, []);
-
-	useEffect(() => {
-		if (selectedChat) {
-			form.reset({
-				nome: selectedChat.nome,
-				descricao: selectedChat.descricao,
-				context: selectedChat.context,
-				modelo: selectedChat.modelo,
-			});
-		}
-	}, [selectedChat]);
-
+	
 	return {
 		allChats,
 		loading,
