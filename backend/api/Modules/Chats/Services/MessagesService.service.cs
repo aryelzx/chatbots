@@ -51,7 +51,7 @@ public class MessagesService
         var botMessage = new Mensagem
         {
             chat_id = id_chat,
-            created_at =  now.AddMilliseconds(5),
+            created_at =  now.AddSeconds(4),
             user_id = pergunta.user_id,
             mensagem = resposta,
             prompt_input_text = pergunta.prompt_input_text,
