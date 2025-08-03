@@ -11,6 +11,17 @@ services:
     volumes:
     - chatbots_pgdata:/var/lib/postgresql/data
     - ./sql:/docker-entrypoint-initdb.d
-
+  api:
+    build:
+      context: ./backend/api
+      dockerfile: Dockerfile
+    container_name: chatbots_api
+    ports:
+      - "5000:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=${POSTGRES_DB}"
+    depends_on:
+      - db
 volumes:
   chatbots_pgdata:
