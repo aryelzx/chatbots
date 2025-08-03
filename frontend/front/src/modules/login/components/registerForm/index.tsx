@@ -85,7 +85,6 @@ function RegisterUserFormComponent({ callBack }: Props) {
 										className="h-11 rounded-md"
 									/>
 								</FormControl>
-								<FormDescription>Opcional</FormDescription>
 								<FormMessage />
 							</FormItem>
 						)}
@@ -104,7 +103,6 @@ function RegisterUserFormComponent({ callBack }: Props) {
 										className="h-11 rounded-md"
 									/>
 								</FormControl>
-								<FormDescription>Opcional</FormDescription>
 								<FormMessage />
 							</FormItem>
 						)}
@@ -178,7 +176,7 @@ function RegisterUserFormComponent({ callBack }: Props) {
 					<div className="md:col-span-2 flex justify-center">
 						<Button
 							type="submit"
-							className="w-2/3 h-11 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition"
+							className="w-2/3 h-11 cursor-pointer bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition"
 						>
 							Cadastrar
 						</Button>
