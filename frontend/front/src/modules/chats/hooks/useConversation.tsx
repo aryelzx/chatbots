@@ -1,63 +1,54 @@
 import { errorHandler } from "@/shared/api/errorHandler";
 import { useConversationService } from "../services/conversation.service";
-import type { messageOutputDto } from "../dtos/conversation";
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { useUserContext } from "@/modules/login/context/useUserContext";
 import { useChatContext } from "../context/useChatContext";
-import type { IChat } from "../interfaces/chat.interface";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function useConversation() {
 	const { user } = useUserContext();
-	const { currentChat, messagesByChat, loadingMessages } = useChatContext();
+	const { messagesByChat, currentChat } = useChatContext();
 
-	const handleSetLatestChatInCurrent = useCallback(
-		(chat: IChat) => {
-			currentChat.set(chat);
-		},
-		[currentChat]
-	);
+	const navigate = useNavigate();
+
+	async function handleGetMessagesByChat() {
+		try {
+			if (currentChat.value.id === 0) {
+				return toast.success(
+					"Crie um chat para entrar em uma conversa."
+				);
+			}
+			const { messages } = await useConversationService.getMessages(
+				currentChat.value.id
+			);
+			const orderedMessages = messages.sort(
+				(a, b) =>
+					new Date(a.created_at).getTime() -
+					new Date(b.created_at).getTime()
+			);
+			messagesByChat.set(orderedMessages);
+		} catch (err) {
+			console.error("Error fetching messages:", err);
+			errorHandler(err, "Error fetching messages");
+		}
+	}
 
 	useEffect(() => {
-		if (!user.value.latestChat || user.value.latestChat.id === 0) return;
-
-		async function handleGetMessagesByIdChat(
-			id_chat: number
-		): Promise<messageOutputDto[] | void> {
-			try {
-				loadingMessages.set(true);
-				const { messages } = await useConversationService.getMessages(
-					id_chat
-				);
-				if (messages) {
-					messagesByChat.set((prev) => {
-						const existingIds = new Set(prev.map((msg) => msg.id));
-						const newMessages = messages.filter(
-							(msg) => !existingIds.has(msg.id)
-						);
-
-						const merged = [...prev, ...newMessages];
-
-						//order messages by created_at
-						return merged.sort(
-							(a, b) =>
-								Date.parse(a.created_at as unknown as string) -
-								Date.parse(b.created_at as unknown as string)
-						);
-					});
-				}
-			} catch (error) {
-				errorHandler(error);
-				console.error("Error fetching messages:", error);
-			} finally {
-				loadingMessages.set(false);
-			}
+		if (!user.value.hasChat) {
+			navigate("/chats/create");
+			return;
 		}
+	}, [user.value.hasChat]);
 
-		handleGetMessagesByIdChat(user.value.latestChat.id);
-		handleSetLatestChatInCurrent(user.value.latestChat);
+	useEffect(() => {
+		handleGetMessagesByChat();
 	}, []);
 
-	return null;
+	return {
+		user,
+		messagesByChat,
+	};
 }
 
 export default useConversation;

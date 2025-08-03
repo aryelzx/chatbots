@@ -6,7 +6,7 @@ import {
 	DialogTitle,
 	DialogDescription,
 } from "@/components/ui/dialog";
-import { CircleEllipsis, Info } from "lucide-react";
+import { Info } from "lucide-react";
 import truncateText from "@/shared/utils/truncateText";
 import { useUserContext } from "@/modules/login/context/useUserContext";
 import dayjs from "dayjs";
