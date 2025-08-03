@@ -10,10 +10,12 @@ namespace ModularApi.Modules.Users.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserService _userService;
+        private readonly ChatsService _chatsService;
 
         public UsersController(ApplicationDbContext context)
         {
             _userService = new UserService(context);
+            _chatsService = new ChatsService(context);
         }
 
 
@@ -27,6 +29,13 @@ namespace ModularApi.Modules.Users.Controllers
             try
             {
                 var allUsers = _userService.GetAllUsers();
+                for (int i = 0; i < allUsers.Count; i++)
+                {
+                    var hasChat = _chatsService.GetChatById(allUsers[i].id);
+                    allUsers[i].hasChat = hasChat != null;
+                    var chat = _chatsService.GetLatestChatByUserId(allUsers[i].id);
+                    allUsers[i].latestChat = chat;
+                }
                 return Ok(new { user = allUsers });
             }
             catch (Exception ex)

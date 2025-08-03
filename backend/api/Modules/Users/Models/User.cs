@@ -1,3 +1,5 @@
+using ModularApi.Modules.Chats.DTOs;
+
 namespace ModularApi.Modules.Users.Models
 {
     public class User
@@ -40,6 +42,10 @@ namespace ModularApi.Modules.Users.Models
         public string? nome { get; set; }
 
         public string cpf { get; set; }
+
+        public bool hasChat { get; set; } // Indicates if the user has an associated chat
+
+        public ChatDto? latestChat { get; set; } // Optional chat association
     }
 
     public class UpdateUserInputDto
