@@ -22,9 +22,10 @@ import { Bot, Undo2 } from "lucide-react";
 import { ChatsLayout } from "@/modules/chats/layout";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "@/modules/login/context/useUserContext";
+import { LoaderComponent } from "@/shared/components/loader";
 
 function CreateChatPage() {
-	const { form, handleCreateChat } = useCreateChatHook();
+	const { form, handleCreateChat, loading } = useCreateChatHook();
 	const { user } = useUserContext();
 	const navigate = useNavigate();
 	function handleGoBack() {
@@ -55,116 +56,132 @@ function CreateChatPage() {
 						<Bot size={20} />
 					</span>
 				</div>
-				<Form {...form}>
-					<form
-						onSubmit={form.handleSubmit(handleCreateChat)}
-						className="grid grid-cols-1 md:grid-cols-2 gap-6"
-					>
-						<FormField
-							control={form.control}
-							name="nome"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Nome</FormLabel>
-									<FormControl>
-										<Input
-											className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
-											placeholder="Ex: Chat de JavaScript"
-											{...field}
-										/>
-									</FormControl>
-									<FormDescription>
-										Nome do seu chat.
-									</FormDescription>
-									<FormMessage />
-								</FormItem>
-							)}
+				{loading ? (
+					<div className="flex items-center justify-center h-40 w-full">
+						<LoaderComponent
+							variant="blue"
+							message="Criando o chat, aguarde..."
 						/>
-
-						<FormField
-							control={form.control}
-							name="descricao"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Descrição</FormLabel>
-									<FormControl>
-										<Input
-											className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
-											placeholder="Descrição da conversa"
-											{...field}
-										/>
-									</FormControl>
-									<FormDescription>
-										Propósito da conversa.
-									</FormDescription>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-
-						<FormField
-							control={form.control}
-							name="context"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Contexto</FormLabel>
-									<FormControl>
-										<Input
-											className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
-											placeholder="Ex: Responda somente em inglês."
-											{...field}
-										/>
-									</FormControl>
-									<FormDescription>
-										Ajuda a IA a entender melhor.
-									</FormDescription>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-
-						<FormField
-							control={form.control}
-							name="modelo"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Modelo</FormLabel>
-									<Select
-										onValueChange={field.onChange}
-										defaultValue={field.value}
-									>
+					</div>
+				) : (
+					<Form {...form}>
+						<form
+							onSubmit={form.handleSubmit(handleCreateChat)}
+							className="grid grid-cols-1 md:grid-cols-2 gap-6"
+						>
+							<FormField
+								control={form.control}
+								name="nome"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Nome</FormLabel>
 										<FormControl>
-											<SelectTrigger>
-												<SelectValue placeholder="Selecione um modelo" />
-											</SelectTrigger>
+											<Input
+												className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
+												placeholder="Ex: Chat de JavaScript"
+												{...field}
+											/>
 										</FormControl>
-										<SelectContent defaultValue={"qwen/qwen3-coder:free"}>
-											<SelectItem value="mistralai/mistral-7b-instruct:free">
-												Mistralai/mistral
-											</SelectItem>
-											<SelectItem value="moonshotai/kimi-k2:free">
-												Moonshotai
-											</SelectItem>
-											<SelectItem value="qwen/qwen3-coder:free">
-												Qwen/Qwen3 Coder
-											</SelectItem>
-										</SelectContent>
-									</Select>
-									<FormDescription>
-										Modelo de IA utilizado.
-									</FormDescription>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
+										<FormDescription>
+											Nome do seu chat.
+										</FormDescription>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
 
-						<div className="md:col-span-2">
-							<Button type="submit" className="w-full mt-4 cursor-pointer">
-								Criar Chat
-							</Button>
-						</div>
-					</form>
-				</Form>
+							<FormField
+								control={form.control}
+								name="descricao"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Descrição</FormLabel>
+										<FormControl>
+											<Input
+												className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
+												placeholder="Descrição da conversa"
+												{...field}
+											/>
+										</FormControl>
+										<FormDescription>
+											Propósito da conversa.
+										</FormDescription>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="context"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Contexto</FormLabel>
+										<FormControl>
+											<Input
+												className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
+												placeholder="Ex: Responda somente em inglês."
+												{...field}
+											/>
+										</FormControl>
+										<FormDescription>
+											Ajuda a IA a entender melhor.
+										</FormDescription>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<FormField
+								control={form.control}
+								name="modelo"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel>Modelo</FormLabel>
+										<Select
+											onValueChange={field.onChange}
+											defaultValue={field.value}
+										>
+											<FormControl>
+												<SelectTrigger>
+													<SelectValue placeholder="Selecione um modelo" />
+												</SelectTrigger>
+											</FormControl>
+											<SelectContent
+												defaultValue={
+													"qwen/qwen3-coder:free"
+												}
+											>
+												<SelectItem value="mistralai/mistral-7b-instruct:free">
+													Mistralai/mistral
+												</SelectItem>
+												<SelectItem value="moonshotai/kimi-k2:free">
+													Moonshotai
+												</SelectItem>
+												<SelectItem value="qwen/qwen3-coder:free">
+													Qwen/Qwen3 Coder
+												</SelectItem>
+											</SelectContent>
+										</Select>
+										<FormDescription>
+											Modelo de IA utilizado.
+										</FormDescription>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+
+							<div className="md:col-span-2">
+								<Button
+									type="submit"
+									className="w-full mt-4 cursor-pointer"
+								>
+									Criar Chat
+								</Button>
+							</div>
+						</form>
+					</Form>
+				)}
 			</div>
 		</ChatsLayout>
 	);

@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 function useCreateChatHook() {
 	const [loading, setLoading] = useState(false);
+
 	const { currentChat } = useChatContext();
 	const { user } = useUserContext();
 	const navigate = useNavigate();
@@ -62,9 +63,8 @@ function useCreateChatHook() {
 	return {
 		form,
 		handleCreateChat,
-		states: {
-			loading,
-		},
+
+		loading,
 	};
 }
 

@@ -8,8 +8,6 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { Card, CardContent } from "@/components/ui/card";
-import { MessageSquare } from "lucide-react";
 import {
 	FormControl,
 	FormDescription,
