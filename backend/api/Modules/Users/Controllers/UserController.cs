@@ -32,7 +32,7 @@ namespace ModularApi.Modules.Users.Controllers
                 for (int i = 0; i < allUsers.Count; i++)
                 {
                     var hasChat = _chatsService.GetChatById(allUsers[i].id);
-                    allUsers[i].hasChat = hasChat != null;
+                    allUsers[i].hasChat = hasChat;
                     var chat = _chatsService.GetLatestChatByUserId(allUsers[i].id);
                     allUsers[i].latestChat = chat;
                 }
