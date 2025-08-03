@@ -92,7 +92,14 @@ function ChatMessagesComponent() {
 												</span>
 											</div>
 										) : null}
-										{msg.mensagem}
+										{msg.mensagem ===
+										"Carregando resposta..." ? (
+											<span className="animate-pulse">
+												Carregando...
+											</span>
+										) : (
+											msg.mensagem
+										)}
 										{msg.send_by === "U" && (
 											<span className="text-xs text-zinc-400 block mt-1">
 												{dayjs(msg.created_at).format(

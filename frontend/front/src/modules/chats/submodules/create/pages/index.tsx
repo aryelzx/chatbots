@@ -111,7 +111,7 @@ function CreateChatPage() {
 									<FormControl>
 										<Input
 											className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
-											placeholder="Informações adicionais"
+											placeholder="Ex: Responda somente em inglês."
 											{...field}
 										/>
 									</FormControl>
@@ -138,7 +138,7 @@ function CreateChatPage() {
 												<SelectValue placeholder="Selecione um modelo" />
 											</SelectTrigger>
 										</FormControl>
-										<SelectContent>
+										<SelectContent defaultValue={"qwen/qwen3-coder:free"}>
 											<SelectItem value="mistralai/mistral-7b-instruct:free">
 												Mistralai/mistral
 											</SelectItem>
@@ -147,9 +147,6 @@ function CreateChatPage() {
 											</SelectItem>
 											<SelectItem value="qwen/qwen3-coder:free">
 												Qwen/Qwen3 Coder
-											</SelectItem>
-											<SelectItem value="google/gemma-3n-e2b-it:free">
-												Google/Gemma
 											</SelectItem>
 										</SelectContent>
 									</Select>
@@ -162,7 +159,7 @@ function CreateChatPage() {
 						/>
 
 						<div className="md:col-span-2">
-							<Button type="submit" className="w-full mt-4">
+							<Button type="submit" className="w-full mt-4 cursor-pointer">
 								Criar Chat
 							</Button>
 						</div>

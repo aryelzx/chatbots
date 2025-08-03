@@ -336,9 +336,6 @@ function HistoricoChatsPage() {
 																		Qwen/Qwen3
 																		Coder
 																	</SelectItem>
-																	<SelectItem value="google/gemma-3n-e2b-it:free">
-																		Google/Gemma
-																	</SelectItem>
 																</SelectContent>
 															</Select>
 															<FormDescription>
