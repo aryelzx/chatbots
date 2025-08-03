@@ -15,12 +15,16 @@ se o usuario criar um, sera alterado o parametro no storage local da aplicação
 que ele já possui um chat;
 
 
+//TODO
 ao criar um novo chat, passa ele para o latestChat do contexto USER
 
 descomentar o modelo mistralai/mistral-7b-instruct:free
 
 adicionar um loading state no login.
-adicioanr um loading state no send message.
+adicionar um loading state na criação do chat.
+
+isDirty não funciona e não edita o chat!.
+ao editar o chat, refletir no chat aberto.
 
 consertar as mensagens após ser redirecionado para o chat do historico;
 verificar as requisições duplicadas;
