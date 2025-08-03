@@ -1,85 +1,125 @@
-# Como rodar o projeto com Docker Compose
+# Chatbots App – Monorepo (Frontend + Backend + Banco)
 
-Este projeto usa Docker Compose para subir os serviços (banco, backend, frontend).
-
----
-
-## Requisitos
-
-- Docker instalado
-- Windows ou WSL/Linux/macOS
+Este projeto é um monorepo que agrupa **frontend**, **backend** e **banco de dados** com inicialização via **Docker Compose**.
 
 ---
 
-## Scripts para facilitar o uso do Docker
+## 🧠 Visão Geral
 
-### No Windows (Terminal ou PowerShell)
+### ✨ Tecnologias Utilizadas
 
-Existe um arquivo `start.bat` para facilitar o uso dos comandos Docker:
+#### Frontend
+- [React](https://react.dev/) com [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Zod](https://zod.dev/) – Validação de esquemas
+- [React Hook Form](https://react-hook-form.com/) – Gerenciamento de formulários
+- [Axios](https://axios-http.com/) – Requisições HTTP
 
-### Para subir o projeto (build e start):
+#### Backend
+- [.NET 9](https://dotnet.microsoft.com/) com C#
+- [Entity Framework Core](https://learn.microsoft.com/ef/core/) – ORM
+- [Swagger](https://swagger.io/) – Documentação automática das rotas
+- [JWT] – Autenticação do usuário
+- Estrutura modular com exibição dinâmica de módulos com base na **role do usuário**
 
-```cmd
-start.bat
+#### Banco de Dados
+- [PostgreSQL](https://www.postgresql.org/)
+
+---
+
+## 🚀 Passo a passo da aplicação
+
+1. **Registrar novo usuário**
+2. **Fazer login**
+3. **Criar um chat**
+4. **Enviar mensagens**
+
+---
+
+## 🐳 Como rodar o projeto com Docker Compose
+
+Este projeto usa Docker Compose para subir os serviços:
+
+- Banco de dados PostgreSQL
+- Backend ASP.NET
+- Frontend React (porta 5173)
+
+---
+
+## ⚙️ Requisitos
+
+- Docker + Docker Compose instalados
+- Sistemas suportados: Windows / WSL / Linux / macOS
+
+---
+
+## ▶️ Inicialização rápida
+
+### Windows (Terminal ou PowerShell)
+
+Use o script `start.bat`:
+
+```bash
+start.bat          # Build + start
+start.bat down     # Para containers (sem apagar dados)
+start.bat reset    # Para tudo e apaga volumes/dados
 ```
 
-### Para parar o projeto (sem apagar volumes/dados):
+---
 
-```
-start.bat down
-```
+### Linux / WSL / macOS
 
-### Para parar o projeto e apagar volumes (resetar dados):
+Use o script `start.sh`:
 
-```cmd
-start.bat reset
-```
-### No Linux/WSL/macOS
-Existe um arquivo start.sh para facilitar o uso dos comandos Docker.
-
-Passos para usar o script shell:
-Dê permissão de execução para o arquivo (necessário só uma vez):
-
-```cmd
-chmod +x start.sh
+```bash
+chmod +x start.sh     # (Necessário uma vez)
+./start.sh            # Build + start
+./start.sh down       # Para containers
+./start.sh reset      # Para tudo e apaga volumes/dados
 ```
 
-### Para subir o projeto (build e start):
+---
 
-```cmd
-./start.sh
-```
+## 📦 Instalação de dependências adicionais
 
-### Para parar o projeto (sem apagar volumes/dados):
-```cmd
-./start.sh down
-```
-### Para parar o projeto e apagar volumes (resetar dados):
+Caso o TypeScript acuse erro de tipagem em `AxiosInstance`:
 
-```cmd
-./start.sh reset
-```
-### Observações
-caso os scrips em /sql/init.sql não forem executados, verifica se o volume chatbots_pgdata já foi inicializado antes, então o Postgres não irá rodar novamente os scripts .sql, pois ele só roda esses scripts quando o diretório de dados está vazio (ou seja, na criação do volume).
-
-### Orientações
-Para criar um chat é necessário criar um usuário, pois existe uma restrição nas colunas 'created_by, user_id' com FK na coluna 'id' na tabela 'usuarios'.
-
-iniciar o front
-caso o ts aponte erro da tipagem 'AxiosInstance' é necessário instalar os tipos na mão com o comando:
 ```bash
 npm install --save-dev @types/axios
 ```
 
-### pacotes da API
-```cmd
-  dotnet add package Microsoft.EntityFrameworkCore
-  dotnet add package Microsoft.EntityFrameworkCore.Design
-  dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
-  dotnet add package DotNetEnv
+---
+
+## 🛠️ Scripts SQL e Seeds
+
+Os scripts de criação de tabelas e seeds estão em `/sql/init.sql`.  
+> ⚠️ Atenção: esses scripts **só são executados na primeira inicialização do volume**. Se o volume `chatbots_pgdata` já existir, os dados não serão sobrescritos. Use `start.sh reset` para limpar e reexecutar os seeds.
+
+---
+
+## 🧩 Backend – Pacotes utilizados
+
+```bash
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+dotnet add package DotNetEnv
 ```
 
-### Documentação das rotas (Swagger)
-```cmd
-  http://localhost:5074/swagger/index.html
+---
+
+## 📘 Documentação da API (Swagger)
+
+Após subir a aplicação, acesse:
+
 ```
+http://localhost:5074/swagger/index.html
+```
+
+---
+
+## 💡 Observações
+
+- A aplicação segue o padrão **modular** no backend.
+- O frontend consome apenas a porta `5173`, que está **explicitamente habilitada no CORS da API**.
+- Os módulos disponíveis são exibidos conforme a **role do usuário autenticado**.
