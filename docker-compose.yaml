@@ -18,8 +18,13 @@ services:
     container_name: chatbots_api
     ports:
       - "5000:80"
+    env_file:
+      - backend/api/.env
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      JWT__SECRETKEY: ${JWT__SECRETKEY}
+      JWT__Issuer: ${JWT__ISSUER}
+      JWT__Audience: ${JWT__AUDIENCE}
       ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=${POSTGRES_DB}"
     depends_on:
       - db

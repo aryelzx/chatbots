@@ -38,8 +38,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // Configurações do JWT
-var issuer = Environment.GetEnvironmentVariable("JWT_ISSUER");
-var audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE");
+var issuer = Environment.GetEnvironmentVariable("JWT__ISSUER");
+var audience = Environment.GetEnvironmentVariable("JWT__AUDIENCE");
 var secretKey = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT__SECRETKEY")!);
 
 builder.Services.AddAuthentication(options =>
@@ -61,6 +61,8 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(secretKey)
     };
 });
+
+builder.WebHost.UseUrls("http://+:80");
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

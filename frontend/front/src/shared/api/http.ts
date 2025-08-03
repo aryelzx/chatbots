@@ -8,7 +8,7 @@ function httpClientBuilder(): AxiosInstance {
 
     client.interceptors.request.use(
         (config) => {
-            const token = localStorage.getItem("@chatbots_access_token");
+            const token = localStorage.getItem("@chatbots_access_token")?.replace(/^"(.*)"$/, '$1');
 
             if (token){
                 config.headers["Authorization"] = `Bearer ${token}`;
