@@ -7,6 +7,7 @@ import { useChatContext } from "../../context/useChatContext";
 import useConversation from "../../hooks/useConversation";
 import { useConversationService } from "../../services/conversation.service";
 import { errorHandler } from "@/shared/api/errorHandler";
+import toast from "react-hot-toast";
 
 function ChatConversationComponent() {
 	const { user } = useUserContext();
@@ -24,6 +25,9 @@ function ChatConversationComponent() {
 
 	async function handleGetMessagesByChat() {
 		try {
+			if(currentChat.value.id === 0) {
+				return toast.success("Crie um chat para entrar em uma conversa.");
+			}
 			const { messages } = await useConversationService.getMessages(
 				currentChat.value.id
 			);
