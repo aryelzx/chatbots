@@ -8,4 +8,17 @@ type LoginOutputDto = {
   token: string;
   usuario: IUser;
 };
-export type { LoginInputDto, LoginOutputDto };
+
+type RegisterInputDto = {
+  role: string; // 'A' = Admin, 'U' = User
+  email?: string;
+  nome?: string;
+  cpf: string;
+  senha: string;
+}
+
+type RegisterOutputDto = {
+  user: IUser;
+}
+
+export type { LoginInputDto, LoginOutputDto, RegisterInputDto, RegisterOutputDto };

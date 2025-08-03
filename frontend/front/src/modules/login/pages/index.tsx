@@ -5,8 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { UseLoginHook } from "../hooks/useLogin";
 import type { LoginInputDto } from "../dtos/login";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { RegisterUserFormComponent } from "../components/registerForm";
+import { useState } from "react";
+
 function LoginPage() {
 	const { handleLogin } = UseLoginHook();
+	const [tabsValue, setTabsValue] = useState("login");
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -17,56 +22,103 @@ function LoginPage() {
 		return await handleLogin(params);
 	};
 
+	function handleTabsChange(value: string) {
+		setTabsValue(value);
+	}
+
 	return (
-		<div className="min-h-screen bg-primary bg-cover bg-center flex items-center justify-center h-screen">
-			<Card className="w-full max-w-md max-h-[65%] bg-white backdrop-blur-md shadow-xl relative">
+		<div className="min-h-screen bg-primary bg-cover bg-center flex items-center justify-center p-4">
+			<Card className="relative w-full max-w-lg max-h-[80vh] bg-white/90 backdrop-blur-md shadow-2xl rounded-3xl">
 				<img
 					src={Robo}
 					alt="Robo"
-					className="w-45 h-auto absolute top-[-110px] left-[-90px]"
+					className="absolute w-44 top-[-10%] left-[-15%] h-auto select-none pointer-events-none"
+					draggable={false}
 				/>
-				<CardContent className="flex flex-col gap-5 h-full items-center">
-					<h1 className="text-3xl font-semibold text-center mb-6">
-						Login
+
+				<CardContent className="flex flex-col gap-6 h-full px-8 py-10">
+					<h1 className="text-4xl font-extrabold text-center text-primary mb-8 select-none">
+						Bem vindo!
 					</h1>
-					<form
-						className="space-y-4 w-full items-center flex flex-col justify-evenly"
-						onSubmit={handleSubmit}
+
+					<Tabs
+						value={tabsValue}
+						onValueChange={handleTabsChange}
+						defaultValue="login"
+						className="flex flex-col"
 					>
-						<div className="grid w-full max-w-sm items-center gap-2">
-							<Label htmlFor="cpf">CPF</Label>
-							<Input
-								type="text"
-								id="cpf"
-								placeholder="Digite seu CPF"
-								className="h-10"
-							/>
-						</div>
-						<div className="grid w-full max-w-sm items-center gap-2">
-							<Label htmlFor="password">Senha</Label>
-							<Input
-								type="password"
-								id="password"
-								placeholder="Digite sua senha"
-								className="h-10"
-							/>
-						</div>
-						<div className="w-full items-center flex flex-col justify-center">
-							<Button
-								type="submit"
-								className="w-2/3 h-10 mt-4 cursor-pointer"
+						<TabsList className="grid grid-cols-2 rounded-xl bg-muted p-1 mb-8 shadow-inner">
+							<TabsTrigger
+								value="login"
+								className="data-[state=active]:bg-white data-[state=active]:shadow-lg data-[state=active]:text-primary transition"
 							>
-								Entrar
-							</Button>
-							<Button
-								type="submit"
-								variant={"outline"}
-								className="w-2/3 h-10 mt-4 cursor-pointer"
+								Login
+							</TabsTrigger>
+							<TabsTrigger
+								value="cadastro"
+								className="data-[state=active]:bg-white data-[state=active]:shadow-lg data-[state=active]:text-primary transition"
 							>
-								Primeiro Acesso
-							</Button>
-						</div>
-					</form>
+								Cadastro
+							</TabsTrigger>
+						</TabsList>
+
+						<TabsContent
+							value="login"
+							className="flex flex-col items-center"
+						>
+							<form
+								onSubmit={handleSubmit}
+								className="w-full max-w-sm flex flex-col gap-5"
+								noValidate
+							>
+								<div className="flex flex-col gap-1">
+									<Label
+										htmlFor="cpf"
+										className="font-semibold text-sm"
+									>
+										CPF
+									</Label>
+									<Input
+										id="cpf"
+										type="text"
+										placeholder="Digite seu CPF"
+										className="h-11 rounded-md border border-muted focus:border-primary focus:ring-1 focus:ring-primary transition"
+									/>
+								</div>
+
+								<div className="flex flex-col gap-1">
+									<Label
+										htmlFor="password"
+										className="font-semibold text-sm"
+									>
+										Senha
+									</Label>
+									<Input
+										id="password"
+										type="password"
+										placeholder="Digite sua senha"
+										className="h-11 rounded-md border border-muted focus:border-primary focus:ring-1 focus:ring-primary transition"
+									/>
+								</div>
+
+								<Button
+									type="submit"
+									className="mt-4 h-11 w-full bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition"
+								>
+									Entrar
+								</Button>
+							</form>
+						</TabsContent>
+
+						<TabsContent
+							value="cadastro"
+							className="w-full max-w-lg mx-auto"
+						>
+							<RegisterUserFormComponent
+								callBack={(e) => handleTabsChange(e)}
+							/>
+						</TabsContent>
+					</Tabs>
 				</CardContent>
 			</Card>
 		</div>

@@ -1,6 +1,11 @@
 import { http } from "@/shared/api/http";
 import type { AxiosInstance } from "axios";
-import type { LoginInputDto, LoginOutputDto } from "../dtos/login";
+import type {
+	LoginInputDto,
+	LoginOutputDto,
+	RegisterInputDto,
+	RegisterOutputDto,
+} from "../dtos/login";
 class AuthService {
 	private readonly api: AxiosInstance;
 	constructor(api: AxiosInstance) {
@@ -9,7 +14,23 @@ class AuthService {
 
 	async login(params: LoginInputDto): Promise<LoginOutputDto> {
 		try {
-			const response = await this.api.post<LoginOutputDto>(`/auth/login`, params);
+			const response = await this.api.post<LoginOutputDto>(
+				`/auth/login`,
+				params
+			);
+			return response.data;
+		} catch (error) {
+			console.error("Error fetching messages:", error);
+			throw error;
+		}
+	}
+
+	async register(params: RegisterInputDto): Promise<RegisterOutputDto> {
+		try {
+			const response = await this.api.post<RegisterOutputDto>(
+				`/users/register`,
+				params
+			);
 			return response.data;
 		} catch (error) {
 			console.error("Error fetching messages:", error);

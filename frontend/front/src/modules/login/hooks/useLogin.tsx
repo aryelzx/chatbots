@@ -12,7 +12,6 @@ function UseLoginHook() {
 	const { user: currentUser } = useUserContext();
 	const { currentChat } = useChatContext();
 
-
 	const navigate = useNavigate();
 
 	async function handleLogin(data: LoginInputDto): Promise<void> {
