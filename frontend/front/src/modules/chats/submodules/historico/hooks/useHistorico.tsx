@@ -78,7 +78,7 @@ export function useHistoricoHook() {
 			}
 			setLoading((prev) => ({ ...prev, selectedChat: true }));
 			const params: UpdateChatInputDto = {
-				id_user: selectedChat.id.toString(),
+				id_chat: selectedChat.id.toString(),
 				chat: {
 					id: selectedChat.id,
 					nome: data.nome,
