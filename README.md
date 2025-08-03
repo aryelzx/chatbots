@@ -24,7 +24,8 @@ Este projeto é um monorepo que agrupa **frontend**, **backend** e **banco de da
 
 #### Banco de Dados
 - [PostgreSQL](https://www.postgresql.org/)
-
+- [Diagrama de entidade e relacionamento (DER)](https://whimsical.com/chatbot-der-NawkapeArxuCKFTb3ptdKw)
+![print der](image.png)
 ---
 
 ## Variáveis de ambiente (.ENV)
