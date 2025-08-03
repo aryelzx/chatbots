@@ -31,7 +31,8 @@ function ChatConversationComponent() {
 			const { messages } = await useConversationService.getMessages(
 				currentChat.value.id
 			);
-			messagesByChat.set(messages);
+			const orderedMessages = messages.sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+			messagesByChat.set(orderedMessages);
 		} catch (err) {
 			console.error("Error fetching messages:", err);
 			errorHandler(err, "Error fetching messages");
