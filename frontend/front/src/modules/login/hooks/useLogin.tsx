@@ -32,14 +32,20 @@ function UseLoginHook() {
 
 	async function handleLogin(data: LoginInputDto): Promise<void> {
 		try {
-			const response = await useAuthService.login(data);
+			const loginPromise = useAuthService.login(data);
+
+			const response = await toast.promise(loginPromise, {
+				loading: "Fazendo login...",
+				success: "Login realizado com sucesso!",
+				error: "Erro ao fazer login",
+			});
+
 			handleStorageUser(response.usuario);
 			localStorage.setItem(
 				"@chatbots_access_token",
 				JSON.stringify(response.token)
 			);
 			currentChat.set(response.usuario?.latestChat || ({} as IChat));
-			toast.success("Seja bem vindo!");
 			navigate("/dashboard");
 		} catch (error) {
 			errorHandler(error, "Erro ao fazer login");
@@ -57,7 +63,7 @@ function UseLoginHook() {
 	}
 	return {
 		handleLogin,
-		form
+		form,
 	};
 }
 
