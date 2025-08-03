@@ -10,7 +10,7 @@
             </summary>
             <returns>Autenticação</returns>
         </member>
-        <member name="M:ModularApi.Modules.Chats.Controllers.ChatsController.GetAllChats">
+        <member name="M:ModularApi.Modules.Chats.Controllers.ChatsController.GetAllChats(System.Int32)">
             <summary>
             Lista todos os chats.
             </summary>
