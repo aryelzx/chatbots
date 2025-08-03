@@ -2,25 +2,29 @@ import Robo from "@/assets/robo.png";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { UseLoginHook } from "../hooks/useLogin";
 import type { LoginInputDto } from "../dtos/login";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RegisterUserFormComponent } from "../components/registerForm";
 import { useState } from "react";
+import { Eye, EyeClosed } from "lucide-react";
+import {
+	Form,
+	FormControl,
+	FormField,
+	FormItem,
+	FormLabel,
+	FormMessage,
+} from "@/components/ui/form";
 
 function LoginPage() {
-	const { handleLogin } = UseLoginHook();
+	const { handleLogin, form } = UseLoginHook();
 	const [tabsValue, setTabsValue] = useState("login");
+	const [showPassword, setShowPassword] = useState(false);
 
-	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		const params: LoginInputDto = {
-			cpf: (event.target as HTMLFormElement).cpf.value,
-			senha: (event.target as HTMLFormElement).password.value,
-		};
-		return await handleLogin(params);
-	};
+	const handleSubmit = form.handleSubmit((data: LoginInputDto) => {
+		handleLogin(data);
+	});
 
 	function handleTabsChange(value: string) {
 		setTabsValue(value);
@@ -66,48 +70,86 @@ function LoginPage() {
 							value="login"
 							className="flex flex-col items-center"
 						>
-							<form
-								onSubmit={handleSubmit}
-								className="w-full max-w-sm flex flex-col gap-5"
-								noValidate
-							>
-								<div className="flex flex-col gap-1">
-									<Label
-										htmlFor="cpf"
-										className="font-semibold text-sm"
-									>
-										CPF
-									</Label>
-									<Input
-										id="cpf"
-										type="text"
-										placeholder="Digite seu CPF"
-										className="h-11 rounded-md border border-muted focus:border-primary focus:ring-1 focus:ring-primary transition"
-									/>
-								</div>
-
-								<div className="flex flex-col gap-1">
-									<Label
-										htmlFor="password"
-										className="font-semibold text-sm"
-									>
-										Senha
-									</Label>
-									<Input
-										id="password"
-										type="password"
-										placeholder="Digite sua senha"
-										className="h-11 rounded-md border border-muted focus:border-primary focus:ring-1 focus:ring-primary transition"
-									/>
-								</div>
-
-								<Button
-									type="submit"
-									className="mt-4 h-11 w-full bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition"
+							<Form {...form}>
+								<form
+									onSubmit={handleSubmit}
+									className="w-full max-w-sm flex flex-col gap-5"
+									noValidate
 								>
-									Entrar
-								</Button>
-							</form>
+									<FormField
+										control={form.control}
+										name="cpf"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>CPF</FormLabel>
+												<FormControl>
+													<Input
+														placeholder="Digite o CPF"
+														{...field}
+														className="h-11 rounded-md"
+													/>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+
+									<FormField
+										control={form.control}
+										name="senha"
+										render={({ field }) => (
+											<FormItem>
+												<FormLabel>Senha</FormLabel>
+												<FormControl>
+													<div className="relative w-full">
+														<Input
+															type={
+																showPassword
+																	? "text"
+																	: "password"
+															}
+															placeholder="Digite a senha"
+															{...field}
+															className="h-11 rounded-md pr-10"
+														/>
+														{form.watch(
+															"senha"
+														) && (
+															<button
+																type="button"
+																onClick={() =>
+																	setShowPassword(
+																		!showPassword
+																	)
+																}
+																className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition"
+																aria-label={
+																	showPassword
+																		? "Esconder senha"
+																		: "Mostrar senha"
+																}
+															>
+																{showPassword ? (
+																	<EyeClosed />
+																) : (
+																	<Eye />
+																)}
+															</button>
+														)}
+													</div>
+												</FormControl>
+												<FormMessage />
+											</FormItem>
+										)}
+									/>
+									<Button
+										type="submit"
+										className="mt-4 h-11 w-full bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition cursor-pointer"
+									>
+										Entrar
+									</Button>
+								</form>
+							</Form>
 						</TabsContent>
 
 						<TabsContent
