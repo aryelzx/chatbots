@@ -1,7 +1,7 @@
 import type { IChat } from "@/modules/chats/interfaces/chat.interface";
 
 type UpdateChatInputDto = {
-  id_user: string;
+  id_chat: string;
   chat: IChat
 };
 

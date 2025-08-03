@@ -9,10 +9,10 @@ class UpdateChatService {
 		this.api = api;
 	}
 
-	async execute({ id_user, chat }: UpdateChatInputDto): Promise<UpdateChatOutputDto> {
+	async execute({ id_chat, chat }: UpdateChatInputDto): Promise<UpdateChatOutputDto> {
 		try {
 			const response = await this.api.put(
-				`${this.baseURL}/update/${id_user}`,
+				`${this.baseURL}/update/${id_chat}`,
 				chat
 			);
 			return response.data;
