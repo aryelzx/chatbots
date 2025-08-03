@@ -174,10 +174,12 @@ function HistoricoChatsPage() {
 				Aqui você pode visualizar e gerenciar seus chats anteriores.
 			</p>
 			{loading.allChats ? (
-				<LoaderComponent
-					variant="blue"
-					message="Carregando os seus chats!"
-				/>
+				<div className="flex items-center justify-center h-40 w-full">
+					<LoaderComponent
+						variant="blue"
+						message="Carregando os seus chats!"
+					/>
+				</div>
 			) : allChats.value.length > 0 ? (
 				<div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 					{allChats.value.map((chat) => (
@@ -187,26 +189,35 @@ function HistoricoChatsPage() {
 							onOpenChange={(e) => handleModal(chat, e)}
 						>
 							<DialogTrigger asChild>
-								<Card className="cursor-pointer transition-all duration-200 hover:shadow-xl hover:-translate-y-1 group">
-									<CardContent className="p-5 flex items-start justify-between gap-4">
-										<div>
-											<h2 className="text-lg font-bold text-primary group-hover:underline">
-												{chat.nome}
-											</h2>
-											<p className="text-sm text-muted-foreground mt-1 line-clamp-2">
-												{chat.descricao}
-											</p>
+								<Card className="cursor-pointer transition-all duration-200 hover:shadow-xl hover:-translate-y-1 group rounded-2xl border border-muted bg-zinc-800">
+									<CardContent className="p-6 flex flex-col gap-3">
+										<div className="flex items-start justify-between">
+											<div className="flex-1 ">
+												<h2 className="text-xl text-secondary font-semibold group-hover:underline truncate">
+													{chat.nome}
+												</h2>
+												<p className="text-sm text-white/50 mt-1 line-clamp-2">
+													{chat.descricao}
+												</p>
+											</div>
+											<MessageSquare
+												className="shrink-0 text-white"
+												size={20}
+											/>
 										</div>
-										<MessageSquare
-											className="text-muted-foreground mt-1"
-											size={20}
-										/>
+
+										<p className="text-xs text-white/50 mt-2">
+											Criado em:{" "}
+											{dayjs(chat.created_at).format(
+												"DD [do] MM [de] YYYY [às] HH:mm"
+											)}
+										</p>
 									</CardContent>
 								</Card>
 							</DialogTrigger>
 							<DialogContent className="max-w-2xl">
 								{loading.selectedChat ? (
-									<div className="flex items-center justify-center h-40">
+									<div className="flex items-center justify-center h-40 w-full">
 										<LoaderComponent
 											variant="blue"
 											message="Atualizando chat..."
