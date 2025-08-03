@@ -28,5 +28,17 @@ services:
       ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=${POSTGRES_DB}"
     depends_on:
       - db
+  frontend:
+    build:
+      context: ./frontend/front
+      dockerfile: Dockerfile
+    container_name: chatbots_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend/front:/app
+      - /app/node_modules
+    depends_on:
+      - api
 volumes:
   chatbots_pgdata:
