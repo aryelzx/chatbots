@@ -70,7 +70,7 @@ const SidebarDrawer = ({ children, buttons }: Props) => {
 										className={cn(
 											"w-[95%] px-4 py-2 flex items-center justify-between rounded-full text-white hover:bg-blue-950 hover:translate-x-2 cursor-pointer focus:translate-x-2 focus:scale-105 transition-all",
 											window.location.pathname === path &&
-											"bg-secondary",
+											"bg-zinc-800 text-white",
 											disabled && "hidden"
 										)}
 									>
