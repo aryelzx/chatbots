@@ -133,5 +133,5 @@ http://localhost:5000/swagger/index.html
 
 - A aplicação segue o padrão **modular** no backend.
 - O frontend consome apenas a porta `5173`, que está **explicitamente habilitada no CORS da API**.
-- Caso dê erro 500 no envio de mensagem é por quê o limite diário do modelo foi atingido, recomendo criar outro chat com outro modelo, ou alterar o modelo do chat.
+- Caso dê erro 500 no envio de mensagem é porquê o limite diário do modelo foi atingido, recomendo criar outro chat com outro modelo, ou alterar o modelo do chat.
 - Os módulos disponíveis são exibidos conforme a **role do usuário autenticado**.
