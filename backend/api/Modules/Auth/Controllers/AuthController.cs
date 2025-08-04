@@ -14,13 +14,10 @@ namespace ModularApi.Modules.Auth.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        private readonly ChatsService _chatsService;
-
-        public AuthController(ApplicationDbContext context)
+        private readonly AuthService _authService;
+        public AuthController(ApplicationDbContext context, AuthService authService)
         {
-            _context = context;
-            _chatsService = new ChatsService(context);
+            _authService = authService;
         }
 
         /// <summary>
@@ -30,63 +27,20 @@ namespace ModularApi.Modules.Auth.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginDto dto)
         {
-            var user = _context.usuarios.FirstOrDefault(u => u.cpf == dto.cpf);
-            if (user == null || string.IsNullOrEmpty(user.senha))
-            {   
-                Console.WriteLine("primeiro if");
-                return Unauthorized(new { Message = "CPF ou senha inválidos." });
+            try
+            {
+                var (token, user) = _authService.Authenticate(dto);
+
+                return Ok(new
+                {
+                    token = token,
+                    usuario = user
+                });
             }
-
-            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(dto.senha, user?.senha);
-            Console.WriteLine(user?.senha);
-            Console.WriteLine(dto.senha);
-            if (!isPasswordValid)
+            catch (UnauthorizedAccessException ex)
             {
-                Console.WriteLine("segundo if");
-                return Unauthorized(new { Message = "CPF ou senha inválidos." });
+                return Unauthorized(new { Message = ex.Message });
             }
-
-            if (user == null)
-                return Unauthorized("Usuário não encontrado");
-
-            var secretKey = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT__SECRETKEY")!);
-            var issuer = Environment.GetEnvironmentVariable("JWT_ISSUER");
-            var audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE");
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.id.ToString()),
-                new Claim(ClaimTypes.Role, user.role.ToString())
-            };
-
-            var token = new JwtSecurityToken(
-                issuer: issuer,
-                audience: audience,
-                claims: claims,
-                expires: DateTime.UtcNow.AddHours(1),
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(secretKey), SecurityAlgorithms.HmacSha256)
-            );
-
-            var hasChat = _chatsService.GetChatById(user.id);
-
-            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-
-            var userResponse = new LoginResponseDto
-            {
-                id = user.id.ToString(),
-                nome = user.nome ?? string.Empty,
-                cpf = user.cpf,
-                email = user.email ?? string.Empty,
-                role = user.role,
-                hasChat = hasChat,
-                latestChat = _chatsService.GetLatestChatByUserId(user.id) ?? new ChatDto()
-            };
-
-            return Ok(new
-            {
-                token = tokenString,
-                usuario = userResponse
-            });
         }
     }
 }
