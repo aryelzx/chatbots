@@ -3,21 +3,21 @@ services:
     image: postgres:16
     container_name: chatbots_db
     ports:
-      - "5432:5432"
+      - '5432:5432'
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-    - chatbots_pgdata:/var/lib/postgresql/data
-    - ./sql:/docker-entrypoint-initdb.d
+      - chatbots_pgdata:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
   api:
     build:
       context: ./backend/api
       dockerfile: Dockerfile
     container_name: chatbots_api
     ports:
-      - "5000:80"
+      - '5000:80'
     env_file:
       - backend/api/.env
     environment:
@@ -25,18 +25,18 @@ services:
       JWT__SECRETKEY: ${JWT__SECRETKEY}
       JWT__Issuer: ${JWT__ISSUER}
       JWT__Audience: ${JWT__AUDIENCE}
-      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=${POSTGRES_DB}"
+      ConnectionStrings__DefaultConnection: 'Host=db;Port=5432;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=${POSTGRES_DB}'
     depends_on:
       - db
   frontend:
     build:
-      context: ./frontend/front
+      context: ./frontend
       dockerfile: Dockerfile
     container_name: chatbots_frontend
     ports:
-      - "5173:5173"
+      - '5173:5173'
     volumes:
-      - ./frontend/front:/app
+      - ./frontend:/app
       - /app/node_modules
     depends_on:
       - api
