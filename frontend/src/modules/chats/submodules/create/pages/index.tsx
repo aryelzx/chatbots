@@ -1,3 +1,5 @@
+import Robo from "@/assets/robo.png";
+import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
@@ -7,10 +9,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { useCreateChatHook } from "../hooks/useCreateChat";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import Robo from "@/assets/robo.png";
 import {
 	Select,
 	SelectContent,
@@ -18,11 +17,13 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { Bot, Undo2 } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
 import { ChatsLayout } from "@/modules/chats/layout";
-import { useNavigate } from "react-router-dom";
 import { useUserContext } from "@/modules/login/context/useUserContext";
 import { LoaderComponent } from "@/shared/components/loader";
+import { Bot, Undo2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useCreateChatHook } from "../hooks/useCreateChat";
 
 function CreateChatPage() {
 	const { form, handleCreateChat, loading } = useCreateChatHook();
@@ -33,7 +34,7 @@ function CreateChatPage() {
 	}
 	return (
 		<ChatsLayout>
-			<div className="max-w-4xl w-2xl mx-auto mt-10 p-8 border rounded-2xl shadow-lg bg-white relative">
+			<div className="max-w-4xl w-xl mx-auto mt-10 p-8 border rounded-2xl shadow-lg bg-white relative">
 				<img
 					src={Robo}
 					alt="Robo"
@@ -67,7 +68,7 @@ function CreateChatPage() {
 					<Form {...form}>
 						<form
 							onSubmit={form.handleSubmit(handleCreateChat)}
-							className="grid grid-cols-1 md:grid-cols-2 gap-6"
+							className="flex flex-col gap-6"
 						>
 							<FormField
 								control={form.control}
@@ -97,9 +98,9 @@ function CreateChatPage() {
 									<FormItem>
 										<FormLabel>Descrição</FormLabel>
 										<FormControl>
-											<Input
-												className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
-												placeholder="Descrição da conversa"
+											<Textarea
+												className="h-24 max-w-md border-1 focus:ring-2 focus:ring-blue-500 resize-none"
+												placeholder="Ex: Chat para discutir sobre JavaScript."
 												{...field}
 											/>
 										</FormControl>
@@ -118,9 +119,9 @@ function CreateChatPage() {
 									<FormItem>
 										<FormLabel>Contexto</FormLabel>
 										<FormControl>
-											<Input
-												className="h-10 max-w-md border-1 focus:ring-2 focus:ring-blue-500"
-												placeholder="Ex: Responda somente em inglês."
+											<Textarea
+												className="h-24 max-w-md border-1 focus:ring-2 focus:ring-blue-500 max-h-38"
+												placeholder="Ex: Você é um especialista em JavaScript."
 												{...field}
 											/>
 										</FormControl>
