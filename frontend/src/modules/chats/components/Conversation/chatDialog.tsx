@@ -1,16 +1,17 @@
 import {
 	Dialog,
-	DialogTrigger,
 	DialogContent,
+	DialogDescription,
 	DialogHeader,
 	DialogTitle,
-	DialogDescription,
+	DialogTrigger,
 } from "@/components/ui/dialog";
-import { Info } from "lucide-react";
-import truncateText from "@/shared/utils/truncateText";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useUserContext } from "@/modules/login/context/useUserContext";
+import truncateText from "@/shared/utils/truncateText";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
+import { Info } from "lucide-react";
 import { useChatContext } from "../../context/useChatContext";
 dayjs.extend(utc);
 
@@ -21,7 +22,16 @@ export function ChatInfoDialog() {
 	return (
 		<Dialog>
 			<DialogTrigger className="text-zinc-400 hover:text-white transition-colors cursor-pointer flex items-center gap-1">
-				<Info size={26} />
+				<Tooltip>
+					<TooltipTrigger asChild>
+						<Info size={26} />
+					</TooltipTrigger>
+					<TooltipContent>
+						<p className="text-xs">
+							Ver detalhes da conversa
+						</p>
+					</TooltipContent>
+				</Tooltip>
 			</DialogTrigger>
 			<DialogContent className="bg-zinc-900 text-white border-zinc-700 max-w-xl">
 				<DialogHeader>
