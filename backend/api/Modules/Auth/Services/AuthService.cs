@@ -21,11 +21,11 @@ public class AuthService
 
     public (string token, LoginResponseDto user) Authenticate(LoginDto dto)
     {
-        var user = _context.usuarios.FirstOrDefault(u => u.cpf == dto.cpf);
+        var user = _context.usuarios.FirstOrDefault(u => u.cpf == dto.Cpf);
         if (user == null || string.IsNullOrEmpty(user.senha))
             throw new UnauthorizedAccessException("CPF ou senha inválidos.");
 
-        if (!BCrypt.Net.BCrypt.Verify(dto.senha, user.senha))
+        if (!BCrypt.Net.BCrypt.Verify(dto.Senha, user.senha))
             throw new UnauthorizedAccessException("CPF ou senha inválidos.");
 
         var secretKey = Encoding.UTF8.GetBytes(_configuration["JWT:SECRETKEY"]);
@@ -51,13 +51,13 @@ public class AuthService
 
         var userResponse = new LoginResponseDto
         {
-            id = user.id.ToString(),
-            nome = user.nome ?? string.Empty,
-            cpf = user.cpf,
-            email = user.email ?? string.Empty,
-            role = user.role,
-            hasChat = _chatsService.GetChatById(user.id),
-            latestChat = _chatsService.GetLatestChatByUserId(user.id) ?? new ChatDto()
+            Id = user.id.ToString(),
+            Nome = user.nome ?? string.Empty,
+            Cpf = user.cpf,
+            Email = user.email ?? string.Empty,
+            Role = user.role,
+            HasChat = _chatsService.GetChatById(user.id),
+            LatestChat = _chatsService.GetLatestChatByUserId(user.id) ?? new ChatDto()
         };
 
         return (tokenString, userResponse);

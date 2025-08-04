@@ -4,20 +4,20 @@ namespace ModularApi.Modules.Auth.DTOs
 {
     public class LoginDto
     {
-        public string cpf { get; set; } = string.Empty;
-        public string senha { get; set; } = string.Empty;
+        public string Cpf { get; set; } = string.Empty;
+        public string Senha { get; set; } = string.Empty;
     }
 
     public class LoginResponseDto
     {
-        public string id { get; set; } = string.Empty;
-        public string nome { get; set; } = string.Empty;
-        public string email { get; set; } = string.Empty;
-        public string role { get; set; } = string.Empty;
-        public string cpf { get; set; } = string.Empty;
-        public bool hasChat { get; set; } = false;
+        public string Id { get; set; } = string.Empty;
+        public string Nome { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
+        public string Cpf { get; set; } = string.Empty;
+        public bool HasChat { get; set; } = false;
 
-        public ChatDto latestChat { get; set; } = new ChatDto();
+        public ChatDto LatestChat { get; set; } = new ChatDto();
 
     }
 
