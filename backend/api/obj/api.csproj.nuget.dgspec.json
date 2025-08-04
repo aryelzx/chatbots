@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ariel\\www\\highcapital\\backend\\api\\api.csproj": {}
+    "/Users/liv01/Documents/estudos/chatbots/backend/api/api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ariel\\www\\highcapital\\backend\\api\\api.csproj": {
+    "/Users/liv01/Documents/estudos/chatbots/backend/api/api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ariel\\www\\highcapital\\backend\\api\\api.csproj",
+        "projectUniqueName": "/Users/liv01/Documents/estudos/chatbots/backend/api/api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\Users\\ariel\\www\\highcapital\\backend\\api\\api.csproj",
-        "packagesPath": "C:\\Users\\ariel\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ariel\\www\\highcapital\\backend\\api\\obj\\",
+        "projectPath": "/Users/liv01/Documents/estudos/chatbots/backend/api/api.csproj",
+        "packagesPath": "/Users/liv01/.nuget/packages/",
+        "outputPath": "/Users/liv01/Documents/estudos/chatbots/backend/api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ariel\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/liv01/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -102,7 +102,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
