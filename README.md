@@ -9,6 +9,7 @@ Este projeto é um monorepo que agrupa **frontend**, **backend** e **banco de da
 ### ✨ Tecnologias Utilizadas
 
 #### Frontend
+
 - [React](https://react.dev/) com [Vite](https://vitejs.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Zod](https://zod.dev/) – Validação de esquemas
@@ -16,6 +17,7 @@ Este projeto é um monorepo que agrupa **frontend**, **backend** e **banco de da
 - [Axios](https://axios-http.com/) – Requisições HTTP
 
 #### Backend
+
 - [.NET 9](https://dotnet.microsoft.com/) com C#
 - [Entity Framework Core](https://learn.microsoft.com/ef/core/) – ORM
 - [Swagger](https://swagger.io/) – Documentação automática das rotas
@@ -23,16 +25,20 @@ Este projeto é um monorepo que agrupa **frontend**, **backend** e **banco de da
 - Estrutura modular com exibição dinâmica de módulos com base na **role do usuário**
 
 #### Banco de Dados
+
 - [PostgreSQL](https://www.postgresql.org/)
 - [Diagrama de entidade e relacionamento (DER)](https://whimsical.com/chatbot-der-NawkapeArxuCKFTb3ptdKw)
-![print der](image.png)
+  ![print der](image.png)
+
 ---
 
 ## Variáveis de ambiente (.ENV)
+
 1. **.env** (na raiz do projeto)
 2. **/backend/api/.env** (a nível de API)
 
 ## 🚀 Passo a passo da aplicação
+
 1. **Registrar novo usuário**
 2. **Fazer login**
 3. **Criar um chat**
@@ -96,7 +102,8 @@ npm install --save-dev @types/axios
 
 ## 🛠️ Scripts SQL e Seeds
 
-Os scripts de criação de tabelas e seeds estão em `/sql/init.sql`.  
+Os scripts de criação de tabelas e seeds estão em `/sql/init.sql`.
+
 > ⚠️ Atenção: esses scripts **só são executados na primeira inicialização do volume**. Se o volume `chatbots_pgdata` já existir, os dados não serão sobrescritos. Use `start.sh reset` para limpar e reexecutar os seeds.
 
 ---
@@ -126,4 +133,5 @@ http://localhost:5000/swagger/index.html
 
 - A aplicação segue o padrão **modular** no backend.
 - O frontend consome apenas a porta `5173`, que está **explicitamente habilitada no CORS da API**.
-- Os módulos disponíveis são exibidos conforme a **role do usuário autenticado**. 
+- Caso dê erro 500 no envio de mensagem é por quê o limite diário do modelo foi atingido, recomendo criar outro chat com outro modelo, ou alterar o modelo do chat.
+- Os módulos disponíveis são exibidos conforme a **role do usuário autenticado**.
