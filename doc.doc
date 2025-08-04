@@ -30,3 +30,19 @@ ao editar o chat, refletir no chat aberto.
 
 consertar as mensagens após ser redirecionado para o chat do historico;
 verificar as requisições duplicadas;
+
+mudar o nome do projeto no html e o favicon e titulo da pagina
+
+full screen no chat
+
+no registro, antes de enviar a requisocao, limpar a string cpf
+ao registrar, adicionar o cpf no login.
+
+ao atualizar so atualiza na segunda vez.
+adicionar uma descrição;
+
+alterar o timezone do banco
+
+FirstOrDefaultAsync
+
+dependency injection no lugar de instanciar as classes no constructor
