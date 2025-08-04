@@ -30,11 +30,11 @@ public class OpenAiService : IOpenAiService
     {
         var body = new
         {
-            model = pergunta.modelo,
+            model = pergunta.Modelo,
             messages = new[]
             {
-                new { role = "system", content = pergunta.context },
-                new { role = "user", content = pergunta.prompt_input_text }
+                new { role = "system", content = pergunta.Context },
+                new { role = "user", content = pergunta.PromptInputText }
             }
         };
 

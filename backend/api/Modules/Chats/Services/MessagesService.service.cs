@@ -28,44 +28,44 @@ public class MessagesService
             throw new Exception("Chat não encontrado ou inativo.");
         }
 
-      var now = DateTime.UtcNow;
+        var now = DateTime.UtcNow;
         var userMessage = new Mensagem
         {
             chat_id = id_chat,
             created_at = now,
-            user_id = pergunta.user_id,
-            mensagem = pergunta.prompt_input_text,
-            prompt_input_text = pergunta.prompt_input_text,
+            user_id = pergunta.UserId,
+            mensagem = pergunta.PromptInputText,
+            prompt_input_text = pergunta.PromptInputText,
             prompt_context = chat.context,
             tipo = "P",
             send_by = "U",
-            created_by = pergunta.created_by,
+            created_by = pergunta.CreatedBy,
             prompt_modelo = chat.modelo
         };
         _context.mensagens.Add(userMessage);
         await _context.SaveChangesAsync();
 
-    
+
         var resposta = await _openAiService.QuestionAsync(pergunta);
 
         var botMessage = new Mensagem
         {
             chat_id = id_chat,
-            created_at =  now.AddSeconds(4),
-            user_id = pergunta.user_id,
+            created_at = now.AddSeconds(4),
+            user_id = pergunta.UserId,
             mensagem = resposta,
-            prompt_input_text = pergunta.prompt_input_text,
+            prompt_input_text = pergunta.PromptInputText,
             prompt_context = chat.context,
             tipo = "R",
             send_by = "B",
-            created_by = pergunta.created_by,
+            created_by = pergunta.CreatedBy,
             prompt_modelo = chat.modelo
         };
         _context.mensagens.Add(botMessage);
         await _context.SaveChangesAsync();
 
         return new List<Mensagem>
-        { 
+        {
             userMessage,
             botMessage
          };

@@ -28,14 +28,13 @@ namespace ModularApi.Modules.Chats.DTOs
 
     public class MensagemInputDto
     {
-        public int user_id { get; set; }
-        public string prompt_input_text { get; set; }
-        public string? context { get; set; }
-        public string tipo { get; set; }
-        public string send_by { get; set; }
-        public string modelo { get; set; }
-        public int? created_by { get; set; }
-
+        public int UserId { get; set; }
+        public string PromptInputText { get; set; } = string.Empty;
+        public string? Context { get; set; } = string.Empty;
+        public string Tipo { get; set; } = string.Empty;
+        public string SendBy { get; set; } = string.Empty;
+        public string Modelo { get; set; } = string.Empty;
+        public int? CreatedBy { get; set; }
     }
 
     public class MensagemDto
