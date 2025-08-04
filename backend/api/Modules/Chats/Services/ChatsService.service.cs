@@ -26,19 +26,19 @@ public class ChatsService : IChatsService
             .Where(c => c.deleted_at == null && c.user_id == userId)
             .Select(c => new ChatDto
             {
-                id = c.id,
-                context = c.context,
-                nome = c.nome,
-                modelo = c.modelo,
-                descricao = c.descricao,
-                status = c.status,
-                user_id = c.user_id,
-                created_by = c.created_by,
-                updated_by = c.updated_by,
-                deleted_by = c.deleted_by,
-                created_at = c.created_at,
-                updated_at = c.updated_at,
-                deleted_at = c.deleted_at
+                Id = c.id,
+                Context = c.context,
+                Nome = c.nome,
+                Modelo = c.modelo,
+                Descricao = c.descricao,
+                Status = c.status,
+                UserId = c.user_id,
+                CreatedBy = c.created_by,
+                UpdatedBy = c.updated_by,
+                DeletedBy = c.deleted_by,
+                CreatedAt = c.created_at,
+                UpdatedAt = c.updated_at,
+                DeletedAt = c.deleted_at
             })
             .ToList();
     }
@@ -49,7 +49,7 @@ public class ChatsService : IChatsService
             .Where(c => c.user_id == id && c.deleted_at == null)
             .Select(c => new ChatDto
             {
-                id = c.id
+                Id = c.id
             })
             .FirstOrDefault();
         if (chat == null)
@@ -66,19 +66,19 @@ public class ChatsService : IChatsService
         .Where(c => c.nome.ToLower().Contains(nome.ToLower()) && c.deleted_at == null)
         .Select(c => new ChatDto
         {
-            id = c.id,
-            context = c.context,
-            nome = c.nome,
-            modelo = c.modelo,
-            descricao = c.descricao,
-            status = c.status,
-            user_id = c.user_id,
-            created_by = c.created_by,
-            updated_by = c.updated_by,
-            deleted_by = c.deleted_by,
-            created_at = c.created_at,
-            updated_at = c.updated_at,
-            deleted_at = c.deleted_at
+            Id = c.id,
+            Context = c.context,
+            Nome = c.nome,
+            Modelo = c.modelo,
+            Descricao = c.descricao,
+            Status = c.status,
+            UserId = c.user_id,
+            CreatedBy = c.created_by,
+            UpdatedBy = c.updated_by,
+            DeletedBy = c.deleted_by,
+            CreatedAt = c.created_at,
+            UpdatedAt = c.updated_at,
+            DeletedAt = c.deleted_at
         })
         .ToList();
         if (chats.Count == 0)
@@ -95,19 +95,19 @@ public class ChatsService : IChatsService
             .OrderByDescending(c => c.created_at)
             .Select(c => new ChatDto
             {
-                id = c.id,
-                context = c.context,
-                nome = c.nome,
-                modelo = c.modelo,
-                descricao = c.descricao,
-                status = c.status,
-                user_id = c.user_id,
-                created_by = c.created_by,
-                updated_by = c.updated_by,
-                deleted_by = c.deleted_by,
-                created_at = c.created_at,
-                updated_at = c.updated_at,
-                deleted_at = c.deleted_at
+                Id = c.id,
+                Context = c.context,
+                Nome = c.nome,
+                Modelo = c.modelo,
+                Descricao = c.descricao,
+                Status = c.status,
+                UserId = c.user_id,
+                CreatedBy = c.created_by,
+                UpdatedBy = c.updated_by,
+                DeletedBy = c.deleted_by,
+                CreatedAt = c.created_at,
+                UpdatedAt = c.updated_at,
+                DeletedAt = c.deleted_at
             })
             .FirstOrDefault();
 
@@ -115,19 +115,19 @@ public class ChatsService : IChatsService
         {
             return new ChatDto
             {
-                id = 0,
-                context = string.Empty,
-                nome = string.Empty,
-                modelo = string.Empty,
-                descricao = string.Empty,
-                status = string.Empty,
-                user_id = userId,
-                created_by = null,
-                updated_by = null,
-                deleted_by = null,
-                created_at = DateTime.MinValue,
-                updated_at = null,
-                deleted_at = null
+                Id = 0,
+                Context = string.Empty,
+                Nome = string.Empty,
+                Modelo = string.Empty,
+                Descricao = null,
+                Status = string.Empty,
+                UserId = userId,
+                CreatedBy = null,
+                UpdatedBy = null,
+                DeletedBy = null,
+                CreatedAt = DateTime.MinValue,
+                UpdatedAt = null,
+                DeletedAt = null
             };
         }
 
@@ -153,19 +153,19 @@ public class ChatsService : IChatsService
 
         return new ChatDto
         {
-            id = chat.id,
-            context = chat.context,
-            nome = chat.nome,
-            modelo = chat.modelo,
-            descricao = chat.descricao,
-            status = chat.status,
-            user_id = chat.user_id,
-            created_by = chat.created_by,
-            updated_by = null, // Initially null
-            deleted_by = null, // Initially null
-            created_at = chat.created_at,
-            updated_at = null, // Initially null
-            deleted_at = null // Initially null
+            Id = chat.id,
+            Context = chat.context,
+            Nome = chat.nome,
+            Modelo = chat.modelo,
+            Descricao = chat.descricao,
+            Status = chat.status,
+            UserId = chat.user_id,
+            CreatedBy = chat.created_by,
+            UpdatedBy = null,
+            DeletedBy = null,
+            CreatedAt = chat.created_at,
+            UpdatedAt = null,
+            DeletedAt = null
         };
     }
     public ChatDto UpdateChatById(int id, ChatDto chatDto)
@@ -176,31 +176,31 @@ public class ChatsService : IChatsService
             throw new Exception("Chat não encontrado.");
         }
 
-        chat.nome = chatDto.nome;
-        chat.context = chatDto.context;
-        chat.modelo = chatDto.modelo;
-        chat.descricao = chatDto.descricao;
-        chat.status = chatDto.status;
-        chat.updated_by = chatDto.updated_by;
+        chat.nome = chatDto.Nome;
+        chat.context = chatDto.Context;
+        chat.modelo = chatDto.Modelo;
+        chat.descricao = chatDto.Descricao;
+        chat.status = chatDto.Status;
+        chat.updated_by = chatDto.UpdatedBy;
         chat.updated_at = DateTime.UtcNow;
 
         _context.SaveChanges();
 
         return new ChatDto
         {
-            id = chat.id,
-            context = chat.context,
-            nome = chat.nome,
-            modelo = chat.modelo,
-            descricao = chat.descricao,
-            status = chat.status,
-            user_id = chat.user_id,
-            created_by = chat.created_by,
-            updated_by = chat.updated_by,
-            deleted_by = chat.deleted_by,
-            created_at = chat.created_at,
-            updated_at = chat.updated_at,
-            deleted_at = chat.deleted_at
+            Id = chat.id,
+            Context = chat.context,
+            Nome = chat.nome,
+            Modelo = chat.modelo,
+            Descricao = chat.descricao,
+            Status = chat.status,
+            UserId = chat.user_id,
+            CreatedBy = chat.created_by,
+            UpdatedBy = chat.updated_by,
+            DeletedBy = chat.deleted_by,
+            CreatedAt = chat.created_at,
+            UpdatedAt = chat.updated_at,
+            DeletedAt = chat.deleted_at
         };
     }
 }
