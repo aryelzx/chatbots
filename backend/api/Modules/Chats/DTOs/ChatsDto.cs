@@ -2,12 +2,12 @@ namespace ModularApi.Modules.Chats.DTOs
 {
     public class ChatInputDto
     {
-        public string context { get; set; } = string.Empty;
-        public string nome { get; set; } = string.Empty;
-        public string modelo { get; set; } = string.Empty;
-        public string? descricao { get; set; } = string.Empty;
-        public string status { get; set; } = string.Empty;
-        public int user_id { get; set; }
+        public string Context { get; set; } = string.Empty;
+        public string Nome { get; set; } = string.Empty;
+        public string Modelo { get; set; } = string.Empty;
+        public string? Descricao { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty;
+        public int User_id { get; set; }
     }
     public class ChatDto
     {

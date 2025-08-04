@@ -54,7 +54,7 @@ public class ChatsService : IChatsService
             .FirstOrDefault();
         if (chat == null)
         {
-           return false;
+            return false;
         }
 
         return true;
@@ -128,7 +128,7 @@ public class ChatsService : IChatsService
                 created_at = DateTime.MinValue,
                 updated_at = null,
                 deleted_at = null
-            }; 
+            };
         }
 
         return chat;
@@ -138,13 +138,13 @@ public class ChatsService : IChatsService
     {
         var chat = new Chats
         {
-            context = chatDto.context,
-            nome = chatDto.nome.ToLower(),
-            modelo = chatDto.modelo,
-            descricao = chatDto.descricao,
-            status = chatDto.status,
-            user_id = chatDto.user_id,
-            created_by = chatDto.user_id,
+            context = chatDto.Context,
+            nome = chatDto.Nome.ToLower(),
+            modelo = chatDto.Modelo,
+            descricao = chatDto.Descricao,
+            status = chatDto.Status,
+            user_id = chatDto.User_id,
+            created_by = chatDto.User_id,
             created_at = DateTime.UtcNow
         };
 
