@@ -3,8 +3,7 @@ import {
 	DialogContent,
 	DialogDescription,
 	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
+	DialogTitle
 } from "@/components/ui/dialog";
 import {
 	Form,
@@ -64,9 +63,9 @@ function HistoricoChatsPage() {
 							open={isModalOpen && selectedChat?.id === chat.id}
 							onOpenChange={(e) => handleModal(chat, e)}
 						>
-							<DialogTrigger asChild>
-								<ChatCardComponent chat={chat} />
-							</DialogTrigger>
+							<ChatCardComponent chat={chat} handleModal={(chat, isOpen) => handleModal(chat, isOpen)}
+								handleRedirect={() => handleRedirectToChat(chat)}
+							/>
 							<DialogContent className="max-w-2xl">
 								{loading.selectedChat ? (
 									<div className="flex items-center justify-center h-40 w-full">
