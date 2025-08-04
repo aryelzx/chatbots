@@ -1,7 +1,7 @@
 import Logo from "@/assets/robo.png";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tooltip } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import type React from "react";
 import type { JSX } from "react";
@@ -40,20 +40,27 @@ function Layout({ children, sidebarButtons, defaultDisabled, breadcrumbs = [] }:
                 </div>
                 {sidebarButtons.map((item, index) => (
                     <Tooltip key={index}>
-                        <Button
-                            onClick={() => navigate(item.path)}
-                            disabled={item.disabled}
-                            className={cn(
-                                "w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-blue-950 focus:bg-blue-950 transition-all cursor-pointer",
-                                window.location.pathname === item.path && "bg-blue-950",
-                                !defaultDisabled && item.disabled && "hidden",
-                                defaultDisabled && item.disabled
-                                    ? "hover:bg-primary text-tertiary hover:text-tertiary"
-                                    : "hover:bg-none"
-                            )}
-                        >
-                            <p>{item.icon}</p>
-                        </Button>
+                        <TooltipTrigger asChild>
+                            <Button
+                                onClick={() => navigate(item.path)}
+                                disabled={item.disabled}
+                                className={cn(
+                                    "w-12 h-10 flex items-center justify-center rounded-full text-white hover:bg-blue-950 focus:bg-blue-950 transition-all cursor-pointer",
+                                    window.location.pathname === item.path && "bg-blue-950",
+                                    !defaultDisabled && item.disabled && "hidden",
+                                    defaultDisabled && item.disabled
+                                        ? "hover:bg-primary text-tertiary hover:text-tertiary"
+                                        : "hover:bg-none"
+                                )}
+                            >
+                                <p>{item.icon}</p>
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent side="right">
+                            <span className="text-white text-sm font-semibold">
+                                {item.label}
+                            </span>
+                        </TooltipContent>
                     </Tooltip>
                 ))}
                 <SidebarDrawer buttons={sidebarButtons}>
