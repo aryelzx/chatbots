@@ -22,6 +22,7 @@ public class MessagesService
     /// <returns>Resposta da IA.</returns>
     public async Task<List<Mensagem>> RegisterMessage(int id_chat, MensagemInputDto pergunta)
     {
+        //TODO: melhoria de FirstOrDefaultAsync
         var chat = _context.chats.FirstOrDefault(c => c.id == id_chat && c.deleted_at == null && c.status == "A");
         if (chat == null)
         {
