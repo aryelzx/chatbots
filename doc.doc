@@ -43,6 +43,6 @@ adicionar uma descrição;
 
 alterar o timezone do banco
 
+*MELHORIAS*
 FirstOrDefaultAsync
-
 dependency injection no lugar de instanciar as classes no constructor
