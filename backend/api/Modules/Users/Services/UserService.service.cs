@@ -26,32 +26,32 @@ public class UserService : IUserService
     public List<UserResponseDto> GetAllUsers()
     {
         return _context.usuarios
-            .Where(u => u.deleted_at == null)
+            .Where(u => u.DeletedAt == null)
             .Select(u => new UserResponseDto
             {
-                id = u.id,
-                cpf = u.cpf,
-                email = u.email,
-                nome = u.nome,
-                role = u.role
+                Id = u.Id,
+                Cpf = u.Cpf,
+                Email = u.Email,
+                Nome = u.Nome,
+                Role = u.Role
             })
             .ToList();
     }
 
     public UserResponseDto RegisterUser(CreateUserDto user)
     {
-        if (_context.usuarios.Any(u => u.email == user.email || u.cpf == user.cpf))
+        if (_context.usuarios.Any(u => u.Email == user.Email || u.Cpf == user.Cpf))
             throw new DuplicateUserException("Email ou CPF já cadastrado.");
 
-        var hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.senha);
+        var hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Senha);
 
         var newUser = new User
         {
-            cpf = user.cpf,
-            email = user.email,
-            nome = user.nome,
-            role = user.role,
-            senha = hashedPassword
+            Cpf = user.Cpf,
+            Email = user.Email,
+            Nome = user.Nome,
+            Role = user.Role,
+            Senha = hashedPassword
         };
 
         _context.usuarios.Add(newUser);
@@ -59,87 +59,87 @@ public class UserService : IUserService
 
         return new UserResponseDto
         {
-            id = newUser.id,
-            cpf = newUser.cpf,
-            email = newUser.email,
-            nome = newUser.nome,
-            role = newUser.role
+            Id = newUser.Id,
+            Cpf = newUser.Cpf,
+            Email = newUser.Email,
+            Nome = newUser.Nome,
+            Role = newUser.Role
         };
     }
 
     public UserResponseDto GetUserById(int id)
     {
-        var user = _context.usuarios.FirstOrDefault(u => u.id == id && u.deleted_at == null);
+        var user = _context.usuarios.FirstOrDefault(u => u.Id == id && u.DeletedAt == null);
         if (user == null)
             throw new KeyNotFoundException("Usuário não encontrado.");
 
         return new UserResponseDto
         {
-            id = user.id,
-            cpf = user.cpf,
-            email = user.email,
-            nome = user.nome,
-            role = user.role
+            Id = user.Id,
+            Cpf = user.Cpf,
+            Email = user.Email,
+            Nome = user.Nome,
+            Role = user.Role
         };
     }
 
     public UserResponseDto UpdateUser(int id, UpdateUserInputDto user)
     {
-        var existingUser = _context.usuarios.FirstOrDefault(u => u.id == id && u.deleted_at == null);
+        var existingUser = _context.usuarios.FirstOrDefault(u => u.Id == id && u.DeletedAt == null);
         if (existingUser == null)
             throw new KeyNotFoundException("Usuário não encontrado.");
-        if (!string.IsNullOrWhiteSpace(user.email))
+        if (!string.IsNullOrWhiteSpace(user.Email))
         {
-            var email = user.email.Trim();
-            if (_context.usuarios.Any(u => u.email == user.email && u.id != id))
+            var email = user.Email.Trim();
+            if (_context.usuarios.Any(u => u.Email == user.Email && u.Id != id))
                 throw new DuplicateUserException("E-mail já cadastrado por outro usuário.");
-            existingUser.email = user.email;
+            existingUser.Email = user.Email;
         }
 
-        if (!string.IsNullOrWhiteSpace(user.cpf))
+        if (!string.IsNullOrWhiteSpace(user.Cpf))
         {
-            if (_context.usuarios.Any(u => u.cpf == user.cpf && u.id != id))
+            if (_context.usuarios.Any(u => u.Cpf == user.Cpf && u.Id != id))
                 throw new DuplicateUserException("CPF já cadastrado por outro usuário.");
-            existingUser.cpf = user.cpf;
+            existingUser.Cpf = user.Cpf;
         }
 
-        if (!string.IsNullOrWhiteSpace(user.nome))
-            existingUser.nome = user.nome;
+        if (!string.IsNullOrWhiteSpace(user.Nome))
+            existingUser.Nome = user.Nome;
 
-        if (!string.IsNullOrWhiteSpace(user.role))
-            existingUser.role = user.role;
+        if (!string.IsNullOrWhiteSpace(user.Role))
+            existingUser.Role = user.Role;
 
-        if (!string.IsNullOrWhiteSpace(user.senha))
-            existingUser.senha = BCrypt.Net.BCrypt.HashPassword(user.senha);
+        if (!string.IsNullOrWhiteSpace(user.Senha))
+            existingUser.Senha = BCrypt.Net.BCrypt.HashPassword(user.Senha);
 
-        existingUser.nome = user.nome;
-        existingUser.email = user.email;
-        existingUser.cpf = user.cpf;
-        existingUser.role = user.role;
+        existingUser.Nome = user.Nome;
+        existingUser.Email = user.Email;
+        existingUser.Cpf = user.Cpf;
+        existingUser.Role = user.Role;
 
         _context.SaveChanges();
 
         return new UserResponseDto
         {
-            id = existingUser.id,
-            cpf = existingUser.cpf,
-            email = existingUser.email,
-            nome = existingUser.nome,
-            role = existingUser.role
+            Id = existingUser.Id,
+            Cpf = existingUser.Cpf,
+            Email = existingUser.Email,
+            Nome = existingUser.Nome,
+            Role = existingUser.Role
         };
     }
 
     public void DeleteUser(int id, [FromQuery] string updatedBy)
     {
-        var existingUser = _context.usuarios.FirstOrDefault(u => u.id == id);
+        var existingUser = _context.usuarios.FirstOrDefault(u => u.Id == id);
         if (existingUser == null)
             throw new KeyNotFoundException("Usuário não encontrado.");
 
-        if (existingUser.deleted_at != null)
+        if (existingUser.DeletedAt != null)
             throw new InvalidOperationException("Usuário já foi deletado anteriormente.");
 
-        existingUser.deleted_at = DateTime.UtcNow;
-        existingUser.updated_by = int.Parse(updatedBy);
+        existingUser.DeletedAt = DateTime.UtcNow;
+        existingUser.UpdatedBy = int.Parse(updatedBy);
 
         _context.SaveChanges();
     }

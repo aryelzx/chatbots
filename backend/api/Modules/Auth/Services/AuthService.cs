@@ -21,11 +21,11 @@ public class AuthService
 
     public (string token, LoginResponseDto user) Authenticate(LoginDto dto)
     {
-        var user = _context.usuarios.FirstOrDefault(u => u.cpf == dto.Cpf);
-        if (user == null || string.IsNullOrEmpty(user.senha))
+        var user = _context.usuarios.FirstOrDefault(u => u.Cpf == dto.Cpf);
+        if (user == null || string.IsNullOrEmpty(user.Senha))
             throw new UnauthorizedAccessException("CPF ou senha inválidos.");
 
-        if (!BCrypt.Net.BCrypt.Verify(dto.Senha, user.senha))
+        if (!BCrypt.Net.BCrypt.Verify(dto.Senha, user.Senha))
             throw new UnauthorizedAccessException("CPF ou senha inválidos.");
 
         var secretKey = Encoding.UTF8.GetBytes(_configuration["JWT:SECRETKEY"]);
@@ -34,8 +34,8 @@ public class AuthService
 
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier, user.id.ToString()),
-            new Claim(ClaimTypes.Role, user.role.ToString())
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Role, user.Role.ToString())
         };
 
         var token = new JwtSecurityToken(
@@ -51,13 +51,13 @@ public class AuthService
 
         var userResponse = new LoginResponseDto
         {
-            Id = user.id.ToString(),
-            Nome = user.nome ?? string.Empty,
-            Cpf = user.cpf,
-            Email = user.email ?? string.Empty,
-            Role = user.role,
-            HasChat = _chatsService.GetChatById(user.id),
-            LatestChat = _chatsService.GetLatestChatByUserId(user.id) ?? new ChatDto()
+            Id = user.Id.ToString(),
+            Nome = user.Nome ?? string.Empty,
+            Cpf = user.Cpf,
+            Email = user.Email ?? string.Empty,
+            Role = user.Role,
+            HasChat = _chatsService.GetChatById(user.Id),
+            LatestChat = _chatsService.GetLatestChatByUserId(user.Id) ?? new ChatDto()
         };
 
         return (tokenString, userResponse);

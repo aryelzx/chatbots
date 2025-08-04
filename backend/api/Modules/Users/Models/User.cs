@@ -4,57 +4,57 @@ namespace ModularApi.Modules.Users.Models
 {
     public class User
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public string role { get; set; } // 'A' = Admin, 'U' = User
+        public string Role { get; set; } = string.Empty; // 'A' = Admin, 'U' = User
 
-        public string? email { get; set; }
+        public string? Email { get; set; }
 
-        public string? nome { get; set; }
+        public string? Nome { get; set; }
 
-        public string cpf { get; set; }
+        public string Cpf { get; set; } = string.Empty;
 
-        public string senha { get; set; }
-        public DateTime? deleted_at { get; set; }
-        public int? updated_by { get; set; }
+        public string Senha { get; set; } = string.Empty;
+        public DateTime? DeletedAt { get; set; }
+        public int? UpdatedBy { get; set; }
 
     }
 
     public class CreateUserDto
     {
-        public string role { get; set; } // 'A' = Admin, 'U' = User
+        public string Role { get; set; } = string.Empty; // 'A' = Admin, 'U' = User
 
-        public string? email { get; set; }
+        public string? Email { get; set; } = string.Empty;
 
-        public string? nome { get; set; }
+        public string? Nome { get; set; } = string.Empty;
 
-        public string cpf { get; set; }
+        public string Cpf { get; set; } = string.Empty;
 
-        public string senha { get; set; }
+        public string Senha { get; set; } = string.Empty;
     }
     public class UserResponseDto
     {
-        public int id { get; set; }
-        public string role { get; set; } // 'A' = Admin, 'U' = User
+        public int Id { get; set; }
+        public string Role { get; set; } = string.Empty; // 'A' = Admin, 'U' = User
 
-        public string? email { get; set; }
+        public string? Email { get; set; } = string.Empty;
 
-        public string? nome { get; set; }
+        public string? Nome { get; set; } = string.Empty;
 
-        public string cpf { get; set; }
+        public string Cpf { get; set; } = string.Empty;
 
-        public bool hasChat { get; set; } // Indicates if the user has an associated chat
+        public bool HasChat { get; set; } // Indicates if the user has an associated chat
 
-        public ChatDto? latestChat { get; set; } // Optional chat association
+        public ChatDto? LatestChat { get; set; } // Optional chat association
     }
 
     public class UpdateUserInputDto
     {
-        public string? nome { get; set; }
-        public string? email { get; set; }
-        public string? cpf { get; set; }
-        public string? role { get; set; }
-        public string? senha { get; set; }
+        public string? Nome { get; set; } = string.Empty;
+        public string? Email { get; set; } = string.Empty;
+        public string? Cpf { get; set; } = string.Empty;
+        public string? Role { get; set; } = string.Empty;
+        public string? Senha { get; set; } = string.Empty;
     }
 
 }

@@ -31,10 +31,10 @@ namespace ModularApi.Modules.Users.Controllers
                 var allUsers = _userService.GetAllUsers();
                 for (int i = 0; i < allUsers.Count; i++)
                 {
-                    var hasChat = _chatsService.GetChatById(allUsers[i].id);
-                    allUsers[i].hasChat = hasChat;
-                    var chat = _chatsService.GetLatestChatByUserId(allUsers[i].id);
-                    allUsers[i].latestChat = chat;
+                    var hasChat = _chatsService.GetChatById(allUsers[i].Id);
+                    allUsers[i].HasChat = hasChat;
+                    var chat = _chatsService.GetLatestChatByUserId(allUsers[i].Id);
+                    allUsers[i].LatestChat = chat;
                 }
                 return Ok(new { user = allUsers });
             }
