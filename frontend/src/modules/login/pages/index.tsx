@@ -43,7 +43,7 @@ function LoginPage() {
 					draggable={false}
 				/>
 
-				<CardContent className="flex flex-col gap-6 h-full px-8 py-10">
+				<CardContent className="flex flex-col gap-6 h-full px-8 py-10 overflow-y-auto">
 					<h1 className="text-4xl font-extrabold text-center text-primary mb-8 select-none">
 						Bem vindo!
 					</h1>
