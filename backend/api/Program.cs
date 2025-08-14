@@ -64,6 +64,12 @@ builder.Services.AddAuthentication(options =>
 
 builder.WebHost.UseUrls("http://+:80");
 
+builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<ChatsService>();
+builder.Services.AddScoped<MessagesService>();
+builder.Services.AddScoped<OpenAiService>();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
