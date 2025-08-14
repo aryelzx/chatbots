@@ -1,6 +1,6 @@
 const pathBuilder = (mode: string) => {
-	const production = "http://localhost:5000/api";
-	const development = "http://localhost:5000/api";
+	const production = "http://backend:80/api";
+	const development = "http://backend:80/api";
 
 	return mode === "production" ? production : development;
 };

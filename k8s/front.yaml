@@ -19,7 +19,7 @@ spec:
             - containerPort: 5173
           env:
             - name: REACT_APP_API_URL
-              value: "http://backend:8080" # URL interna para acessar o backend no cluster
+              value: "http://backend:80/api" # URL interna para acessar o backend no cluster
 ---
 apiVersion: v1
 kind: Service
