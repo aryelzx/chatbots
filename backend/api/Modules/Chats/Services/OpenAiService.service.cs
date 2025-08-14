@@ -41,7 +41,7 @@ public class OpenAiService : IOpenAiService
         var json = JsonSerializer.Serialize(body);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-        var response = await _httpClient.PostAsync("/api/v1/chat/completions", content);
+        var response = await _httpClient.PostAsync("/chat/completions", content);
         var responseString = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)
