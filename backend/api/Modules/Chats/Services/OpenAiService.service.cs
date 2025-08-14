@@ -44,6 +44,9 @@ public class OpenAiService : IOpenAiService
         var response = await _httpClient.PostAsync("chat/completions", content);
         var responseString = await response.Content.ReadAsStringAsync();
 
+        Console.WriteLine("STATUS: " + response.StatusCode);
+        Console.WriteLine("BODY: " + responseString);
+
         if (!response.IsSuccessStatusCode)
             throw new Exception("Erro na OpenRouter: " + responseString);
 
