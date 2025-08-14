@@ -5,6 +5,7 @@ namespace ModularApi.Modules.Users.Models
 {
     public class User
     {
+         [Column("id")]
         public int Id { get; set; }
 
         [Column("role")]
