@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using ModularApi.Modules.Chats.DTOs;
 
 namespace ModularApi.Modules.Users.Models
@@ -6,18 +7,26 @@ namespace ModularApi.Modules.Users.Models
     {
         public int Id { get; set; }
 
+        [Column("role")]
         public string Role { get; set; } = string.Empty; // 'A' = Admin, 'U' = User
 
+        [Column("email")]
         public string? Email { get; set; }
 
+        [Column("nome")]
         public string? Nome { get; set; }
 
+        [Column("cpf")]
         public string Cpf { get; set; } = string.Empty;
 
+        [Column("senha")]
         public string Senha { get; set; } = string.Empty;
-        public DateTime? DeletedAt { get; set; }
-        public int? UpdatedBy { get; set; }
 
+        [Column("deleted_at")]
+        public DateTime? DeletedAt { get; set; }
+
+        [Column("updated_by")]
+        public int? UpdatedBy { get; set; }
     }
 
     public class CreateUserDto
