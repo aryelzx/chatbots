@@ -80,7 +80,7 @@ app.MapOpenApi();
 
 app.UseCors("AllowFrontend");
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection(); // Descomente esta linha para habilitar o redirecionamento HTTPS
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
