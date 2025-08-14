@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace ModularApi.Modules.Chats.DTOs
 {
     public class ChatInputDto
@@ -28,12 +30,25 @@ namespace ModularApi.Modules.Chats.DTOs
 
     public class MensagemInputDto
     {
-        public int UserId { get; set; }
+        [JsonPropertyName("prompt_input_text")]
         public string PromptInputText { get; set; } = string.Empty;
-        public string? Context { get; set; } = string.Empty;
+
+        [JsonPropertyName("tipo")]
         public string Tipo { get; set; } = string.Empty;
+
+        [JsonPropertyName("send_by")]
         public string SendBy { get; set; } = string.Empty;
-        public string Modelo { get; set; } = string.Empty;
+
+        [JsonPropertyName("user_id")]
+        public int UserId { get; set; }
+
+        [JsonPropertyName("context")]
+        public string? Context { get; set; } = string.Empty;
+
+        [JsonPropertyName("created_by")]
         public int? CreatedBy { get; set; }
+
+        [JsonPropertyName("modelo")]
+        public string Modelo { get; set; } = string.Empty;
     }
 }
