@@ -1,0 +1,145 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: init-sql-config
+data:
+  seed.sql: |
+    -- SEQUENCE ID FOR TABLE 'USUARIOS'
+    CREATE SEQUENCE usuarios_id_seq
+        START 1
+        INCREMENT 1
+        MINVALUE 1
+        NO MAXVALUE
+        CACHE 1;
+
+    CREATE TABLE usuarios (
+        id INTEGER NOT NULL DEFAULT nextval('usuarios_id_seq'),
+        role VARCHAR(1) NOT NULL,
+        email VARCHAR(100) UNIQUE NULL,
+        nome VARCHAR(100) NULL,
+        cpf VARCHAR(25) UNIQUE NOT NULL,
+        senha VARCHAR(100) NOT NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMP NULL,
+        deleted_at TIMESTAMP NULL,
+        updated_by NUMERIC(10,0) NULL,
+        created_by NUMERIC(10,0) NULL,
+        PRIMARY KEY (id)
+    );
+
+    -- SEQUENCE ID FOR TABLE 'CHATS'
+    CREATE SEQUENCE chats_id_seq
+        START 1
+        INCREMENT 1
+        MINVALUE 1
+        NO MAXVALUE
+        CACHE 1;
+
+    CREATE TABLE chats (
+        id INTEGER NOT NULL DEFAULT nextval('chats_id_seq'),
+        context VARCHAR(255) NOT NULL,
+        nome VARCHAR(100) NOT NULL,
+        modelo VARCHAR(100) NOT NULL,
+        descricao VARCHAR(255) NULL,
+        status VARCHAR(1) NOT NULL DEFAULT 'A',
+        user_id INTEGER NOT NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMP NULL,
+        deleted_at TIMESTAMP NULL,
+        updated_by INTEGER NULL,
+        created_by INTEGER NOT NULL,
+        deleted_by INTEGER NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY (created_by) REFERENCES usuarios(id) ON DELETE SET NULL
+    );
+
+    -- SEQUENCE ID FOR TABLE 'MENSAGENS'
+    CREATE SEQUENCE mensagens_id_seq
+        START 1
+        INCREMENT 1
+        MINVALUE 1
+        NO MAXVALUE
+        CACHE 1;
+
+    CREATE TABLE mensagens (
+        id INTEGER NOT NULL DEFAULT nextval('mensagens_id_seq'),
+        chat_id INTEGER NOT NULL,
+        user_id INTEGER NOT NULL,
+        mensagem TEXT NOT NULL,
+        prompt_input_text TEXT NOT NULL,
+        tipo VARCHAR(1) NOT NULL,
+        prompt_context TEXT NULL,
+        prompt_role VARCHAR(100) NULL,
+        prompt_modelo VARCHAR(100) NULL,
+        send_by VARCHAR(1) NOT NULL,
+        created_at TIMESTAMP NOT NULL,
+        updated_at TIMESTAMP NULL,
+        deleted_at TIMESTAMP NULL,
+        deleted_by INTEGER NULL,
+        updated_by INTEGER NULL,
+        created_by INTEGER NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY (chat_id) REFERENCES chats(id) ON DELETE CASCADE,
+        FOREIGN KEY (user_id) REFERENCES usuarios(id) ON DELETE CASCADE
+    );
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          env:
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_DB
+              value: chatbots
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-storage
+            - mountPath: /docker-entrypoint-initdb.d
+              name: init-sql
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+        - name: init-sql
+          configMap:
+            name: init-sql-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+  selector:
+    app: postgres

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: gcr.io/active-landing-468923-c0/frontend:latest
+          ports:
+            - containerPort: 5173
+          env:
+            - name: REACT_APP_API_URL
+              value: "http://backend:8080" # URL interna para acessar o backend no cluster
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  type: LoadBalancer
+  selector:
+    app: frontend
+  ports:
+  - port: 5173
+    targetPort: 5173
