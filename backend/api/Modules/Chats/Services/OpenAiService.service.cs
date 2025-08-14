@@ -22,7 +22,7 @@ public class OpenAiService : IOpenAiService
         _httpClient.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", Environment.GetEnvironmentVariable("OPENAI_API_KEY"));
 
-        _httpClient.DefaultRequestHeaders.Add("HTTP-Referer", Environment.GetEnvironmentVariable("OPENAI_API_REFERER"));
+        _httpClient.DefaultRequestHeaders.Add("OpenAI-Api-Referer", Environment.GetEnvironmentVariable("OPENAI_API_REFERER"));
         _httpClient.DefaultRequestHeaders.Add("X-Title", "chatbots");
     }
 
@@ -41,7 +41,7 @@ public class OpenAiService : IOpenAiService
         var json = JsonSerializer.Serialize(body);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-        var response = await _httpClient.PostAsync("/chat/completions", content);
+        var response = await _httpClient.PostAsync("chat/completions", content);
         var responseString = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)
