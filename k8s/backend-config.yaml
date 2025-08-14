@@ -8,4 +8,4 @@ data:
   JWT__ISSUER: "api"
   JWT__AUDIENCE: "apiClient"
   OPENAI_API_REFERER: "https://highcapital.ai"
-  OPENAI_API_URL: "https://openrouter.ai/api/v1/"
+  OPENAI_API_URL: "https://openrouter.ai/api/v1"
